@@ -4,11 +4,36 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url"/>
-        <property name="connection.driver_class"/>
-        <property name="connection.username"/>
-        <property name="connection.password"/>
-        <!-- DB schema will be updated if needed -->
-        <!-- <property name="hbm2ddl.auto">update</property> -->
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/somefirmdb</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <!--<property name="hibernate.current_session_context_class">thread</property>-->
+        <property name="hibernate.connection.datasource">java:/comp/env/jdbc/somefirmdb</property>
+        <property name="hibernate.max_fetch_depth">1</property>
+        <property name="hibernate.format_sql">true</property>
+
+
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupAuthorities"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupMember"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Groups"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.JournalOperationType"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Plan"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Pressmarks"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductTypeOperation"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageEmploye"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StoragesContent"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Team"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.TeamUser"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.User"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop"/>
     </session-factory>
 </hibernate-configuration>
