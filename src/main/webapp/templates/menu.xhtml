@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+
+    <ui:composition>
+        <ul class="menu_flex_container">
+            <li class="menu_flex_item">
+                <h:outputLink class="menu_flex_item_a" value="/">Главная</h:outputLink>
+            </li>
+            <li class="menu_flex_item">
+                <h:outputLink class="menu_flex_item_a" value="/ProductType/list">Продукция</h:outputLink>
+            </li>
+            <li class="menu_flex_item">
+                <h:outputLink class="menu_flex_item_a" value="/delivery">Доставка</h:outputLink>
+            </li>
+            <li class="menu_flex_item">
+                <h:outputLink class="menu_flex_item_a" value="/contacts">Контакты</h:outputLink>
+            </li>
+        </ul>
+    </ui:composition>
+
+</h:body>
+
+</html>

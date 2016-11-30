@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+
+    <ui:composition>
+
+        <div class="logo_emblem">
+            <h:graphicImage library="images" name="SomeEmblem.png" alt="emblem" height="110"/>
+        </div>
+        <div class="logo_image">
+            <h:graphicImage library="images" name="logo.png" alt="logo" width="150" height="110"/>
+        </div>
+
+        <div class="other_header">
+            <div class="up_header clearfix">
+                <div class="action_menu">
+                    <ul class="list_actions">
+                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/Operation/list">Операции</h:outputLink></li>
+                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/tool">Инструменты</h:outputLink></li>
+                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/consumables">Расходники</h:outputLink></li>
+                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="#">Заявки</h:outputLink></li>
+                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/workshop">Цеха</h:outputLink></li>
+                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/personnel">Персонал</h:outputLink></li>
+                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/storage">Журнал склада</h:outputLink></li>
+                    </ul>
+                    <h:outputLink value="#" class="autentification">
+                        <span class="autentif_image"><h:graphicImage library="images" name="man.png"/></span>
+                        <span class="autentif_text">Войти</span>
+                    </h:outputLink>
+                </div>
+            </div>
+            <div class="down_header">
+                <!--<div class="some_text_on_header">
+                    Мы вам рады! (нет)
+                </div>-->
+                <h:outputLink value="#" class="button_create_order">Заказать</h:outputLink>
+            </div>
+        </div>
+    </ui:composition>
+
+</h:body>
+
+</html>
