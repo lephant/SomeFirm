@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: lephant
+  Date: 30.10.2016
+  Time: 20:04
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Доставка</h1>
+            <div>В данный момент мы доставляем товар следующими способами:</div>
+            <ul>
+                <li>
+                    <span style="font-style: italic">1. Голубиная почта</span> - тренированные голуби. <br/>В Колумбии находится специальная база по тренировке этих голубей.
+                    Существуют несколько типов голубей: <br/>
+                    - Десантники (дороже, способны обосрать машину соседа, врезаться в форточку. 2 августа лучше не заказывать),<br/>
+                    - Шпионы (их никто не увидит, в том числе и вы. Мы сами не знаем где они, но товар исчезает вместе с клиентами),<br/>
+                    - Гражданские (это вид для перевоза денег. Скорость выше, чем у почты России, но не намного. Скуп на деньги...).<br/>
+                    Заказать любого голубя можно по телефону: 8-800-555-35-35.<br/>
+                    (Если закажете сейчас, то получите бонус: Раба-голубя. Голубя без товара заказать нельзя)
+                </li>
+                <li>
+                    <span style="font-style: italic">2. Кроты</span> - наш спецназ. <br/>
+                    Грызут зубами землю ради вашего заказа.<br/>
+                    Мы очень ценим клиентов.<br/>
+                    Привиты и не кусаются (но не забывайте что они слепые, так что не пахните вкусно перед их приходом)<br/>
+                    Срок прибытия 1-5 дней.
+                </li>
+                <li><span style="font-style: italic">3. Почта России</span> (не рекомендуется) - левые люди, трогающие ваши товары
+                своими грязными руками, заливая их чаем, иногда ворующие.<br/>
+                    (Если что нам будет на кого свалить вину, так что рекомендуем более дорогие способы)
+                </li>
+                <li><span style="font-style: italic">4. Свой вариант</span> - Если вам не жалко денег, то заказывайте любой
+                способ транспорта лично и присылайте его нам. Мы с ним разберемся!</li>
+            </ul>
+            <h:graphicImage library="images" name="allRightImage.png"/>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

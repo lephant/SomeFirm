@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: lephant
+  Date: 30.10.2016
+  Time: 20:03
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Контакты</h1>
+            <div style="font-style: italic; font-size:18px;">8-800-555-35-35</div>
+            <div style="font-style: italic; font-size:14px;">Лучше позвонить, чем у кого-то занимать</div>
+            <h:graphicImage library="images" name="allRightImage.png" styleClass="center"/>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>
