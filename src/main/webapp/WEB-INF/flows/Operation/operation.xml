@@ -3,12 +3,28 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
-    <var class="ru.lephant.learning.spring.SomeFirmWebFlow.operation.service.impl.OperationServiceImpl" name="operationService" />
-
     <view-state id="list" view="list.xhtml">
         <on-render>
             <evaluate expression="operationService.listOperation()" result="viewScope.operations" result-type="dataModel"/>
         </on-render>
+        <transition on="select" to="details">
+            <set name="flowScope.operationId" value="operations.selectedRow.id" type="long" />
+        </transition>
+    </view-state>
+
+    <view-state id="details" view="details.xhtml">
+        <on-render>
+            <evaluate expression="operationService.getOperationById(flowScope.operationId)" result="flowScope.operation"
+                      result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation"/>
+        </on-render>
+        <transition on="delete" to="list">
+            <evaluate expression="operationService.deleteOperation(flowScope.operation.id)"/>
+        </transition>
+        <transition on="edit" to="edit"/>
+    </view-state>
+
+    <view-state id="edit" view="edit.xhtml">
+
     </view-state>
 
 </flow>

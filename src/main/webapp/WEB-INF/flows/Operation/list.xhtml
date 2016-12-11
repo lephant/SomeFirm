@@ -6,6 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
 >
 
 <h:head>
@@ -17,15 +18,20 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
             <h1 class="center">Операции</h1>
-            <h:dataTable value="#{operations}" var="operation">
-                <h:column>
-                    <h:outputText value="ID: #{operation.id}"/><br/>
-                    <h:outputText value="Описание операции: #{operation.description}"/><br/>
-                    <h:outputText value="Продолжительность: #{operation.duration}"/><br/>
-                    <h:outputLink value="#{operation.id}">Подробнее...</h:outputLink><br/>
-                    <hr/>
-                </h:column>
-            </h:dataTable>
+
+            <h:form>
+                <h:dataTable value="#{operations}" var="operation">
+                    <h:column>
+                        <h:outputText value="ID: #{operation.id}"/><br/>
+                        <h:outputText value="Описание операции: #{operation.description}"/><br/>
+                        <h:outputText value="Продолжительность: #{operation.duration}"/><br/>
+
+                        <h:commandLink id="selectOperation" value="Подробнее..." action="select"/>
+
+                        <hr/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
             <h:outputLink value="/Operation/add">Добавить</h:outputLink>
         </ui:define>
     </ui:composition>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Другая страница</h1>
+            <h:form>
+                <h:dataTable value="#{operation}" var="operation">
+                    <h:column>
+                        <h:outputText value="ID: #{operation.id}"/><br/>
+                        <h:outputText value="Описание операции: #{operation.description}"/><br/>
+                        <h:outputText value="Продолжительность: #{operation.duration}"/><br/>
+                        <h:outputText value="Продолжительность: #{operation.plan.id}"/><br/>
+                        <h:outputText value="Продолжительность: #{operation.defaultWorkshop.name}"/><br/>
+
+                        <br/>
+                        <br/>
+
+                        <h:dataTable value="#{operation.sacrificialMaterials}" var="sacrificialMaterial">
+                            <h:column>
+                                <h:outputText value="Продолжительность: #{sacrificialMaterial.sacrificialMaterial.name}"/><br/>
+                                <h:outputText value="Продолжительность: #{sacrificialMaterial.count}"/><br/>
+                                <hr/>
+                            </h:column>
+                        </h:dataTable>
+
+                        <br/>
+                        <br/>
+
+                        <h:dataTable value="#{operation.tools}" var="tool">
+                            <h:column>
+                                <h:outputText value="Продолжительность: #{tool.toolType.name}"/><br/>
+                                <h:outputText value="Продолжительность: #{tool.count}"/><br/>
+                                <hr/>
+                            </h:column>
+                        </h:dataTable>
+
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>
