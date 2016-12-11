@@ -1,10 +1,11 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class Operation {
+public class Operation implements Serializable {
     private long id;
     private String description;
     private long duration;

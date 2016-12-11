@@ -1,10 +1,11 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class Workshop {
+public class Workshop implements Serializable {
     private long id;
     private String name;
     private Set<StoragesContent> contents;

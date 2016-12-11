@@ -4,10 +4,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Arrays;
 
 @Entity
-public class Plan {
+public class Plan implements Serializable {
     private long id;
     private byte[] content;
 

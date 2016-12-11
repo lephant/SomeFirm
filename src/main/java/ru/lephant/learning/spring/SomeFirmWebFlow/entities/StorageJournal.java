@@ -1,10 +1,11 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "storage_journal", schema = "somefirmdb")
-public class StorageJournal {
+public class StorageJournal implements Serializable {
     private long id;
     private Workshop workshop;
     private Pressmarks pressmark;

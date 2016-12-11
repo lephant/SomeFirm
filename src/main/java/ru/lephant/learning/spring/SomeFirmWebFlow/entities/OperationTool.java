@@ -1,10 +1,11 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "operation_tool", schema = "somefirmdb")
-public class OperationTool {
+public class OperationTool implements Serializable {
     private long id;
     private Operation operation;
     private ToolType toolType;

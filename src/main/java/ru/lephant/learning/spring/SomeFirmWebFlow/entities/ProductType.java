@@ -1,12 +1,13 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 @Table(name = "product_type", schema = "somefirmdb")
-public class ProductType {
+public class ProductType implements Serializable {
     private long pressmark;
     private String name;
     private String description;

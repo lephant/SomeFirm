@@ -4,9 +4,10 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Groups {
+public class Groups implements Serializable {
     private long id;
     private String groupName;
 

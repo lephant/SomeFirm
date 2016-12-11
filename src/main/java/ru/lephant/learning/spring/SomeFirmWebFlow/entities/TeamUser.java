@@ -1,10 +1,11 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "team_users", schema = "somefirmdb")
-public class TeamUser {
+public class TeamUser implements Serializable {
     private long id;
     private Team team;
     private User user;
