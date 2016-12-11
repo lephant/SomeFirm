@@ -27,6 +27,7 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
                 .add(Restrictions.idEq(id))
                 .uniqueResult();
 
+        Hibernate.initialize(operation.getPlan());
         Hibernate.initialize(operation.getSacrificialMaterials());
         Hibernate.initialize(operation.getTools());
 
