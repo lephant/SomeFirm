@@ -1,9 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.operation.dao.impl;
 
-import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -47,14 +44,18 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
 
     public void deleteOperation(long id) {
         Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
         Operation operation = (Operation) session.load(Operation.class, id);
         if (operation != null) session.delete(operation);
+        transaction.commit();
         session.close();
     }
 
     public void saveOperation(Operation operation) {
         Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(operation);
+        transaction.commit();
         session.close();
     }
 }
