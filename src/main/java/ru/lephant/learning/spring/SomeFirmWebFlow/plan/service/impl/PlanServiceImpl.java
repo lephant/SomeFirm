@@ -16,12 +16,12 @@ public class PlanServiceImpl implements PlanService, Serializable {
     @Autowired
     PlanDAO planDAO;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Plan getPlanById(long id) {
         return planDAO.getPlanById(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List listPlan() {
         return planDAO.listPlan();
     }

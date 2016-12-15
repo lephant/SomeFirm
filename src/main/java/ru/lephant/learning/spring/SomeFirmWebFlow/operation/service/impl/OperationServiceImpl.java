@@ -16,12 +16,12 @@ public class OperationServiceImpl implements OperationService, Serializable {
     @Autowired
     private OperationDAO operationDAO;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Operation getOperationById(long id) {
         return operationDAO.getOperationById(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List listOperation() {
         return operationDAO.listOperation();
     }
