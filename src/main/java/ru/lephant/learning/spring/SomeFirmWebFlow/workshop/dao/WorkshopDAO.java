@@ -1,4 +1,4 @@
-package ru.lephant.learning.spring.SomeFirmWebFlow.workshop;
+package ru.lephant.learning.spring.SomeFirmWebFlow.workshop.dao;
 
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop;
 import java.util.List;
