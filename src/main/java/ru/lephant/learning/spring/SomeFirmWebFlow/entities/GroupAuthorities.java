@@ -49,4 +49,12 @@ public class GroupAuthorities implements Serializable {
         result = 31 * result + (authority != null ? authority.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "GroupAuthorities{" +
+                "groupId=" + groupId +
+                ", authority='" + authority + '\'' +
+                '}';
+    }
 }

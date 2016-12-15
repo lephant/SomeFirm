@@ -114,4 +114,9 @@ public class Operation implements Serializable {
         result = 31 * result + (tools != null ? tools.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return description;
+    }
 }

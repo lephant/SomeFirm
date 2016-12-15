@@ -50,4 +50,12 @@ public class Groups implements Serializable {
         result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Groups{" +
+                "id=" + id +
+                ", groupName='" + groupName + '\'' +
+                '}';
+    }
 }

@@ -61,4 +61,13 @@ public class GroupMember implements Serializable {
         result = 31 * result + (int) (groupId ^ (groupId >>> 32));
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "GroupMember{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", groupId=" + groupId +
+                '}';
+    }
 }
