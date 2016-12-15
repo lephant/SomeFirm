@@ -21,11 +21,11 @@
             <h1 class="center">Операции</h1>
 
             <h:form>
-                <h:dataTable value="#{operations}" var="operation">
+                <h:dataTable value="#{operations}" var="oper">
                     <h:column>
-                        <h:outputText value="ID: #{operation.id}"/><br/>
-                        <h:outputText value="Описание операции: #{operation.description}"/><br/>
-                        <h:outputText value="Продолжительность: #{operation.duration}"/><br/>
+                        <h:outputText value="ID: #{oper.id}"/><br/>
+                        <h:outputText value="Описание операции: #{oper.description}"/><br/>
+                        <h:outputText value="Продолжительность: #{oper.duration}"/><br/>
 
                         <h:commandLink id="selectOperation" value="Подробнее..." action="select"/>
 
