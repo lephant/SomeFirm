@@ -32,7 +32,16 @@ public class WorkshopDAOImpl implements WorkshopDAO {
                 .uniqueResult();
         Hibernate.initialize(workshop.getContents());
         session.close();
-        return null;
+        return workshop;
+    }
+
+    public Workshop getLazyWorkshopById(long id) {
+        Session session = sessionFactory.openSession();
+        Workshop workshop = (Workshop)session.createCriteria(Workshop.class)
+                .add(Restrictions.idEq(id))
+                .uniqueResult();
+        session.close();
+        return workshop;
     }
 
     public void deleteWorkshop(long id) {

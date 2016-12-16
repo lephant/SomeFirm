@@ -17,8 +17,8 @@ public class WorkshopConverter implements Converter {
     WorkshopService workshopService;
 
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-        Workshop workshop = workshopService.getWorkshopById(Long.valueOf(s));
-        return null;
+        Workshop workshop = workshopService.getLazyWorkshopById(Long.valueOf(s));
+        return workshop;
     }
 
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object o) {

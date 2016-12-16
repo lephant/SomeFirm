@@ -47,10 +47,7 @@ public class Workshop implements Serializable {
 
         Workshop workshop = (Workshop) o;
 
-        if (id != workshop.id) return false;
-        if (!name.equals(workshop.name)) return false;
-        return contents != null ? contents.equals(workshop.contents) : workshop.contents == null;
-
+        return id == workshop.id;
     }
 
     @Override
@@ -62,6 +59,6 @@ public class Workshop implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return String.valueOf(id);
     }
 }

@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
 <h:head>
@@ -16,23 +16,23 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
-            <h1 class="center">Другая страница</h1>
+            <h1 class="center">Инфо об операции</h1>
             <h:form>
-                <h:dataTable value="#{operation}" var="operation">
+                <h:dataTable value="#{operation}" var="oper">
                     <h:column>
-                        <h:outputText value="ID: #{operation.id}"/><br/>
-                        <h:outputText value="Описание операции: #{operation.description}"/><br/>
-                        <h:outputText value="Продолжительность: #{operation.duration}"/><br/>
-                        <h:outputText value="Продолжительность: #{operation.plan.id}"/><br/>
-                        <h:outputText value="Продолжительность: #{operation.defaultWorkshop.name}"/><br/>
+                        <h:outputText value="ID: #{oper.id}"/><br/>
+                        <h:outputText value="Описание операции: #{oper.description}"/><br/>
+                        <h:outputText value="Продолжительность: #{oper.duration}"/><br/>
+                        <h:outputText value="Чертеж: #{oper.plan.id}"/><br/>
+                        <h:outputText value="Цех: #{oper.defaultWorkshop.name}"/><br/>
 
                         <br/>
                         <br/>
 
-                        <h:dataTable value="#{operation.sacrificialMaterials}" var="sacrificialMaterial">
+                        <h:dataTable value="#{oper.sacrificialMaterials}" var="sacrificialMaterial">
                             <h:column>
-                                <h:outputText value="Продолжительность: #{sacrificialMaterial.sacrificialMaterial.name}"/><br/>
-                                <h:outputText value="Продолжительность: #{sacrificialMaterial.count}"/><br/>
+                                <h:outputText value="Название: #{sacrificialMaterial.sacrificialMaterial.name}"/><br/>
+                                <h:outputText value="Количество: #{sacrificialMaterial.count}"/><br/>
                                 <hr/>
                             </h:column>
                         </h:dataTable>
@@ -40,14 +40,16 @@
                         <br/>
                         <br/>
 
-                        <h:dataTable value="#{operation.tools}" var="tool">
+                        <h:dataTable value="#{oper.tools}" var="tool">
                             <h:column>
-                                <h:outputText value="Продолжительность: #{tool.toolType.name}"/><br/>
-                                <h:outputText value="Продолжительность: #{tool.count}"/><br/>
+                                <h:outputText value="Название: #{tool.toolType.name}"/><br/>
+                                <h:outputText value="Количество: #{tool.count}"/><br/>
                                 <hr/>
                             </h:column>
                         </h:dataTable>
 
+                        <h:commandLink value="Удалить" id="deleteOperation" action="delete"/>
+                        <h:commandLink value="Редактировать" id="editOperation" action="edit"/>
                     </h:column>
                 </h:dataTable>
             </h:form>

@@ -9,6 +9,8 @@ public interface WorkshopDAO {
 
     public Workshop getWorkshopById(long id);
 
+    public Workshop getLazyWorkshopById(long id);
+
     public void deleteWorkshop(long id);
 
     public void saveWorkshop(Workshop workshop);

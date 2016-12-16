@@ -5,7 +5,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
 >
 
 <h:head>
@@ -16,6 +17,82 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
+            <h:form>
+                <p:inputText id="description" value="#{operation.description}"/><br/>
+                <p:inputTextarea id="duration" value="#{operation.duration}"/><br/>
+
+                <p:selectOneMenu id="plan" value="#{operation.plan}" converter="#{planConverterController}">
+                    <f:selectItems value="#{planService.listPlan()}"/>
+                </p:selectOneMenu><br/>
+
+                <p:selectOneMenu id="defaultWorkshop" value="#{operation.defaultWorkshop}"
+                                 converter="#{workshopConverterController}">
+                    <f:selectItems value="#{workshopService.listWorkshop()}" var="workshopInView"
+                                   itemLabel="#{workshopInView.name}" itemValue="#{workshopInView}"/>
+                </p:selectOneMenu><br/>
+
+
+
+
+
+                <p:commandButton value="Сохранить" action="save" id="save" ajax="@form"/>
+                <p:commandButton value="Отмена" action="cancel" id="cancel" immediate="true"/>
+
+                <p:messages showDetail="true"/>
+
+            </h:form>
+
+            <!--///////////////////////////////////////////////////////////////////////////////////////////-->
+
+            <br/>
+
+            <!--<div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
+                <h:dataTable id="materialsTable"
+                             value="#{operation.sacrificialMaterials}"
+                             var="sacrificialMaterial"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_id, sub_table_td_desc, sub_table_td_count">
+                    <h:column>
+                        <f:facet name="header">Шифр</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Название</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Количество</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.count}"/>
+                    </h:column>
+                </h:dataTable>
+
+
+            <div class="sub_table_header"><h:outputText value="Требуемые инструменты:"/></div>
+            <h:dataTable value="#{operation.tools}"
+                         var="tool"
+                         rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                         headerClass="sub_table_th"
+                         styleClass="sub_table full_width"
+                         columnClasses="sub_table_td_id, sub_table_td_desc, sub_table_td_count">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    <h:outputText value="#{tool.toolType.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Описание</f:facet>
+                    <h:outputText value="#{tool.toolType.description}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Количество</f:facet>
+                    <h:outputText value="#{tool.count}"/>
+                </h:column>
+            </h:dataTable>-->
+
+
+            <!--///////////////////////////////////////////////////////////////////////////////////////////-->
+
 
         </ui:define>
     </ui:composition>

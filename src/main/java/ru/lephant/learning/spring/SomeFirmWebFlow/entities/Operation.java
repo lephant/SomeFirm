@@ -73,6 +73,15 @@ public class Operation implements Serializable {
         this.sacrificialMaterials = sacrificialMaterials;
     }
 
+    /*public void addSacrificialMaterial(OperationSacrificialMaterial operationSacrificialMaterial) {
+        sacrificialMaterials.add(operationSacrificialMaterial);
+    }
+
+    public void removeSacrificialMaterial(OperationSacrificialMaterial operationSacrificialMaterial) {
+        if(sacrificialMaterials.contains(operationSacrificialMaterial))
+            sacrificialMaterials.remove(operationSacrificialMaterial);
+    }*/
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation")
     public Set<OperationTool> getTools() {
         return tools;
@@ -81,6 +90,15 @@ public class Operation implements Serializable {
     public void setTools(Set<OperationTool> tools) {
         this.tools = tools;
     }
+
+    /*public void addTool(OperationTool operationTool) {
+        tools.add(operationTool);
+    }
+
+    public void removeTool(OperationTool operationTool) {
+        if(tools.contains(operationTool))
+            tools.remove(operationTool);
+    }*/
 
 
     @Override

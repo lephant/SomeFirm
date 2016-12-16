@@ -25,6 +25,11 @@ public class WorkshopServiceImpl implements WorkshopService {
         return workshopDAO.getWorkshopById(id);
     }
 
+    @Transactional(readOnly = true)
+    public Workshop getLazyWorkshopById(long id) {
+        return workshopDAO.getLazyWorkshopById(id);
+    }
+
     @Transactional
     public void deleteWorkshop(long id) {
         workshopDAO.deleteWorkshop(id);
