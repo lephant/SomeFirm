@@ -58,8 +58,9 @@
                     </h:column>
                 </h:dataTable>
 
+                <p:commandButton icon="images/add.png" action="showSplitDialog" oncomplete="PF('splitDialog').show();"/>
 
-
+                <br/>
 
                 <p:commandButton value="Сохранить" action="save" id="save" ajax="@form"/>
                 <p:commandButton value="Отмена" action="cancel" id="cancel" immediate="true"/>
@@ -70,7 +71,29 @@
 
             <!--///////////////////////////////////////////////////////////////////////////////////////////-->
 
+            <p:dialog id="splitDialog" header="Добавление материала" widgetVar="splitDialog"
+                      width="500" modal="true">
+                <h:form>
 
+                    <p:selectOneMenu value="#{addingSacrificialMaterial.sacrificialMaterial}"
+                                     converter="#{sacrificialMaterialTypeConverterController}">
+                        <f:selectItems value="#{sacrificialMaterialService.listSacrificialMaterial()}" var="mat"
+                                       itemValue="#{mat}" itemLabel="#{mat.name}"/>
+                    </p:selectOneMenu>
+                    <br/>
+                    <p:inputText value="#{addingSacrificialMaterial.count}"/>
+
+                    <br/>
+
+                    <p:commandButton id="addMaterial" action="addMaterial" value="Добавить" ajax="true">
+                        <f:ajax onevent="addMaterial" render=":materialsTable"/>
+                    </p:commandButton>
+                    <p:commandButton id="cancelMaterial" action="cancelMaterial" value="Отмена" ajax="true"
+                                     oncomplete="PF('splitDialog').hide()"/>
+                    <p:messages showDetail="true"/>
+                </h:form>
+
+            </p:dialog>
 
             <!--<br/>
 

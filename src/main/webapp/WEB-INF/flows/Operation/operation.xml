@@ -37,22 +37,29 @@
 
     <view-state id="edit" view="edit.xhtml" model="operation">
 
+        <var class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"
+             name="addingSacrificialMaterial"/>
+
         <on-render>
             <evaluate expression="operation.getSacrificialMaterials()" result="viewScope.sacrificialMaterials"
                       result-type="dataModel"/>
         </on-render>
 
-        <!--<transition on="showSplitDialog">
+        <transition on="showSplitDialog">
             <evaluate
                     expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial(operation)"
-                    result="viewScope.sacrMat"
+                    result="viewScope.addingSacrificialMaterial"
                     result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"
             />
         </transition>
 
+        <transition on="cancelMaterial">
+            <evaluate expression="viewScope.addingSacrificialMaterial = null"/>
+        </transition>
+
         <transition on="addMaterial">
-            <evaluate expression="operation.addSacrificialMaterial(sacrMat)"/>
-        </transition>-->
+            <evaluate expression="operation.addSacrificialMaterial(addingSacrificialMaterial)"/>
+        </transition>
 
         <transition on="deleteMaterial">
             <evaluate expression="operation.removeSacrificialMaterial(sacrificialMaterials.selectedRow)"/>

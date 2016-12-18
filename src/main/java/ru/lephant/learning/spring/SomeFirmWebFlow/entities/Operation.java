@@ -65,7 +65,7 @@ public class Operation implements Serializable {
         this.defaultWorkshop = defaultWorkshop;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation", orphanRemoval = true, cascade = CascadeType.ALL)
     public List<OperationSacrificialMaterial> getSacrificialMaterials() {
         return sacrificialMaterials;
     }
