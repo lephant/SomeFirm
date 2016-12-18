@@ -18,8 +18,8 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
             <h:form>
-                <p:inputText id="description" value="#{operation.description}"/><br/>
-                <p:inputTextarea id="duration" value="#{operation.duration}"/><br/>
+                <p:inputTextarea id="description" value="#{operation.description}"/><br/>
+                <p:inputText id="duration" value="#{operation.duration}"/><br/>
 
                 <p:selectOneMenu id="plan" value="#{operation.plan}" converter="#{planConverterController}">
                     <f:selectItems value="#{planService.listPlan()}"/>
@@ -31,6 +31,32 @@
                                    itemLabel="#{workshopInView.name}" itemValue="#{workshopInView}"/>
                 </p:selectOneMenu><br/>
 
+                <div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
+                <h:dataTable id="materialsTable"
+                             value="#{sacrificialMaterials}"
+                             var="sacrificialMaterial"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_id, sub_table_td_desc, sub_table_td_count">
+                    <h:column>
+                        <f:facet name="header">Название</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Описание</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Количество</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.count}"/>
+                    </h:column>
+                    <h:column>
+                        <p:commandButton icon="delete.png" action="deleteMaterial" id="deleteMaterial">
+                            <f:ajax onevent="deleteMaterial" render=":materialsTable"/>
+                        </p:commandButton>
+                    </h:column>
+                </h:dataTable>
 
 
 
@@ -44,30 +70,9 @@
 
             <!--///////////////////////////////////////////////////////////////////////////////////////////-->
 
-            <br/>
 
-            <!--<div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
-                <h:dataTable id="materialsTable"
-                             value="#{operation.sacrificialMaterials}"
-                             var="sacrificialMaterial"
-                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
-                             headerClass="sub_table_th"
-                             styleClass="sub_table full_width"
-                             columnClasses="sub_table_td_id, sub_table_td_desc, sub_table_td_count">
-                    <h:column>
-                        <f:facet name="header">Шифр</f:facet>
-                        <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.name}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Название</f:facet>
-                        <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.description}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Количество</f:facet>
-                        <h:outputText value="#{sacrificialMaterial.count}"/>
-                    </h:column>
-                </h:dataTable>
 
+            <!--<br/>
 
             <div class="sub_table_header"><h:outputText value="Требуемые инструменты:"/></div>
             <h:dataTable value="#{operation.tools}"

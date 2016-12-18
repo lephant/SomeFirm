@@ -2,6 +2,7 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,7 +12,7 @@ public class Operation implements Serializable {
     private long duration;
     private Plan plan;
     private Workshop defaultWorkshop;
-    private Set<OperationSacrificialMaterial> sacrificialMaterials;
+    private List<OperationSacrificialMaterial> sacrificialMaterials;
     private Set<OperationTool> tools;
 
     @Id
@@ -64,23 +65,23 @@ public class Operation implements Serializable {
         this.defaultWorkshop = defaultWorkshop;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation")
-    public Set<OperationSacrificialMaterial> getSacrificialMaterials() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation", orphanRemoval = true)
+    public List<OperationSacrificialMaterial> getSacrificialMaterials() {
         return sacrificialMaterials;
     }
 
-    public void setSacrificialMaterials(Set<OperationSacrificialMaterial> sacrificialMaterials) {
+    public void setSacrificialMaterials(List<OperationSacrificialMaterial> sacrificialMaterials) {
         this.sacrificialMaterials = sacrificialMaterials;
     }
 
-    /*public void addSacrificialMaterial(OperationSacrificialMaterial operationSacrificialMaterial) {
+    public void addSacrificialMaterial(OperationSacrificialMaterial operationSacrificialMaterial) {
         sacrificialMaterials.add(operationSacrificialMaterial);
     }
 
     public void removeSacrificialMaterial(OperationSacrificialMaterial operationSacrificialMaterial) {
         if(sacrificialMaterials.contains(operationSacrificialMaterial))
             sacrificialMaterials.remove(operationSacrificialMaterial);
-    }*/
+    }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation")
     public Set<OperationTool> getTools() {

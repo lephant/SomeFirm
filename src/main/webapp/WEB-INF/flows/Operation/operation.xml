@@ -5,11 +5,12 @@
 
     <view-state id="list" view="list.xhtml">
         <on-render>
-            <evaluate expression="operationService.listOperation()" result="viewScope.operations" result-type="dataModel"/>
+            <evaluate expression="operationService.listOperation()" result="viewScope.operations"
+                      result-type="dataModel"/>
         </on-render>
 
         <transition on="select" to="details">
-            <set name="flowScope.operationId" value="operations.selectedRow.id" type="long" />
+            <set name="flowScope.operationId" value="operations.selectedRow.id" type="long"/>
         </transition>
 
         <transition on="create" to="edit">
@@ -36,15 +37,25 @@
 
     <view-state id="edit" view="edit.xhtml" model="operation">
 
-        <transition on="showSplitDialog">
-            <evaluate expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial(operation)" 
-                      result="viewScope.sacrMat"
-                      result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"
+        <on-render>
+            <evaluate expression="operation.getSacrificialMaterials()" result="viewScope.sacrificialMaterials"
+                      result-type="dataModel"/>
+        </on-render>
+
+        <!--<transition on="showSplitDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial(operation)"
+                    result="viewScope.sacrMat"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"
             />
         </transition>
-        
+
         <transition on="addMaterial">
             <evaluate expression="operation.addSacrificialMaterial(sacrMat)"/>
+        </transition>-->
+
+        <transition on="deleteMaterial">
+            <evaluate expression="operation.removeSacrificialMaterial(sacrificialMaterials.selectedRow)"/>
         </transition>
 
         <transition on="save" to="list">

@@ -11,11 +11,11 @@ public class OperationSacrificialMaterial implements Serializable {
     private SacrificialMaterialType sacrificialMaterial;
     private int count;
 
-    /*public OperationSacrificialMaterial() { }
+    public OperationSacrificialMaterial() { }
 
     public OperationSacrificialMaterial(Operation operation) {
         this.operation = operation;
-    }*/
+    }
 
     @Id
     @Column(name = "id", nullable = false)
