@@ -40,12 +40,18 @@
         <var class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"
              name="addingSacrificialMaterial"/>
 
+        <var class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool"
+             name="addingTool"/>
+
+
         <on-render>
+            <evaluate expression="operation.getTools()" result="viewScope.tools" result-type="dataModel"/>
             <evaluate expression="operation.getSacrificialMaterials()" result="viewScope.sacrificialMaterials"
                       result-type="dataModel"/>
         </on-render>
 
-        <transition on="showSplitDialog">
+
+        <transition on="showSplitMaterialDialog">
             <evaluate
                     expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial(operation)"
                     result="viewScope.addingSacrificialMaterial"
@@ -64,6 +70,28 @@
         <transition on="deleteMaterial">
             <evaluate expression="operation.removeSacrificialMaterial(sacrificialMaterials.selectedRow)"/>
         </transition>
+
+
+        <transition on="showSplitToolDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool(operation)"
+                    result="viewScope.addingTool"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool"
+            />
+        </transition>
+
+        <transition on="cancelTool">
+            <evaluate expression="viewScope.addingTool = null"/>
+        </transition>
+
+        <transition on="addTool">
+            <evaluate expression="operation.addTool(addingTool)"/>
+        </transition>
+
+        <transition on="deleteTool">
+            <evaluate expression="operation.removeTool(tools.selectedRow)"/>
+        </transition>
+
 
         <transition on="save" to="list">
             <evaluate expression="operationService.saveOperation(flowScope.operation)"/>

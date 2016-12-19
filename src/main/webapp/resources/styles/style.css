@@ -251,7 +251,7 @@ h1 {
     text-align: center;
 }
 
-.sub_table_td_id {
+.sub_table_td_name {
     padding:10px;
     width:140px;
 }
@@ -263,8 +263,52 @@ h1 {
 
 .sub_table_td_desc {
     padding:10px;
+    width: 590px;
 }
 
+.sub_table_td_delete {
+    padding: 10px;
+    width: 30px;
+}
+
+
+.field_block {
+    padding:10px;
+}
+
+.description_field {
+    width: 740px;
+    height: 150px;
+    margin-left: 10px !important;
+}
+
+.field_label {
+    float: left;
+
+    text-align: right;
+    width: 180px;
+}
+
+.text_field {
+    margin-left: 10px !important;
+    width: 740px;
+}
+
+
+
+.ui-icon-delete {
+    background-image: url("#{resource['images/delete.png']}") !important;
+    background-size: 18px 18px;
+    width:30px;
+    height:30px;
+}
+
+.ui-icon-add {
+    background-image: url("#{resource['images/add.png']}") !important;
+    background-size: 18px 18px;
+    width:30px;
+    height:30px;
+}
 
 
 

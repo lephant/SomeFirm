@@ -2,8 +2,8 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Operation implements Serializable {
@@ -12,10 +12,11 @@ public class Operation implements Serializable {
     private long duration;
     private Plan plan;
     private Workshop defaultWorkshop;
-    private List<OperationSacrificialMaterial> sacrificialMaterials;
-    private Set<OperationTool> tools;
+    private List<OperationSacrificialMaterial> sacrificialMaterials = new ArrayList<OperationSacrificialMaterial>();
+    private List<OperationTool> tools = new ArrayList<OperationTool>();
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -83,23 +84,23 @@ public class Operation implements Serializable {
             sacrificialMaterials.remove(operationSacrificialMaterial);
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation")
-    public Set<OperationTool> getTools() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation", orphanRemoval = true, cascade = CascadeType.ALL)
+    public List<OperationTool> getTools() {
         return tools;
     }
 
-    public void setTools(Set<OperationTool> tools) {
+    public void setTools(List<OperationTool> tools) {
         this.tools = tools;
     }
 
-    /*public void addTool(OperationTool operationTool) {
+    public void addTool(OperationTool operationTool) {
         tools.add(operationTool);
     }
 
     public void removeTool(OperationTool operationTool) {
         if(tools.contains(operationTool))
             tools.remove(operationTool);
-    }*/
+    }
 
 
     @Override

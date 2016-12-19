@@ -11,7 +11,15 @@ public class OperationTool implements Serializable {
     private ToolType toolType;
     private int count;
 
+    public OperationTool() {
+    }
+
+    public OperationTool(Operation operation) {
+        this.operation = operation;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
