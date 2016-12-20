@@ -1,10 +1,10 @@
-package ru.lephant.learning.spring.SomeFirmWebFlow.SacrificialMaterial.service.impl;
+package ru.lephant.learning.spring.SomeFirmWebFlow.material.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.lephant.learning.spring.SomeFirmWebFlow.SacrificialMaterial.dao.SacrificialMaterialDAO;
-import ru.lephant.learning.spring.SomeFirmWebFlow.SacrificialMaterial.service.SacrificialMaterialService;
+import ru.lephant.learning.spring.SomeFirmWebFlow.material.dao.SacrificialMaterialDAO;
+import ru.lephant.learning.spring.SomeFirmWebFlow.material.service.SacrificialMaterialService;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
 
 import java.util.List;

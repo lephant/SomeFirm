@@ -1,4 +1,4 @@
-package ru.lephant.learning.spring.SomeFirmWebFlow.SacrificialMaterial.dao;
+package ru.lephant.learning.spring.SomeFirmWebFlow.material.dao;
 
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
 import java.util.List;

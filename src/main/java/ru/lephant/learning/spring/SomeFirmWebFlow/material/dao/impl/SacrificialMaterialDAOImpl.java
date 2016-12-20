@@ -1,4 +1,4 @@
-package ru.lephant.learning.spring.SomeFirmWebFlow.SacrificialMaterial.dao.impl;
+package ru.lephant.learning.spring.SomeFirmWebFlow.material.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.lephant.learning.spring.SomeFirmWebFlow.SacrificialMaterial.dao.SacrificialMaterialDAO;
+import ru.lephant.learning.spring.SomeFirmWebFlow.material.dao.SacrificialMaterialDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
 
 import java.util.List;

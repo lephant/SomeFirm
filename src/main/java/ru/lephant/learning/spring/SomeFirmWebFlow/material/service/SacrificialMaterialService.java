@@ -1,4 +1,4 @@
-package ru.lephant.learning.spring.SomeFirmWebFlow.SacrificialMaterial.service;
+package ru.lephant.learning.spring.SomeFirmWebFlow.material.service;
 
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
 import java.util.List;

@@ -2,7 +2,7 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import ru.lephant.learning.spring.SomeFirmWebFlow.SacrificialMaterial.service.SacrificialMaterialService;
+import ru.lephant.learning.spring.SomeFirmWebFlow.material.service.SacrificialMaterialService;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
