@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
 >
 
 <h:head>
@@ -17,24 +17,20 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
-
             <h1 class="center">Операции</h1>
-
             <h:form>
-                <h:dataTable value="#{operations}" var="oper">
-                    <h:column>
-                        <h:outputText value="ID: #{oper.id}"/><br/>
-                        <h:outputText value="Описание операции: #{oper.description}"/><br/>
-                        <h:outputText value="Продолжительность: #{oper.duration}"/><br/>
-
-                        <h:commandLink id="selectOperation" value="Подробнее..." action="select"/>
-
-                        <hr/>
-                    </h:column>
-                </h:dataTable>
-                <h:commandLink value="Создать" id="createOperation" action="create"/>
+                <div class="clearfix">
+                    <ui:repeat value="#{operations}" var="oper">
+                        <p:panel header="#{oper.id}" styleClass="operations_block">
+                            <h:outputText value="Описание операции: #{oper.description}"/><br/>
+                            <h:outputText value="Продолжительность: #{oper.duration}"/><br/>
+                            <br/>
+                            <p:commandButton id="selectOperation" value="Подробнее..." action="select"/>
+                        </p:panel>
+                    </ui:repeat>
+                </div>
+                <p:commandButton value="Создать" id="createOperation" action="create"/>
             </h:form>
-
         </ui:define>
     </ui:composition>
 </h:body>
