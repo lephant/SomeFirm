@@ -9,6 +9,7 @@ public class ToolType implements Serializable {
     private long pressmark;
     private String name;
     private String description;
+    private Pressmarks pressmarks;
 
     @Id
     @Column(name = "pressmark", nullable = false)
@@ -38,6 +39,16 @@ public class ToolType implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
+    public Pressmarks getPressmarks() {
+        return pressmarks;
+    }
+
+    public void setPressmarks(Pressmarks pressmarks) {
+        this.pressmarks = pressmarks;
     }
 
     @Override

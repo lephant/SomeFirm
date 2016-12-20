@@ -3,6 +3,7 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,7 +13,8 @@ public class ProductType implements Serializable {
     private String name;
     private String description;
     private BigDecimal cost;
-    private Set<ProductTypeOperation> operations;
+    private List<ProductTypeOperation> operations;
+    private Pressmarks pressmarks;
 
     @Id
     @Column(name = "pressmark", nullable = false)
@@ -55,12 +57,22 @@ public class ProductType implements Serializable {
     }
 
     @OneToMany(mappedBy = "productType", fetch = FetchType.LAZY)
-    public Set<ProductTypeOperation> getOperations() {
+    public List<ProductTypeOperation> getOperations() {
         return operations;
     }
 
-    public void setOperations(Set<ProductTypeOperation> operations) {
+    public void setOperations(List<ProductTypeOperation> operations) {
         this.operations = operations;
+    }
+
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
+    public Pressmarks getPressmarks() {
+        return pressmarks;
+    }
+
+    public void setPressmarks(Pressmarks pressmarks) {
+        this.pressmarks = pressmarks;
     }
 
     @Override
