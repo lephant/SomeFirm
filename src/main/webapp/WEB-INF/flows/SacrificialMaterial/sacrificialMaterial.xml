@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="list" view="list.xhtml">
+
+        <on-render>
+            <evaluate expression="sacrificialMaterialService.listSacrificialMaterial()" result="viewScope.materials"
+                      result-type="dataModel"/>
+        </on-render>
+
+        <transition on="editMaterial" to="edit">
+            <evaluate
+                    expression="sacrificialMaterialService.getSacrificialMaterialByPressmark(materials.selectedRow.pressmark)"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType"
+                    result="flowScope.material"
+            />
+        </transition>
+
+        <transition on="deleteMaterial">
+            <evaluate
+                    expression="sacrificialMaterialService.deleteSacrificialMaterial(materials.selectedRow.pressmark)"/>
+        </transition>
+
+        <transition on="createMaterial" to="edit">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType()"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType"
+                    result="flowScope.material"
+            />
+        </transition>
+
+    </view-state>
+
+
+    <view-state id="edit" view="edit.xhtml" model="flowScope.material">
+
+        <on-entry>
+            <set name="viewScope.editable" value="flowScope.material.pressmark==0" type="boolean"/>
+        </on-entry>
+
+        <transition on="createMaterial" to="list">
+            <evaluate expression="sacrificialMaterialService.saveSacrificialMaterial(flowScope.material)"/>
+        </transition>
+
+        <transition on="cancelMaterial" to="list"/>
+
+    </view-state>
+
+</flow>
