@@ -41,7 +41,7 @@ public class ToolType implements Serializable {
         this.description = description;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
     public Pressmarks getPressmarks() {
         return pressmarks;

@@ -65,7 +65,7 @@ public class ProductType implements Serializable {
         this.operations = operations;
     }
 
-    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
     public Pressmarks getPressmarks() {
         return pressmarks;

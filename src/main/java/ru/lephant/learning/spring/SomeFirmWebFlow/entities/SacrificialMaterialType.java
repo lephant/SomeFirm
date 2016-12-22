@@ -41,7 +41,7 @@ public class SacrificialMaterialType implements Serializable {
         this.description = description;
     }
 
-    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
     public Pressmarks getPressmarks() {
         return pressmarks;
