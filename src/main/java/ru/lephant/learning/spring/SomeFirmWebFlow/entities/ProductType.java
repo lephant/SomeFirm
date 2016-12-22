@@ -56,7 +56,7 @@ public class ProductType implements Serializable {
         this.cost = cost;
     }
 
-    @OneToMany(mappedBy = "productType", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "productType", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     public List<ProductTypeOperation> getOperations() {
         return operations;
     }

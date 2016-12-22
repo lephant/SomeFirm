@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.product.dao.impl;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -25,6 +26,7 @@ public class ProductDAOImpl implements ProductDAO {
                 .createCriteria(ProductType.class)
                 .add(Restrictions.idEq(pressmark))
                 .uniqueResult();
+        Hibernate.initialize(productType.getOperations());
         session.close();
         return productType;
     }
