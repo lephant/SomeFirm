@@ -6,7 +6,9 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Pressmarks;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType;
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.ItemType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.tool.dao.ToolDAO;
 
 import java.util.List;
@@ -35,6 +37,13 @@ public class ToolDAOImpl implements ToolDAO{
 
     public void saveTool(ToolType tool) {
         Session session = sessionFactory.openSession();
+        if (tool.getPressmarks() == null) {
+            Pressmarks pressmarks = new Pressmarks(tool.getPressmark(), ItemType.TOOL);
+            tool.setPressmarks(pressmarks);
+            Transaction transaction = session.beginTransaction();
+            session.saveOrUpdate(pressmarks);
+            transaction.commit();
+        }
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(tool);
         transaction.commit();
@@ -45,7 +54,10 @@ public class ToolDAOImpl implements ToolDAO{
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         ToolType tool = (ToolType) session.load(ToolType.class, pressmark);
-        if (tool != null) session.delete(tool);
+        if (tool != null) {
+            session.delete(tool);
+            session.delete(tool.getPressmarks());
+        }
         transaction.commit();
         session.close();
     }

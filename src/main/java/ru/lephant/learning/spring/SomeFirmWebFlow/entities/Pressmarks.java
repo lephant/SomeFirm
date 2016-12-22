@@ -1,15 +1,22 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.ItemType;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 public class Pressmarks implements Serializable {
     private long pressmark;
-    private int typeId;
+    private ItemType type;
+
+    public Pressmarks() {
+    }
+
+    public Pressmarks(long pressmark, ItemType type) {
+        this.pressmark = pressmark;
+        this.type = type;
+    }
 
     @Id
     @Column(name = "pressmark", nullable = false)
@@ -23,31 +30,12 @@ public class Pressmarks implements Serializable {
 
     @Basic
     @Column(name = "type_id", nullable = false)
-    public int getTypeId() {
-        return typeId;
+    @Enumerated(value = EnumType.ORDINAL)
+    public ItemType getType() {
+        return type;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Pressmarks that = (Pressmarks) o;
-
-        if (pressmark != that.pressmark) return false;
-        if (typeId != that.typeId) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (pressmark ^ (pressmark >>> 32));
-        result = 31 * result + typeId;
-        return result;
+    public void setType(ItemType type) {
+        this.type = type;
     }
 }
