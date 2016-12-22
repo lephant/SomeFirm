@@ -310,6 +310,13 @@ h1 {
     height: 30px;
 }
 
+.ui-icon-edit {
+    background-image:url("#{resource['images/edit.png']}") !important;
+    background-size: 18px 18px;
+    width: 30px;
+    height: 30px;
+}
+
 .operations_block {
     width: 32%;
     text-align: center;
