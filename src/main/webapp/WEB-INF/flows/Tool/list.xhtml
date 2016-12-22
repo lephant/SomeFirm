@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Расходуемые материалы</h1>
+            <h:form>
+                <div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
+                <h:dataTable id="toolsTable"
+                             value="#{tools}"
+                             var="toolType"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_name,sub_table_td_desc,sub_table_td_delete,sub_table_td_delete">
+                    <h:column>
+                        <f:facet name="header">Название</f:facet>
+                        <h:outputText value="#{toolType.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Описание</f:facet>
+                        <h:outputText value="#{toolType.description}"/>
+                    </h:column>
+                    <h:column>
+                        <p:commandButton icon="ui-icon-edit" action="editTool"/>
+                    </h:column>
+                    <h:column>
+                        <p:commandButton icon="ui-icon-delete" action="deleteTool">
+                            <f:ajax onevent="deleteTool" execute=":toolsTable"/>
+                        </p:commandButton>
+                    </h:column>
+                </h:dataTable>
+                <p:commandButton value="Создать" id="createTool" action="createTool"/>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

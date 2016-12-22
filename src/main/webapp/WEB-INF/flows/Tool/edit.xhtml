@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Расходуемый материал</h1>
+            <h:form>
+                <div class="field_block">
+                    <p:outputLabel for="pressmark" value="Шифр:" styleClass="field_label"/>
+                    <p:inputText styleClass="text_field" id="pressmark" value="#{tool.pressmark}" disabled="#{!editable}"/>
+                </div>
+                <div class="field_block">
+                    <p:outputLabel for="name" value="Название:" styleClass="field_label"/>
+                    <p:inputText styleClass="text_field" id="name" value="#{tool.name}"/>
+                </div>
+                <div class="field_block">
+                    <p:outputLabel for="description" value="Описание:" styleClass="field_label"/>
+                    <p:inputTextarea styleClass="description_field" id="description" value="#{tool.description}"/>
+                </div>
+                <div style="float:right; margin:15px;">
+                    <p:commandButton value="Сохранить" id="createTool" action="createTool"/>
+                    <p:commandButton value="Отмена" id="cancelTool" action="cancelTool" immediate="false" />
+                </div>
+                <div class="clearfix"></div>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="list" view="list.xhtml">
+
+        <on-render>
+            <evaluate expression="toolService.listTool()" result="viewScope.tools"
+                      result-type="dataModel"/>
+        </on-render>
+
+        <transition on="editTool" to="edit">
+            <evaluate
+                    expression="toolService.getToolByPressmark(tools.selectedRow.pressmark)"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType"
+                    result="flowScope.tool"
+            />
+        </transition>
+
+        <transition on="deleteTool">
+            <evaluate
+                    expression="toolService.deleteTool(tools.selectedRow.pressmark)"/>
+        </transition>
+
+        <transition on="createTool" to="edit">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType()"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType"
+                    result="flowScope.tool"
+            />
+        </transition>
+
+    </view-state>
+
+
+    <view-state id="edit" view="edit.xhtml" model="flowScope.tool">
+
+        <on-entry>
+            <set name="viewScope.editable" value="flowScope.tool.pressmark==0" type="boolean"/>
+        </on-entry>
+
+        <transition on="createTool" to="list">
+            <evaluate expression="toolService.saveTool(flowScope.tool)"/>
+        </transition>
+
+        <transition on="cancelTool" to="list" />
+
+    </view-state>
+
+</flow>
