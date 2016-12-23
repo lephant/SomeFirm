@@ -33,6 +33,16 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
         return operation;
     }
 
+    public Operation getLazyOperationById(long id) {
+        Session session = sessionFactory.openSession();
+        Operation operation = (Operation) session
+                .createCriteria(Operation.class)
+                .add(Restrictions.idEq(id))
+                .uniqueResult();
+        session.close();
+        return operation;
+    }
+
     public List listOperation() {
         Session session = sessionFactory.openSession();
         List list = session

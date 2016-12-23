@@ -8,6 +8,8 @@ public interface OperationDAO {
 
     public Operation getOperationById(long id);
 
+    public Operation getLazyOperationById(long id);
+
     public List listOperation();
 
     public void deleteOperation(long id);
