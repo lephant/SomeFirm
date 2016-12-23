@@ -3,6 +3,7 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class ProductType implements Serializable {
     private String name;
     private String description;
     private BigDecimal cost;
-    private List<ProductTypeOperation> operations;
+    private List<ProductTypeOperation> operations = new ArrayList<ProductTypeOperation>();
     private Pressmarks pressmarks;
 
     @Id
@@ -63,6 +64,15 @@ public class ProductType implements Serializable {
 
     public void setOperations(List<ProductTypeOperation> operations) {
         this.operations = operations;
+    }
+
+    public void addOperation(ProductTypeOperation productTypeOperation) {
+        operations.add(productTypeOperation);
+    }
+
+    public void removeOperation(ProductTypeOperation productTypeOperation) {
+        if (operations.contains(productTypeOperation))
+            operations.remove(productTypeOperation);
     }
 
     @OneToOne

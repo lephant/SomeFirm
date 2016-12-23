@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Продукт</h1>
+            <h:form>
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" for="pressmark" value="Шифр:"/>
+                    <p:inputText styleClass="text_field" id="pressmark" value="#{product.pressmark}" disabled="#{!editable}"/>
+                </div>
+
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" for="name" value="Название:"/>
+                    <p:inputText styleClass="text_field" id="name" value="#{product.name}"/>
+                </div>
+
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" for="description" value="Описание:"/>
+                    <p:inputTextarea styleClass="description_field" id="description" value="#{product.description}"/>
+                </div>
+
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" for="cost" value="Цена:"/>
+                    <p:inputText styleClass="text_field" id="cost" value="#{product.cost}"/>
+                </div>
+
+                <div class="sub_table_header"><h:outputText value="Список операций:"/></div>
+                <h:dataTable id="operationsTable"
+                             value="#{operations}"
+                             var="operation"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_desc,sub_table_td_count,sub_table_td_delete">
+                    <h:column>
+                        <f:facet name="header">Описание</f:facet>
+                        <h:outputText value="#{operation.operation.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Продолжительность</f:facet>
+                        <h:outputText value="#{operation.operation.duration}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <p:commandButton icon="ui-icon-delete" action="deleteOperation" id="deleteOperation">
+                            <f:ajax onevent="deleteOperation" render=":operationsTable"/>
+                        </p:commandButton>
+                    </h:column>
+                </h:dataTable>
+                <p:commandButton style="float:right; margin:15px;" icon="ui-icon-add" action="showSplitOperationDialog" oncomplete="PF('splitOperationDialog').show();"/>
+
+                <br/><br/>
+
+                <p:commandButton value="Сохранить" action="saveProduct" id="saveProduct" ajax="@form"/>
+                <p:commandButton value="Отмена" action="cancelProduct" id="cancelProduct" immediate="true"/>
+
+                <p:messages showDetail="true"/>
+            </h:form>
+
+
+            <p:dialog id="splitOperationDialog" header="Добавление операции" widgetVar="splitOperationDialog"
+                      width="500" modal="true">
+                <h:form>
+                    <p:selectOneMenu value="#{addingOperation.operation}"
+                                     converter="#{operationConverterController}">
+                        <f:selectItems value="#{operationService.listOperation()}" var="oper"
+                                       itemValue="#{oper}"
+                                       itemLabel="#{oper.description.length()>30?oper.description.substring(0,30):oper.description}"/>
+                    </p:selectOneMenu>
+
+                    <br/>
+
+                    <p:commandButton id="addOperation" action="addOperation" value="Добавить" ajax="true">
+                        <f:ajax onevent="addOperation" render=":operationsTable"/>
+                    </p:commandButton>
+                    <p:commandButton id="cancelOperation" action="cancelOperation" value="Отмена" ajax="true"
+                                     oncomplete="PF('splitMaterialDialog').hide()" immediate="true"/>
+                    <p:messages showDetail="true"/>
+                </h:form>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

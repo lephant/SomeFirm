@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="list" view="list.xhtml">
+        <on-render>
+            <evaluate expression="productService.listProduct()" result="viewScope.products" result-type="dataModel"/>
+        </on-render>
+
+        <transition on="selectProduct" to="details">
+            <set name="flowScope.productPressmark" value="viewScope.products.selectedRow.pressmark" type="long"/>
+        </transition>
+
+        <transition on="createProduct" to="edit">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType()"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType"
+                    result="flowScope.product"
+            />
+        </transition>
+    </view-state>
+
+
+    <view-state id="details" view="details.xhtml">
+        <on-render>
+            <evaluate
+                    expression="productService.getProductByPressmark(flowScope.productPressmark)"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType"
+                    result="flowScope.product"
+            />
+        </on-render>
+
+        <transition on="editProduct" to="edit"/>
+
+        <transition on="deleteProduct" to="list">
+            <evaluate expression="productService.deleteProduct(flowScope.product.pressmark)"/>
+        </transition>
+    </view-state>
+
+
+    <view-state id="edit" view="edit.xhtml" model="product">
+
+        <var name="addingOperation" class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductTypeOperation"/>
+
+        <on-entry>
+            <set name="viewScope.editable" value="flowScope.product.pressmark==0" type="boolean"/>
+        </on-entry>
+
+        <on-render>
+            <evaluate expression="product.getOperations()" result="viewScope.operations" result-type="dataModel"/>
+        </on-render>
+
+
+        <transition on="showSplitOperationDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductTypeOperation(product)"
+                    result="viewScope.addingOperation"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductTypeOperation"
+            />
+        </transition>
+
+        <transition on="cancelOperation">
+            <evaluate expression="viewScope.addingOperation = null"/>
+        </transition>
+
+        <transition on="addOperation">
+            <evaluate expression="flowScope.product.addOperation(addingOperation)"/>
+        </transition>
+
+        <transition on="deleteOperation">
+            <evaluate expression="flowScope.product.removeOperation(operations.selectedRow)"/>
+        </transition>
+
+
+        <transition on="saveProduct" to="list">
+            <evaluate expression="productService.saveProduct(product)"/>
+        </transition>
+
+        <transition on="cancelProduct" to="list" bind="false" validate="false"/>
+    </view-state>
+
+</flow>

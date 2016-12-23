@@ -114,12 +114,7 @@ public class Operation implements Serializable {
         if (duration != operation.duration) return false;
         if (description != null ? !description.equals(operation.description) : operation.description != null)
             return false;
-        if (!plan.equals(operation.plan)) return false;
-        if (defaultWorkshop != null ? !defaultWorkshop.equals(operation.defaultWorkshop) : operation.defaultWorkshop != null)
-            return false;
-        if (sacrificialMaterials != null ? !sacrificialMaterials.equals(operation.sacrificialMaterials) : operation.sacrificialMaterials != null)
-            return false;
-        return tools != null ? tools.equals(operation.tools) : operation.tools == null;
+        return defaultWorkshop != null ? defaultWorkshop.equals(operation.defaultWorkshop) : operation.defaultWorkshop == null;
 
     }
 
@@ -128,15 +123,12 @@ public class Operation implements Serializable {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (int) (duration ^ (duration >>> 32));
-        result = 31 * result + plan.hashCode();
         result = 31 * result + (defaultWorkshop != null ? defaultWorkshop.hashCode() : 0);
-        result = 31 * result + (sacrificialMaterials != null ? sacrificialMaterials.hashCode() : 0);
-        result = 31 * result + (tools != null ? tools.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return description;
+        return String.valueOf(id);
     }
 }

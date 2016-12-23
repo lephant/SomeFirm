@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+
+            <h1 class="center">Продукт</h1>
+
+            <h:outputText value="Шифр: #{product.pressmark}"/><br/>
+            <h:outputText value="Название: #{product.name}"/><br/>
+            <h:outputText value="Описание: #{product.description}"/><br/>
+            <h:outputText value="Цена: #{product.cost}"/><br/>
+
+            <br/>
+
+            <div class="sub_table_header"><h:outputText value="Список операций:"/></div>
+            <h:dataTable id="materialsTable"
+                         value="#{product.operations}"
+                         var="operation"
+                         rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                         headerClass="sub_table_th"
+                         styleClass="sub_table full_width"
+                         columnClasses="sub_table_td_desc,sub_table_td_count">
+                <h:column>
+                    <f:facet name="header">Описание</f:facet>
+                    <h:outputText value="#{operation.operation.description}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Продолжительность</f:facet>
+                    <h:outputText value="#{operation.operation.duration}"/>
+                </h:column>
+            </h:dataTable>
+
+            <h:form>
+                <p:commandButton value="Редактировать" id="editProduct" action="editProduct"/>
+                <p:commandButton value="Удалить" id="deleteProduct" action="deleteProduct"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

@@ -10,7 +10,15 @@ public class ProductTypeOperation implements Serializable {
     private ProductType productType;
     private Operation operation;
 
+    public ProductTypeOperation(ProductType productType) {
+        this.productType = productType;
+    }
+
+    public ProductTypeOperation() {
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
