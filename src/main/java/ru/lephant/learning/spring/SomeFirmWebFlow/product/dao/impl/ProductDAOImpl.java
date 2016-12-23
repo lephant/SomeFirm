@@ -41,7 +41,7 @@ public class ProductDAOImpl implements ProductDAO {
     public void saveProduct(ProductType product) {
         Session session = sessionFactory.openSession();
         if (product.getPressmarks() == null) {
-            Pressmarks pressmarks = new Pressmarks(product.getPressmark(), ItemType.TOOL);
+            Pressmarks pressmarks = new Pressmarks(product.getPressmark(), ItemType.PRODUCT);
             product.setPressmarks(pressmarks);
             Transaction transaction = session.beginTransaction();
             session.saveOrUpdate(pressmarks);
