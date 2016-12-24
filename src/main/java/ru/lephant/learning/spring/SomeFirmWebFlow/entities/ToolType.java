@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "tool_type", schema = "somefirmdb")
 @PrimaryKeyJoinColumn(name = "pressmark")
-public class ToolType extends Pressmarks implements Serializable {
+public class ToolType extends Thing implements Serializable {
 
     private String description;
 

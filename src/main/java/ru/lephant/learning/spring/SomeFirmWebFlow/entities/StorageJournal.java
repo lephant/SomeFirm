@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class StorageJournal implements Serializable {
     private long id;
     private Workshop workshop;
-    private Pressmarks pressmark;
+    private Thing thing;
     private int count;
     private long dateAndTime;
     private StorageEmploye storageEmploye;
@@ -37,12 +37,12 @@ public class StorageJournal implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
-    public Pressmarks getPressmark() {
-        return pressmark;
+    public Thing getThing() {
+        return thing;
     }
 
-    public void setPressmark(Pressmarks pressmark) {
-        this.pressmark = pressmark;
+    public void setThing(Thing pressmark) {
+        this.thing = pressmark;
     }
 
     @Basic
@@ -106,7 +106,7 @@ public class StorageJournal implements Serializable {
         if (id != that.id) return false;
         if (count != that.count) return false;
         if (dateAndTime != that.dateAndTime) return false;
-        if (!pressmark.equals(that.pressmark)) return false;
+        if (!thing.equals(that.thing)) return false;
         if (!storageEmploye.equals(that.storageEmploye)) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         return journalOperationType.equals(that.journalOperationType);
@@ -116,7 +116,7 @@ public class StorageJournal implements Serializable {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + pressmark.hashCode();
+        result = 31 * result + thing.hashCode();
         result = 31 * result + count;
         result = 31 * result + (int) (dateAndTime ^ (dateAndTime >>> 32));
         result = 31 * result + storageEmploye.hashCode();

@@ -5,12 +5,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "product_type", schema = "somefirmdb")
 @PrimaryKeyJoinColumn(name = "pressmark")
-public class ProductType extends Pressmarks implements Serializable {
+public class ProductType extends Thing implements Serializable {
     private String description;
     private BigDecimal cost;
     private List<ProductTypeOperation> operations = new ArrayList<ProductTypeOperation>();

@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class OrderThing implements Serializable {
     private long id;
     private User user;
-    private Pressmarks pressmark;
+    private Thing thing;
     private int count;
     private String description;
 
@@ -34,12 +34,12 @@ public class OrderThing implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
-    public Pressmarks getPressmark() {
-        return pressmark;
+    public Thing getThing() {
+        return thing;
     }
 
-    public void setPressmark(Pressmarks pressmark) {
-        this.pressmark = pressmark;
+    public void setThing(Thing pressmark) {
+        this.thing = pressmark;
     }
 
     @Basic
@@ -73,7 +73,7 @@ public class OrderThing implements Serializable {
         if (id != that.id) return false;
         if (count != that.count) return false;
         if (!user.equals(that.user)) return false;
-        if (!pressmark.equals(that.pressmark)) return false;
+        if (!thing.equals(that.thing)) return false;
         return description != null ? description.equals(that.description) : that.description == null;
 
     }
@@ -82,7 +82,7 @@ public class OrderThing implements Serializable {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + user.hashCode();
-        result = 31 * result + pressmark.hashCode();
+        result = 31 * result + thing.hashCode();
         result = 31 * result + count;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;

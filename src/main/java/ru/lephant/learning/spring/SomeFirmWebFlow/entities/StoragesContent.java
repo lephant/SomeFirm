@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class StoragesContent implements Serializable {
     private long id;
     private Workshop workshop;
-    private Pressmarks pressmark;
+    private Thing thing;
     private int count;
 
     @Id
@@ -33,12 +33,12 @@ public class StoragesContent implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pressmark_id", referencedColumnName = "pressmark")
-    public Pressmarks getPressmark() {
-        return pressmark;
+    public Thing getThing() {
+        return thing;
     }
 
-    public void setPressmark(Pressmarks pressmarkId) {
-        this.pressmark = pressmarkId;
+    public void setThing(Thing pressmarkId) {
+        this.thing = pressmarkId;
     }
 
     @Basic
@@ -62,7 +62,7 @@ public class StoragesContent implements Serializable {
         if (id != that.id) return false;
         if (count != that.count) return false;
         if (!workshop.equals(that.workshop)) return false;
-        return pressmark.equals(that.pressmark);
+        return thing.equals(that.thing);
 
     }
 
@@ -70,7 +70,7 @@ public class StoragesContent implements Serializable {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + workshop.hashCode();
-        result = 31 * result + pressmark.hashCode();
+        result = 31 * result + thing.hashCode();
         result = 31 * result + count;
         return result;
     }

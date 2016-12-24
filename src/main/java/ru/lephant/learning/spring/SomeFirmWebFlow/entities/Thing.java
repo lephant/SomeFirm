@@ -8,19 +8,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pressmarks")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pressmarks implements Serializable {
+public class Thing implements Serializable {
 
     private long pressmark;
     private String name;
     private ItemType type;
-
-    public Pressmarks() {
-    }
-
-    public Pressmarks(long pressmark, ItemType type) {
-        this.pressmark = pressmark;
-        this.type = type;
-    }
 
     @Id
     @Column(name = "pressmark", nullable = false)
@@ -58,7 +50,7 @@ public class Pressmarks implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Pressmarks that = (Pressmarks) o;
+        Thing that = (Thing) o;
 
         if (pressmark != that.pressmark) return false;
         if (!name.equals(that.name)) return false;

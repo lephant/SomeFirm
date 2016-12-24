@@ -23,7 +23,7 @@
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Plan"/>
-        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Pressmarks"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Thing"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductTypeOperation"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType"/>
