@@ -7,7 +7,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Pressmarks;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.ItemType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.product.dao.ProductDAO;
@@ -40,14 +39,8 @@ public class ProductDAOImpl implements ProductDAO {
 
     public void saveProduct(ProductType product) {
         Session session = sessionFactory.openSession();
-        if (product.getPressmarks() == null) {
-            Pressmarks pressmarks = new Pressmarks(product.getPressmark(), ItemType.PRODUCT);
-            product.setPressmarks(pressmarks);
-            Transaction transaction = session.beginTransaction();
-            session.saveOrUpdate(pressmarks);
-            transaction.commit();
-        }
         Transaction transaction = session.beginTransaction();
+        product.setType(ItemType.PRODUCT);
         session.saveOrUpdate(product);
         transaction.commit();
         session.close();
@@ -59,7 +52,6 @@ public class ProductDAOImpl implements ProductDAO {
         ProductType product = (ProductType) session.load(ProductType.class, pressmark);
         if (product != null) {
             session.delete(product);
-            session.delete(product.getPressmarks());
         }
         transaction.commit();
         session.close();

@@ -21,32 +21,32 @@
 
             <h1 class="center">Продукт</h1>
 
-            <h:outputText value="Шифр: #{product.pressmark}"/><br/>
-            <h:outputText value="Название: #{product.name}"/><br/>
-            <h:outputText value="Описание: #{product.description}"/><br/>
-            <h:outputText value="Цена: #{product.cost}"/><br/>
-
-            <br/>
-
-            <div class="sub_table_header"><h:outputText value="Список операций:"/></div>
-            <h:dataTable id="materialsTable"
-                         value="#{product.operations}"
-                         var="operation"
-                         rowClasses="sub_table_tr_odd,sub_table_tr_even"
-                         headerClass="sub_table_th"
-                         styleClass="sub_table full_width"
-                         columnClasses="sub_table_td_desc,sub_table_td_count">
-                <h:column>
-                    <f:facet name="header">Описание</f:facet>
-                    <h:outputText value="#{operation.operation.description}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Продолжительность</f:facet>
-                    <h:outputText value="#{operation.operation.duration}"/>
-                </h:column>
-            </h:dataTable>
-
             <h:form>
+                <h:outputText value="Шифр: #{product.pressmark}"/><br/>
+                <h:outputText value="Название: #{product.name}"/><br/>
+                <h:outputText value="Описание: #{product.description}"/><br/>
+                <h:outputText value="Цена: #{product.cost}"/><br/>
+
+                <br/>
+
+                <div class="sub_table_header"><h:outputText value="Список операций:"/></div>
+                <h:dataTable id="materialsTable"
+                             value="#{product.operations}"
+                             var="operation"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_desc,sub_table_td_count">
+                    <h:column>
+                        <f:facet name="header">Описание</f:facet>
+                        <h:outputText value="#{operation.operation.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Продолжительность</f:facet>
+                        <h:outputText value="#{operation.operation.duration}"/>
+                    </h:column>
+                </h:dataTable>
+
                 <p:commandButton value="Редактировать" id="editProduct" action="editProduct"/>
                 <p:commandButton value="Удалить" id="deleteProduct" action="deleteProduct"/>
             </h:form>

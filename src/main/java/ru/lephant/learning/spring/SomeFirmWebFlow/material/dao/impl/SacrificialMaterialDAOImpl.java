@@ -6,7 +6,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Pressmarks;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.ItemType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.material.dao.SacrificialMaterialDAO;
@@ -38,14 +37,8 @@ public class SacrificialMaterialDAOImpl implements SacrificialMaterialDAO {
 
     public void saveSacrificialMaterial(SacrificialMaterialType sacrificialMaterial) {
         Session session = sessionFactory.openSession();
-        if (sacrificialMaterial.getPressmarks() == null) {
-            Pressmarks pressmarks = new Pressmarks(sacrificialMaterial.getPressmark(), ItemType.SACRIFICIAL_MATERIAL);
-            sacrificialMaterial.setPressmarks(pressmarks);
-            Transaction transaction = session.beginTransaction();
-            session.saveOrUpdate(pressmarks);
-            transaction.commit();
-        }
         Transaction transaction = session.beginTransaction();
+        sacrificialMaterial.setType(ItemType.SACRIFICIAL_MATERIAL);
         session.saveOrUpdate(sacrificialMaterial);
         transaction.commit();
         session.close();
@@ -56,10 +49,7 @@ public class SacrificialMaterialDAOImpl implements SacrificialMaterialDAO {
         Transaction transaction = session.beginTransaction();
         SacrificialMaterialType sacrificialMaterial = (SacrificialMaterialType) session
                 .load(SacrificialMaterialType.class, pressmark);
-        if (sacrificialMaterial != null) {
-            session.delete(sacrificialMaterial);
-            session.delete(sacrificialMaterial.getPressmarks());
-        }
+        if (sacrificialMaterial != null) session.delete(sacrificialMaterial);
         transaction.commit();
         session.close();
     }

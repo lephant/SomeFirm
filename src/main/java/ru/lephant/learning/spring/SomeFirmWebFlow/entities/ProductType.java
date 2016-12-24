@@ -9,33 +9,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "product_type", schema = "somefirmdb")
-public class ProductType implements Serializable {
-    private long pressmark;
-    private String name;
+@PrimaryKeyJoinColumn(name = "pressmark")
+public class ProductType extends Pressmarks implements Serializable {
     private String description;
     private BigDecimal cost;
     private List<ProductTypeOperation> operations = new ArrayList<ProductTypeOperation>();
-    private Pressmarks pressmarks;
-
-    @Id
-    @Column(name = "pressmark", nullable = false)
-    public long getPressmark() {
-        return pressmark;
-    }
-
-    public void setPressmark(long pressmark) {
-        this.pressmark = pressmark;
-    }
-
-    @Basic
-    @Column(name = "name", nullable = false, length = 255)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Basic
     @Column(name = "description", nullable = true, length = 4096)
@@ -75,16 +53,6 @@ public class ProductType implements Serializable {
             operations.remove(productTypeOperation);
     }
 
-    @OneToOne
-    @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
-    public Pressmarks getPressmarks() {
-        return pressmarks;
-    }
-
-    public void setPressmarks(Pressmarks pressmarks) {
-        this.pressmarks = pressmarks;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,20 +60,15 @@ public class ProductType implements Serializable {
 
         ProductType that = (ProductType) o;
 
-        if (pressmark != that.pressmark) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (cost != null ? !cost.equals(that.cost) : that.cost != null) return false;
+        return cost.equals(that.cost);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (pressmark ^ (pressmark >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (cost != null ? cost.hashCode() : 0);
+        int result = description != null ? description.hashCode() : 0;
+        result = 31 * result + cost.hashCode();
         return result;
     }
 }
