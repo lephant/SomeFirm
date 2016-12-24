@@ -2,8 +2,8 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.enums;
 
 public enum ItemType {
 
-    TOOL,
+    PRODUCT,
     SACRIFICIAL_MATERIAL,
-    PRODUCT;
+    TOOL
 
 }
