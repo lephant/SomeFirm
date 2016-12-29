@@ -7,6 +7,14 @@
         <on-render>
             <evaluate expression="storageService.listStorageContent()" result="viewScope.contents" result-type="dataModel"/>
         </on-render>
+        
+        <transition on="editStorage" to="edit"/>
+    </view-state>
+    
+    <view-state id="edit" view="edit.xhtml">
+        <on-entry>
+            <evaluate expression="storageService.listStorageContent()" result="viewScope.contents" result-type="dataModel"/>
+        </on-entry>
     </view-state>
 
 </flow>
