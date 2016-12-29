@@ -3,10 +3,13 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.workshop.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageContent;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop;
 import ru.lephant.learning.spring.SomeFirmWebFlow.workshop.dao.WorkshopDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.workshop.service.WorkshopService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("workshopService")
@@ -36,7 +39,7 @@ public class WorkshopServiceImpl implements WorkshopService {
     }
 
     @Transactional
-    public void saveWorkshop(Workshop workshop) {
-        workshopDAO.saveWorkshop(workshop);
+    public void saveWorkshop(Workshop workshop, ArrayList<StorageJournal> noteList, ArrayList<StorageContent> storageContent) {
+        workshopDAO.saveWorkshop(workshop, noteList, storageContent);
     }
 }
