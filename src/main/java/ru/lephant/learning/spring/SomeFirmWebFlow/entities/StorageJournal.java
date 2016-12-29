@@ -15,7 +15,16 @@ public class StorageJournal implements Serializable {
     private String description;
     private JournalOperationType journalOperationType;
 
+    public StorageJournal() {
+    }
+
+    public StorageJournal(Workshop workshop, Thing thing) {
+        this.workshop = workshop;
+        this.thing = thing;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -25,7 +34,7 @@ public class StorageJournal implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "workshop_id", referencedColumnName = "id")
     public Workshop getWorkshop() {
         return workshop;
@@ -35,7 +44,7 @@ public class StorageJournal implements Serializable {
         this.workshop = workshop;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
     public Thing getThing() {
         return thing;
