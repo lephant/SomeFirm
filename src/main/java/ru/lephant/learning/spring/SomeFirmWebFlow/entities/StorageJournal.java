@@ -50,8 +50,8 @@ public class StorageJournal implements Serializable {
         return thing;
     }
 
-    public void setThing(Thing pressmark) {
-        this.thing = pressmark;
+    public void setThing(Thing thing) {
+        this.thing = thing;
     }
 
     @Basic
