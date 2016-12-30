@@ -23,15 +23,15 @@ public class StorageServiceImpl implements StorageService {
 
 
     public void writeOffThingFromWorkshop(StorageJournal note, ArrayList<StorageJournal> noteList) {
-        StorageContent contentInWorkshop = note.getWorkshop().getContentByThing(note.getThing());
+        StorageContent currentContentInWorkshop = note.getWorkshop().getContentByThing(note.getThing());
 
         if (note.getCount() <= 0) return; // TODO: сделать валидаторы
 
-        if (contentInWorkshop == null || contentInWorkshop.getCount() < note.getCount()) {
+        if (currentContentInWorkshop == null || currentContentInWorkshop.getCount() < note.getCount()) {
             return; // TODO: сделать обработку ошибок
         }
 
-        contentInWorkshop.setCount(contentInWorkshop.getCount() - note.getCount());
+        currentContentInWorkshop.setCount(currentContentInWorkshop.getCount() - note.getCount());
 
         note.setDateAndTime(new Date().getTime());
         note.setJournalOperationType(ReferenceData.JournalOperationTypes.writeOffFromWorkshopOperation);
@@ -39,29 +39,46 @@ public class StorageServiceImpl implements StorageService {
         noteList.add(note);
     }
 
-    public void writeOffThingFromStorage(Thing thing, int count) {
 
-    }
-
-    public void sendThingFromWorkshopToStorage(StorageJournal note, ArrayList<StorageJournal> noteList,
-                                               ArrayList<StorageContent> storageContent) {
-        StorageContent contentInWorkshop = note.getWorkshop().getContentByThing(note.getThing());
+    public void writeOffThingFromStorage(StorageJournal note, ArrayList<StorageJournal> noteList,
+                                         ArrayList<StorageContent> storageContent) {
+        StorageContent currentContentInStorage = getContentOfStorageByThing(storageContent, note.getThing());
 
         if (note.getCount() <= 0) return; // TODO: сделать валидаторы
 
-        if (contentInWorkshop == null || contentInWorkshop.getCount() < note.getCount()) {
+        if (currentContentInStorage == null || currentContentInStorage.getCount() < note.getCount()) {
             return; // TODO: сделать обработку ошибок
         }
 
-        StorageContent contentInStorage = getContentOfStorageByThing(storageContent, note.getThing());
+        currentContentInStorage.setCount(currentContentInStorage.getCount() - note.getCount());
 
-        if (contentInStorage == null) {
-            contentInStorage = createContentByNote(note);
-            storageContent.add(contentInStorage);
+        note.setDateAndTime(new Date().getTime());
+        note.setJournalOperationType(ReferenceData.JournalOperationTypes.writeOffFromStorageOperation);
+
+        noteList.add(note);
+    }
+
+
+    public void sendThingFromWorkshopToStorage(StorageJournal note, ArrayList<StorageJournal> noteList,
+                                               ArrayList<StorageContent> storageContent) {
+
+        StorageContent currentContentInWorkshop = note.getWorkshop().getContentByThing(note.getThing());
+
+        if (note.getCount() <= 0) return; // TODO: сделать валидаторы
+
+        if (currentContentInWorkshop == null || currentContentInWorkshop.getCount() < note.getCount()) {
+            return; // TODO: сделать обработку ошибок
         }
 
-        contentInStorage.setCount(contentInStorage.getCount() + note.getCount());
-        contentInWorkshop.setCount(contentInWorkshop.getCount() - note.getCount());
+        StorageContent currentContentInStorage = getContentOfStorageByThing(storageContent, note.getThing());
+
+        if (currentContentInStorage == null) {
+            currentContentInStorage = createContentByNote(note);
+            storageContent.add(currentContentInStorage);
+        }
+
+        currentContentInStorage.setCount(currentContentInStorage.getCount() + note.getCount());
+        currentContentInWorkshop.setCount(currentContentInWorkshop.getCount() - note.getCount());
 
         note.setDateAndTime(new Date().getTime());
         note.setJournalOperationType(ReferenceData.JournalOperationTypes.sendFromWorkshopToStorageOperation);
@@ -88,6 +105,11 @@ public class StorageServiceImpl implements StorageService {
     @Transactional(readOnly = true)
     public StorageContent getStorageContentByThing(Thing thing) {
         return storageDAO.getStorageContentByThing(thing);
+    }
+
+    @Transactional
+    public void commitStorage(ArrayList<StorageContent> storageContent, ArrayList<StorageJournal> noteList) {
+        storageDAO.commitStorage(storageContent, noteList);
     }
 
 

@@ -12,7 +12,8 @@ public interface StorageService {
 
     public void writeOffThingFromWorkshop(StorageJournal note, ArrayList<StorageJournal> noteList);
 
-    public void writeOffThingFromStorage(Thing thing, int count);
+    public void writeOffThingFromStorage(StorageJournal note, ArrayList<StorageJournal> noteList,
+                                         ArrayList<StorageContent> content);
 
     public void sendThingFromWorkshopToStorage(StorageJournal note, ArrayList<StorageJournal> noteList,
                                                ArrayList<StorageContent> storageContent);
@@ -24,5 +25,7 @@ public interface StorageService {
     public List listStorageContent();
 
     public StorageContent getStorageContentByThing(Thing thing);
+
+    public void commitStorage(ArrayList<StorageContent> storageContent, ArrayList<StorageJournal> noteList);
 
 }

@@ -12,9 +12,42 @@
     </view-state>
     
     <view-state id="edit" view="edit.xhtml">
+
+        <var class="java.util.ArrayList" name="viewScope.noteList"/>
+
+        <var class="java.util.ArrayList" name="viewScope.changedWorkshopContentList"/>
+
         <on-entry>
+            <set name="viewScope.noteList" value="new java.util.ArrayList()"/>
+            <set name="viewScope.changedWorkshopContentList" value="new java.util.ArrayList()"/>
             <evaluate expression="storageService.listStorageContent()" result="viewScope.contents" result-type="dataModel"/>
         </on-entry>
+
+
+        <transition on="showSplitWriteOffDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(null,viewScope.contents.selectedRow.thing)"
+                    result="viewScope.note"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+            />
+        </transition>
+
+        <transition on="writeOffThing">
+            <evaluate expression="storageService.writeOffThingFromStorage(note, noteList, contents.getWrappedData())"/>
+        </transition>
+
+        <transition on="cancelWriteOff">
+            <set name="viewScope.note" value="null"/>
+        </transition>
+
+
+
+
+        <transition on="saveStorage" to="list">
+            <evaluate expression="storageService.commitStorage(contents.getWrappedData(), noteList)"/>
+        </transition>
+
+        <transition on="cancelStorage" to="list" validate="false"/>
     </view-state>
 
 </flow>
