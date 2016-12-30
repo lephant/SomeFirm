@@ -40,6 +40,11 @@
                                          oncomplete="PF('splitWriteOffDialog').show();"/>
                     </h:column>
                 </h:dataTable>
+                <p:commandButton icon="ui-icon-import" action="showSplitImportDialog"
+                                 style="float:right; margin:10px;" oncomplete="PF('splitImportDialog').show();"/>
+
+                <br/><br/>
+
                 <p:commandButton value="Сохранить" id="saveStorage" action="saveStorage"/>
                 <p:commandButton value="Отмена" id="cancelStorage" action="cancelStorage" immediate="true"/>
                 <p:messages showDetail="true"/>
@@ -73,6 +78,42 @@
 
                     <p:commandButton id="cancelWriteOff" action="cancelWriteOff" value="Отмена" ajax="true"
                                      oncomplete="PF('splitWriteOffDialog').hide()" immediate="true"/>
+                    <p:messages showDetail="true"/>
+                </h:form>
+            </p:dialog>
+
+
+            <p:dialog id="splitImportDialog" header="Списать" widgetVar="splitImportDialog"
+                      width="500" modal="true">
+                <h:form>
+                    <p:inputText value="#{note.count}"/>
+
+                    <br/>
+
+                    <p:selectOneMenu value="#{note.thing}" converter="#{thingConverterController}">
+                        <f:selectItems value="#{thingService.listThing()}" var="thing"
+                                       itemValue="#{thing}" itemLabel="#{thing.name}"/>
+                    </p:selectOneMenu>
+
+                    <br/>
+
+                    <p:selectOneMenu value="#{note.storageEmploye}" converter="#{storageEmployeConverterController}">
+                        <f:selectItems value="#{storageEmployeService.listStorageEmploye()}" var="employe"
+                                       itemValue="#{employe}" itemLabel="#{employe.fio}"/>
+                    </p:selectOneMenu>
+
+                    <br/>
+
+                    <p:inputTextarea value="#{note.description}"/>
+
+                    <br/>
+
+                    <p:commandButton id="importThing" action="importThing" value="Импортировать" ajax="true">
+                        <f:ajax onevent="importThing" render=":contentsTable"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="cancelImport" action="cancelImport" value="Отмена" ajax="true"
+                                     oncomplete="PF('splitImportDialog').hide()" immediate="true"/>
                     <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>

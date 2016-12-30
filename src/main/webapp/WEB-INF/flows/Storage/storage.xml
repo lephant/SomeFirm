@@ -41,6 +41,22 @@
         </transition>
 
 
+        <transition on="showSplitImportDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal()"
+                    result="viewScope.note"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+            />
+        </transition>
+
+        <transition on="importThing">
+            <evaluate expression="storageService.importThingToStorage(note, noteList, contents.getWrappedData())"/>
+        </transition>
+
+        <transition on="cancelImport">
+            <set name="viewScope.note" value="null"/>
+        </transition>
+
 
 
         <transition on="saveStorage" to="list">

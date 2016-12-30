@@ -92,8 +92,23 @@ public class StorageServiceImpl implements StorageService {
 
     }
 
-    public void importThingToStorage(Thing thing, int count) {
+    public void importThingToStorage(StorageJournal note, ArrayList<StorageJournal> noteList,
+                                     ArrayList<StorageContent> storageContent) {
+        StorageContent currentContentInStorage = getContentOfStorageByThing(storageContent, note.getThing());
 
+        if (note.getCount() <= 0) return; // TODO: сделать валидаторы
+
+        if (currentContentInStorage == null) {
+            currentContentInStorage = createContentByNote(note);
+            storageContent.add(currentContentInStorage);
+        }
+
+        currentContentInStorage.setCount(currentContentInStorage.getCount() + note.getCount());
+
+        note.setDateAndTime(new Date().getTime());
+        note.setJournalOperationType(ReferenceData.JournalOperationTypes.importOperation);
+
+        noteList.add(note);
     }
 
 

@@ -20,7 +20,8 @@ public interface StorageService {
 
     public void sendThingFromStorageToWorkshop(Thing thing, Workshop workshop, int count);
 
-    public void importThingToStorage(Thing thing, int count);
+    public void importThingToStorage(StorageJournal note, ArrayList<StorageJournal> noteList,
+                                     ArrayList<StorageContent> storageContent);
 
     public List listStorageContent();
 
