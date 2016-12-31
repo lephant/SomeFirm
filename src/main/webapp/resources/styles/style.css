@@ -331,7 +331,7 @@ h1 {
     height: 30px;
 }
 
-.ui-icon-send {
+.ui-icon-import {
     background-image:url("#{resource['images/import.png']}") !important;
     background-size: 18px 18px;
     width: 30px;

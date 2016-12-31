@@ -10,6 +10,7 @@ import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageContent;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Thing;
 import ru.lephant.learning.spring.SomeFirmWebFlow.storage.dao.StorageDAO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,8 @@ public class StorageDAOImpl implements StorageDAO {
         return content;
     }
 
-    public void commitStorage(ArrayList<StorageContent> storageContent, ArrayList<StorageJournal> noteList) {
+    public void commitStorage(ArrayList<StorageContent> storageContent, ArrayList<StorageJournal> noteList,
+                              ArrayList<StorageContent> changedWorkshopContents) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -53,8 +55,12 @@ public class StorageDAOImpl implements StorageDAO {
             session.saveOrUpdate(content);
         }
 
+        for (StorageContent content: changedWorkshopContents) {
+            session.saveOrUpdate(content);
+        }
+
         for (StorageJournal note: noteList) {
-            session.save(note);
+            session.merge(note);
         }
 
         transaction.commit();

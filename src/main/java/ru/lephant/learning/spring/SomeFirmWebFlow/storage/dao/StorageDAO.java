@@ -13,6 +13,7 @@ public interface StorageDAO {
 
     public StorageContent getStorageContentByThing(Thing thing);
 
-    public void commitStorage(ArrayList<StorageContent> storageContent, ArrayList<StorageJournal> noteList);
+    public void commitStorage(ArrayList<StorageContent> storageContent, ArrayList<StorageJournal> noteList,
+                              ArrayList<StorageContent> changedWorkshopContents);
 
 }

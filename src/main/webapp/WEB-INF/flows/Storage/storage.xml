@@ -5,12 +5,13 @@
 
     <view-state id="list" view="list.xhtml">
         <on-render>
-            <evaluate expression="storageService.listStorageContent()" result="viewScope.contents" result-type="dataModel"/>
+            <evaluate expression="storageService.listStorageContent()" result="viewScope.contents"
+                      result-type="dataModel"/>
         </on-render>
-        
+
         <transition on="editStorage" to="edit"/>
     </view-state>
-    
+
     <view-state id="edit" view="edit.xhtml">
 
         <var class="java.util.ArrayList" name="viewScope.noteList"/>
@@ -20,7 +21,8 @@
         <on-entry>
             <set name="viewScope.noteList" value="new java.util.ArrayList()"/>
             <set name="viewScope.changedWorkshopContentList" value="new java.util.ArrayList()"/>
-            <evaluate expression="storageService.listStorageContent()" result="viewScope.contents" result-type="dataModel"/>
+            <evaluate expression="storageService.listStorageContent()" result="viewScope.contents"
+                      result-type="dataModel"/>
         </on-entry>
 
 
@@ -58,9 +60,26 @@
         </transition>
 
 
+        <transition on="showSplitSendDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(viewScope.contents.selectedRow.thing)"
+                    result="viewScope.note"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+            />
+        </transition>
+
+        <transition on="sendThing">
+            <evaluate
+                    expression="storageService.sendThingFromStorageToWorkshop(note, noteList, contents.getWrappedData(), changedWorkshopContentList)"/>
+        </transition>
+
+        <transition on="cancelSend">
+            <set name="viewScope.note" value="null"/>
+        </transition>
+
 
         <transition on="saveStorage" to="list">
-            <evaluate expression="storageService.commitStorage(contents.getWrappedData(), noteList)"/>
+            <evaluate expression="storageService.commitStorage(contents.getWrappedData(), noteList, changedWorkshopContentList)"/>
         </transition>
 
         <transition on="cancelStorage" to="list" validate="false"/>

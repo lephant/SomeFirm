@@ -25,7 +25,7 @@
                              rowClasses="sub_table_tr_odd,sub_table_tr_even"
                              headerClass="sub_table_th"
                              styleClass="sub_table full_width"
-                             columnClasses="sub_table_td_desc,sub_table_td_count,sub_table_td_button">
+                             columnClasses="sub_table_td_desc,sub_table_td_count,sub_table_td_button,sub_table_td_button">
                     <h:column>
                         <f:facet name="header">Название</f:facet>
                         <h:outputText value="#{JsfContent.thing.name}"/>
@@ -33,6 +33,11 @@
                     <h:column>
                         <f:facet name="header">Количество</f:facet>
                         <h:outputText value="#{JsfContent.count}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <p:commandButton icon="ui-icon-send" action="showSplitSendDialog"
+                                         oncomplete="PF('splitSendDialog').show();"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header"/>
@@ -54,7 +59,7 @@
 
 
 
-            <p:dialog id="splitWriteOffDialog" header="Списать" widgetVar="splitWriteOffDialog"
+            <p:dialog id="splitWriteOffDialog" header="Списать со склада" widgetVar="splitWriteOffDialog"
                       width="500" modal="true">
                 <h:form>
                     <p:inputText value="#{note.count}"/>
@@ -73,7 +78,7 @@
                     <br/>
 
                     <p:commandButton id="writeOffThing" action="writeOffThing" value="Списать" ajax="true">
-                        <f:ajax onevent="sendThing" render=":contentsTable"/>
+                        <f:ajax onevent="writeOffThing" render=":contentsTable"/>
                     </p:commandButton>
 
                     <p:commandButton id="cancelWriteOff" action="cancelWriteOff" value="Отмена" ajax="true"
@@ -83,7 +88,7 @@
             </p:dialog>
 
 
-            <p:dialog id="splitImportDialog" header="Списать" widgetVar="splitImportDialog"
+            <p:dialog id="splitImportDialog" header="Импорт на склад" widgetVar="splitImportDialog"
                       width="500" modal="true">
                 <h:form>
                     <p:inputText value="#{note.count}"/>
@@ -114,6 +119,42 @@
 
                     <p:commandButton id="cancelImport" action="cancelImport" value="Отмена" ajax="true"
                                      oncomplete="PF('splitImportDialog').hide()" immediate="true"/>
+                    <p:messages showDetail="true"/>
+                </h:form>
+            </p:dialog>
+
+
+            <p:dialog id="splitSendDialog" header="Отправить в цех" widgetVar="splitSendDialog"
+                      width="500" modal="true">
+                <h:form>
+                    <p:inputText value="#{note.count}"/>
+
+                    <br/>
+
+                    <p:selectOneMenu value="#{note.workshop}" converter="#{workshopConverterController}">
+                        <f:selectItems value="#{workshopService.listWorkshop()}" var="workshop"
+                                       itemValue="#{workshop}" itemLabel="#{workshop.name}"/>
+                    </p:selectOneMenu>
+
+                    <br/>
+
+                    <p:selectOneMenu value="#{note.storageEmploye}" converter="#{storageEmployeConverterController}">
+                        <f:selectItems value="#{storageEmployeService.listStorageEmploye()}" var="employe"
+                                       itemValue="#{employe}" itemLabel="#{employe.fio}"/>
+                    </p:selectOneMenu>
+
+                    <br/>
+
+                    <p:inputTextarea value="#{note.description}"/>
+
+                    <br/>
+
+                    <p:commandButton id="sendThing" action="sendThing" value="Отправить" ajax="true">
+                        <f:ajax onevent="sendThing" render=":contentsTable"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="cancelSend" action="cancelSend" value="Отмена" ajax="true"
+                                     oncomplete="PF('splitSendDialog').hide()" immediate="true"/>
                     <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>

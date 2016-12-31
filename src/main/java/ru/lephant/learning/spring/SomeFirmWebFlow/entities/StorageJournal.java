@@ -18,6 +18,10 @@ public class StorageJournal implements Serializable {
     public StorageJournal() {
     }
 
+    public StorageJournal(Thing thing) {
+        this.thing = thing;
+    }
+
     public StorageJournal(Workshop workshop, Thing thing) {
         this.workshop = workshop;
         this.thing = thing;
