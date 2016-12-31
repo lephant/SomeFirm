@@ -286,7 +286,6 @@ h1 {
 
 .field_label {
     float: left;
-
     text-align: right;
     width: 180px;
 }
@@ -346,8 +345,27 @@ h1 {
 }
 
 
+.dialog_field_block {
+    padding: 10px 0;
+    width: 100%;
+}
 
+.dialog_description_field {
+    width: 73%;
+    height: 150px;
+    margin-left: 2% !important;
+}
 
+.dialog_field_label {
+    float: left;
+    text-align: right;
+    width: 25%;
+}
+
+.dialog_text_field {
+    margin-left: 2% !important;
+    width: 73%;
+}
 
 
 

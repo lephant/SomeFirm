@@ -65,22 +65,31 @@
 
 
             <p:dialog id="splitSendDialog" header="Отправить на склад" widgetVar="splitSendDialog"
-                      width="500" modal="true">
+                      width="500" modal="true" resizable="false">
                 <h:form>
-                    <p:inputText value="#{note.count}"/>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Количество:" for="sendCount"/>
+                        <p:inputText styleClass="dialog_text_field" value="#{note.count}" id="sendCount"/>
+                    </div>
 
-                    <br/>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="sendEmploye"/>
+                        <p:selectOneMenu styleClass="dialog_text_field"
+                                         value="#{note.storageEmploye}"
+                                         converter="#{storageEmployeConverterController}"
+                                         id="sendEmploye">
+                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
+                                           var="employe"
+                                           itemValue="#{employe}"
+                                           itemLabel="#{employe.fio}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
 
-                    <p:selectOneMenu value="#{note.storageEmploye}" converter="#{storageEmployeConverterController}">
-                        <f:selectItems value="#{storageEmployeService.listStorageEmploye()}" var="employe"
-                                       itemValue="#{employe}" itemLabel="#{employe.fio}"/>
-                    </p:selectOneMenu>
-
-                    <br/>
-
-                    <p:inputTextarea value="#{note.description}"/>
-
-                    <br/>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="sendDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="sendDescription"/>
+                    </div>
 
                     <p:commandButton id="sendThing" action="sendThing" value="Отправить" ajax="true">
                         <f:ajax onevent="sendThing" render=":thingsTable"/>
@@ -94,22 +103,31 @@
 
 
             <p:dialog id="splitWriteOffDialog" header="Списать" widgetVar="splitWriteOffDialog"
-                      width="500" modal="true">
+                      width="500" modal="true" resizable="false">
                 <h:form>
-                    <p:inputText value="#{note.count}"/>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Количество:" for="writeOffCount"/>
+                        <p:inputText styleClass="dialog_text_field" value="#{note.count}" id="writeOffCount"/>
+                    </div>
 
-                    <br/>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for=""/>
+                        <p:selectOneMenu styleClass="dialog_text_field"
+                                         value="#{note.storageEmploye}"
+                                         converter="#{storageEmployeConverterController}"
+                                         id="writeOffEmploye">
+                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
+                                           var="employe"
+                                           itemValue="#{employe}"
+                                           itemLabel="#{employe.fio}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
 
-                    <p:selectOneMenu value="#{note.storageEmploye}" converter="#{storageEmployeConverterController}">
-                        <f:selectItems value="#{storageEmployeService.listStorageEmploye()}" var="employe"
-                                       itemValue="#{employe}" itemLabel="#{employe.fio}"/>
-                    </p:selectOneMenu>
-
-                    <br/>
-
-                    <p:inputTextarea value="#{note.description}"/>
-
-                    <br/>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="writeOffDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="writeOffDescription"/>
+                    </div>
 
                     <p:commandButton id="writeOffThing" action="writeOffThing" value="Списать" ajax="true">
                         <f:ajax onevent="sendThing" render=":thingsTable"/>
