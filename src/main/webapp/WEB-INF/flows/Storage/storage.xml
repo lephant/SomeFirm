@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="list" view="list.xhtml">
+        <on-render>
+            <evaluate expression="storageService.listStorageContent()" result="viewScope.contents"
+                      result-type="dataModel"/>
+        </on-render>
+
+        <transition on="editStorage" to="edit"/>
+    </view-state>
+
+    <view-state id="edit" view="edit.xhtml">
+
+        <var class="java.util.ArrayList" name="viewScope.noteList"/>
+
+        <var class="java.util.ArrayList" name="viewScope.changedWorkshopContentList"/>
+
+        <on-entry>
+            <set name="viewScope.noteList" value="new java.util.ArrayList()"/>
+            <set name="viewScope.changedWorkshopContentList" value="new java.util.ArrayList()"/>
+            <evaluate expression="storageService.listStorageContent()" result="viewScope.contents"
+                      result-type="dataModel"/>
+        </on-entry>
+
+
+        <transition on="showSplitWriteOffDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(null,viewScope.contents.selectedRow.thing)"
+                    result="viewScope.note"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+            />
+        </transition>
+
+        <transition on="writeOffThing">
+            <evaluate expression="storageService.writeOffThingFromStorage(note, noteList, contents.getWrappedData())"/>
+        </transition>
+
+        <transition on="cancelWriteOff">
+            <set name="viewScope.note" value="null"/>
+        </transition>
+
+
+        <transition on="showSplitImportDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal()"
+                    result="viewScope.note"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+            />
+        </transition>
+
+        <transition on="importThing">
+            <evaluate expression="storageService.importThingToStorage(note, noteList, contents.getWrappedData())"/>
+        </transition>
+
+        <transition on="cancelImport">
+            <set name="viewScope.note" value="null"/>
+        </transition>
+
+
+        <transition on="showSplitSendDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(viewScope.contents.selectedRow.thing)"
+                    result="viewScope.note"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+            />
+        </transition>
+
+        <transition on="sendThing">
+            <evaluate
+                    expression="storageService.sendThingFromStorageToWorkshop(note, noteList, contents.getWrappedData(), changedWorkshopContentList)"/>
+        </transition>
+
+        <transition on="cancelSend">
+            <set name="viewScope.note" value="null"/>
+        </transition>
+
+
+        <transition on="saveStorage" to="list">
+            <evaluate expression="storageService.commitStorage(contents.getWrappedData(), noteList, changedWorkshopContentList)"/>
+        </transition>
+
+        <transition on="cancelStorage" to="list" validate="false"/>
+    </view-state>
+
+</flow>

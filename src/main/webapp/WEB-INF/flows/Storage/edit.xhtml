@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Склад</h1>
+            <h:form>
+                <h:dataTable id="contentsTable"
+                             value="#{contents}"
+                             var="JsfContent"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_desc,sub_table_td_count,sub_table_td_button,sub_table_td_button">
+                    <h:column>
+                        <f:facet name="header">Название</f:facet>
+                        <h:outputText value="#{JsfContent.thing.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Количество</f:facet>
+                        <h:outputText value="#{JsfContent.count}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <p:commandButton icon="ui-icon-send" action="showSplitSendDialog"
+                                         oncomplete="PF('splitSendDialog').show();"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"/>
+                        <p:commandButton icon="ui-icon-writeOff" action="showSplitWriteOffDialog"
+                                         oncomplete="PF('splitWriteOffDialog').show();"/>
+                    </h:column>
+                </h:dataTable>
+                <p:commandButton icon="ui-icon-import" action="showSplitImportDialog"
+                                 style="float:right; margin:10px;" oncomplete="PF('splitImportDialog').show();"/>
+
+                <br/><br/>
+
+                <p:commandButton value="Сохранить" id="saveStorage" action="saveStorage"/>
+                <p:commandButton value="Отмена" id="cancelStorage" action="cancelStorage" immediate="true"/>
+                <p:messages showDetail="true"/>
+            </h:form>
+
+
+
+
+
+            <p:dialog id="splitWriteOffDialog" header="Списать со склада" widgetVar="splitWriteOffDialog"
+                      width="500" modal="true" resizable="false">
+                <h:form>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Количество:" for="writeOffCount"/>
+                        <p:inputText styleClass="dialog_text_field" value="#{note.count}" id="writeOffCount"/>
+                    </div>
+
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="writeOffEmploye"/>
+                        <p:selectOneMenu styleClass="dialog_text_field"
+                                         value="#{note.storageEmploye}"
+                                         converter="#{storageEmployeConverterController}"
+                                         id="writeOffEmploye">
+                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
+                                           var="employe"
+                                           itemValue="#{employe}"
+                                           itemLabel="#{employe.fio}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="writeOffDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="writeOffDescription"/>
+                    </div>
+
+                    <p:commandButton id="writeOffThing" action="writeOffThing" value="Списать" ajax="true">
+                        <f:ajax onevent="writeOffThing" render=":contentsTable"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="cancelWriteOff" action="cancelWriteOff" value="Отмена" ajax="true"
+                                     oncomplete="PF('splitWriteOffDialog').hide()" immediate="true"/>
+                    <p:messages showDetail="true"/>
+                </h:form>
+            </p:dialog>
+
+
+            <p:dialog id="splitImportDialog" header="Импорт на склад" widgetVar="splitImportDialog"
+                      width="500" modal="true" resizable="false">
+                <h:form>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Количество:" for="importCount"/>
+                        <p:inputText styleClass="dialog_text_field" value="#{note.count}" id="importCount"/>
+                    </div>
+
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Предмет:" for="thingImport"/>
+                        <p:selectOneMenu styleClass="dialog_text_field"
+                                         value="#{note.thing}"
+                                         converter="#{thingConverterController}"
+                                         id="thingImport">
+                            <f:selectItems value="#{thingService.listThing()}"
+                                           var="thing"
+                                           itemValue="#{thing}"
+                                           itemLabel="#{thing.name}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="importEmploye"/>
+                        <p:selectOneMenu styleClass="dialog_text_field"
+                                         value="#{note.storageEmploye}"
+                                         converter="#{storageEmployeConverterController}"
+                                         id="importEmploye">
+                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
+                                           var="employe"
+                                           itemValue="#{employe}"
+                                           itemLabel="#{employe.fio}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="importDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="importDescription"/>
+                    </div>
+
+                    <p:commandButton id="importThing" action="importThing" value="Импортировать" ajax="true">
+                        <f:ajax onevent="importThing" render=":contentsTable"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="cancelImport" action="cancelImport" value="Отмена" ajax="true"
+                                     oncomplete="PF('splitImportDialog').hide()" immediate="true"/>
+                    <p:messages showDetail="true"/>
+                </h:form>
+            </p:dialog>
+
+
+            <p:dialog id="splitSendDialog" header="Отправить в цех" widgetVar="splitSendDialog"
+                      width="500" modal="true" resizable="false">
+                <h:form>
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Количество:" for="sendCount"/>
+                        <p:inputText styleClass="dialog_text_field" value="#{note.count}" id="sendCount"/>
+                    </div>
+
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Цех:" for="sendWorkshop"/>
+                        <p:selectOneMenu styleClass="dialog_text_field"
+                                         value="#{note.workshop}"
+                                         converter="#{workshopConverterController}"
+                                         id="sendWorkshop">
+                            <f:selectItems value="#{workshopService.listWorkshop()}"
+                                           var="workshop"
+                                           itemValue="#{workshop}"
+                                           itemLabel="#{workshop.name}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="sendEmploye"/>
+                        <p:selectOneMenu styleClass="dialog_text_field"
+                                         value="#{note.storageEmploye}"
+                                         converter="#{storageEmployeConverterController}"
+                                         id="sendEmploye">
+                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
+                                           var="employe"
+                                           itemValue="#{employe}"
+                                           itemLabel="#{employe.fio}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="dialog_field_block">
+                        <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="sendDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="sendDescription"/>
+                    </div>
+
+                    <p:commandButton id="sendThing" action="sendThing" value="Отправить" ajax="true">
+                        <f:ajax onevent="sendThing" render=":contentsTable"/>
+                    </p:commandButton>
+
+                    <p:commandButton id="cancelSend" action="cancelSend" value="Отмена" ajax="true"
+                                     oncomplete="PF('splitSendDialog').hide()" immediate="true"/>
+                    <p:messages showDetail="true"/>
+                </h:form>
+            </p:dialog>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

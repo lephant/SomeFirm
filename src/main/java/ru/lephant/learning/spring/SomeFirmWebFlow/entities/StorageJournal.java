@@ -15,7 +15,20 @@ public class StorageJournal implements Serializable {
     private String description;
     private JournalOperationType journalOperationType;
 
+    public StorageJournal() {
+    }
+
+    public StorageJournal(Thing thing) {
+        this.thing = thing;
+    }
+
+    public StorageJournal(Workshop workshop, Thing thing) {
+        this.workshop = workshop;
+        this.thing = thing;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -25,7 +38,7 @@ public class StorageJournal implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "workshop_id", referencedColumnName = "id")
     public Workshop getWorkshop() {
         return workshop;
@@ -35,14 +48,14 @@ public class StorageJournal implements Serializable {
         this.workshop = workshop;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "pressmark", referencedColumnName = "pressmark")
     public Thing getThing() {
         return thing;
     }
 
-    public void setThing(Thing pressmark) {
-        this.thing = pressmark;
+    public void setThing(Thing thing) {
+        this.thing = thing;
     }
 
     @Basic
@@ -65,7 +78,7 @@ public class StorageJournal implements Serializable {
         this.dateAndTime = dateAndTime;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "storage_employe_id", referencedColumnName = "id")
     public StorageEmploye getStorageEmploye() {
         return storageEmploye;
@@ -75,7 +88,7 @@ public class StorageJournal implements Serializable {
         this.storageEmploye = storageEmployeId;
     }
 
-    @Basic(fetch = FetchType.LAZY)
+    @Basic
     @Column(name = "description", nullable = true, length = 4096)
     public String getDescription() {
         return description;

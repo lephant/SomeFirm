@@ -48,4 +48,9 @@ public class StorageEmploye implements Serializable {
         result = 31 * result + (fio != null ? fio.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
 }

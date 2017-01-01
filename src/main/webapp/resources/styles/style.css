@@ -269,7 +269,7 @@ h1 {
     width: 590px;
 }
 
-.sub_table_td_delete {
+.sub_table_td_button {
     padding: 10px;
     width: 30px;
 }
@@ -286,7 +286,6 @@ h1 {
 
 .field_label {
     float: left;
-
     text-align: right;
     width: 180px;
 }
@@ -317,6 +316,27 @@ h1 {
     height: 30px;
 }
 
+.ui-icon-writeOff {
+    background-image:url("#{resource['images/writeOff.png']}") !important;
+    background-size: 18px 18px;
+    width: 30px;
+    height: 30px;
+}
+
+.ui-icon-send {
+    background-image:url("#{resource['images/send.png']}") !important;
+    background-size: 18px 18px;
+    width: 30px;
+    height: 30px;
+}
+
+.ui-icon-import {
+    background-image:url("#{resource['images/import.png']}") !important;
+    background-size: 18px 18px;
+    width: 30px;
+    height: 30px;
+}
+
 .operations_block {
     width: 32%;
     text-align: center;
@@ -325,10 +345,34 @@ h1 {
 }
 
 
+.dialog_field_block {
+    padding: 10px 0;
+    width: 100%;
+}
 
+.dialog_description_field {
+    width: 73%;
+    height: 150px;
+    margin-left: 2% !important;
+}
 
+.dialog_field_label {
+    float: left;
+    text-align: right;
+    width: 25%;
+}
 
+.dialog_text_field {
+    margin-left: 2% !important;
+    width: 73%;
+}
 
+.journal_note_block {
+    float: left;
+    margin: 0 1% 1% 0;
+    width: 49%;
+    text-align: center;
+}
 
 
 

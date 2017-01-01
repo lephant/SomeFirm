@@ -2,15 +2,16 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Workshop implements Serializable {
     private long id;
     private String name;
-    private Set<StoragesContent> contents;
+    private List<StorageContent> contents;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -30,15 +31,23 @@ public class Workshop implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "workshop", fetch = FetchType.LAZY)
-    public Set<StoragesContent> getContents() {
+    @OneToMany(mappedBy = "workshop", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<StorageContent> getContents() {
         return contents;
     }
 
-    public void setContents(Set<StoragesContent> contents) {
+    public void setContents(List<StorageContent> contents) {
         this.contents = contents;
     }
 
+    public StorageContent getContentByThing(Thing thing) {
+        for (StorageContent content: contents) {
+            if (content.getThing().equals(thing)) {
+                return content;
+            }
+        }
+        return null;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -47,7 +56,8 @@ public class Workshop implements Serializable {
 
         Workshop workshop = (Workshop) o;
 
-        return id == workshop.id;
+        if (id != workshop.id) return false;
+        return name.equals(workshop.name);
     }
 
     @Override

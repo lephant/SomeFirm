@@ -29,7 +29,7 @@
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageEmploye"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"/>
-        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StoragesContent"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageContent"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Team"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.TeamUser"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType"/>

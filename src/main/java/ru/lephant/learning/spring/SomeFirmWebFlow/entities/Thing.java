@@ -65,4 +65,9 @@ public class Thing implements Serializable {
         result = 31 * result + type.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(pressmark);
+    }
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="list" view="list.xhtml">
+        <on-render>
+            <evaluate expression="workshopService.listWorkshop()" result="viewScope.workshops" result-type="dataModel"/>
+        </on-render>
+
+        <transition on="selectWorkshop" to="details">
+            <set name="flowScope.workshopId" value="viewScope.workshops.selectedRow.id" type="long"/>
+        </transition>
+
+        <transition on="createWorkshop" to="edit">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop()"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop"
+                    result="flowScope.workshop"
+            />
+        </transition>
+    </view-state>
+
+
+    <view-state id="details" view="details.xhtml">
+        <on-render>
+            <evaluate expression="workshopService.getWorkshopById(flowScope.workshopId)"
+                      result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop"
+                      result="flowScope.workshop"
+            />
+        </on-render>
+
+        <transition on="editWorkshop" to="edit"/>
+
+        <transition on="deleteWorkshop" to="list">
+            <evaluate expression="workshopService.deleteWorkshop(flowScope.workshop.id)"/>
+        </transition>
+    </view-state>
+
+
+    <view-state id="edit" view="edit.xhtml" model="workshop">
+
+        <var class="java.util.ArrayList" name="viewScope.noteList"/>
+
+        <var class="java.util.ArrayList" name="viewScope.storageContent"/>
+
+        <on-entry>
+            <set name="viewScope.noteList" value="new java.util.ArrayList()"/>
+            <set name="viewScope.storageContent" value="storageService.listStorageContent()"/>
+            <evaluate expression="workshop.getContents()" result="viewScope.content" result-type="dataModel"/>
+        </on-entry>
+
+
+        <transition on="showSplitSendDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(workshop,viewScope.content.selectedRow.thing)"
+                    result="viewScope.note"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+            />
+        </transition>
+
+        <transition on="sendThing">
+            <evaluate expression="storageService.sendThingFromWorkshopToStorage(note,noteList,storageContent)"/>
+        </transition>
+
+        <transition on="cancelSend">
+            <set name="viewScope.note" value="null"/>
+        </transition>
+
+
+        <transition on="showSplitWriteOffDialog">
+            <evaluate
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(workshop,viewScope.content.selectedRow.thing)"
+                    result="viewScope.note"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+            />
+        </transition>
+
+        <transition on="writeOffThing">
+            <evaluate expression="storageService.writeOffThingFromWorkshop(note, noteList)"/>
+        </transition>
+
+        <transition on="cancelWriteOff">
+            <set name="viewScope.note" value="null"/>
+        </transition>
+
+
+        <transition on="saveWorkshop" to="list">
+            <evaluate expression="workshopService.saveWorkshop(workshop, noteList, storageContent)"/>
+        </transition>
+
+        <transition on="cancelWorkshop" to="list" validate="false"/>
+    </view-state>
+
+</flow>

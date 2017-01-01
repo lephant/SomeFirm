@@ -5,13 +5,14 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "storages_content", schema = "somefirmdb")
-public class StoragesContent implements Serializable {
+public class StorageContent implements Serializable {
     private long id;
     private Workshop workshop;
     private Thing thing;
     private int count;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -57,7 +58,7 @@ public class StoragesContent implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StoragesContent that = (StoragesContent) o;
+        StorageContent that = (StorageContent) o;
 
         if (id != that.id) return false;
         if (count != that.count) return false;

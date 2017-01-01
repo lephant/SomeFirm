@@ -9,6 +9,14 @@ public class JournalOperationType implements Serializable {
     private int id;
     private String name;
 
+    public JournalOperationType() {
+    }
+
+    public JournalOperationType(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

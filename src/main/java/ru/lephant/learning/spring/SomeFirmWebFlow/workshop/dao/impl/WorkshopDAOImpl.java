@@ -7,9 +7,12 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageContent;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop;
 import ru.lephant.learning.spring.SomeFirmWebFlow.workshop.dao.WorkshopDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -53,10 +56,24 @@ public class WorkshopDAOImpl implements WorkshopDAO {
         session.close();
     }
 
-    public void saveWorkshop(Workshop workshop) {
+    public void saveWorkshop(Workshop workshop, ArrayList<StorageJournal> noteList, ArrayList<StorageContent> storageContent) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
+
         session.saveOrUpdate(workshop);
+
+        if (storageContent != null) {
+            for (StorageContent content: storageContent) {
+                session.saveOrUpdate(content);
+            }
+        }
+
+        if (noteList != null) {
+            for (StorageJournal storageJournal:noteList) {
+                session.save(storageJournal);
+            }
+        }
+
         transaction.commit();
         session.close();
     }
