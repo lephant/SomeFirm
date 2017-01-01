@@ -78,7 +78,7 @@ public class StorageJournal implements Serializable {
         this.dateAndTime = dateAndTime;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "storage_employe_id", referencedColumnName = "id")
     public StorageEmploye getStorageEmploye() {
         return storageEmploye;
@@ -88,7 +88,7 @@ public class StorageJournal implements Serializable {
         this.storageEmploye = storageEmployeId;
     }
 
-    @Basic(fetch = FetchType.LAZY)
+    @Basic
     @Column(name = "description", nullable = true, length = 4096)
     public String getDescription() {
         return description;
