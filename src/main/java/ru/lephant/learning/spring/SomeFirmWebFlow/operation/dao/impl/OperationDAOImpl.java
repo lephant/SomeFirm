@@ -43,6 +43,17 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
         return operation;
     }
 
+    public byte[] getPlanOfOperationById(long id) {
+        Session session = sessionFactory.openSession();
+        Operation operation = (Operation)session
+                .createCriteria(Operation.class)
+                .add(Restrictions.idEq(id))
+                .uniqueResult();
+        Hibernate.initialize(operation.getPlan());
+        session.close();
+        return operation.getPlan();
+    }
+
     public List listOperation() {
         Session session = sessionFactory.openSession();
         List list = session

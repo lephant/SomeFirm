@@ -27,6 +27,11 @@ public class OperationServiceImpl implements OperationService, Serializable {
     }
 
     @Transactional(readOnly = true)
+    public byte[] getPlanOfOperationById(long id) {
+        return operationDAO.getPlanOfOperationById(id);
+    }
+
+    @Transactional(readOnly = true)
     public List listOperation() {
         return operationDAO.listOperation();
     }

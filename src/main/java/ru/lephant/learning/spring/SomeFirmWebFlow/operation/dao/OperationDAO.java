@@ -10,6 +10,8 @@ public interface OperationDAO {
 
     public Operation getLazyOperationById(long id);
 
+    public byte[] getPlanOfOperationById(long id);
+
     public List listOperation();
 
     public void deleteOperation(long id);

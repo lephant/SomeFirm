@@ -3,6 +3,7 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,7 @@ public class Operation implements Serializable {
     private long id;
     private String description;
     private long duration;
-    private Plan plan;
+    private byte[] plan;
     private Workshop defaultWorkshop;
     private List<OperationSacrificialMaterial> sacrificialMaterials = new ArrayList<OperationSacrificialMaterial>();
     private List<OperationTool> tools = new ArrayList<OperationTool>();
@@ -46,14 +47,14 @@ public class Operation implements Serializable {
         this.duration = duration;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "plan_id", referencedColumnName = "id")
-    public Plan getPlan() {
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "plan", nullable = true)
+    public byte[] getPlan() {
         return plan;
     }
 
-    public void setPlan(Plan planId) {
-        this.plan = planId;
+    public void setPlan(byte[] plan) {
+        this.plan = plan;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -114,6 +115,7 @@ public class Operation implements Serializable {
         if (duration != operation.duration) return false;
         if (description != null ? !description.equals(operation.description) : operation.description != null)
             return false;
+        if (!Arrays.equals(plan, operation.plan)) return false;
         return defaultWorkshop != null ? defaultWorkshop.equals(operation.defaultWorkshop) : operation.defaultWorkshop == null;
 
     }
@@ -123,6 +125,7 @@ public class Operation implements Serializable {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (int) (duration ^ (duration >>> 32));
+        result = 31 * result + Arrays.hashCode(plan);
         result = 31 * result + (defaultWorkshop != null ? defaultWorkshop.hashCode() : 0);
         return result;
     }
