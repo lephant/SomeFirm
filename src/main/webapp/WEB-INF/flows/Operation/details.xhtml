@@ -26,9 +26,9 @@
                 <h:outputText value="Цех: #{operation.defaultWorkshop.name}"/><br/>
 
                 <p:fieldset legend="Чертеж" toggleable="true" toggleSpeed="800" collapsed="true"
-                            style="padding:0; margin-top:20px; background:none; border:none;">
-                    <p:graphicImage value="/ShowImage?id=#{operation.id}" rendered="#{operation.plan!=null}"
-                                    width="960"/>
+                            style="padding:0; margin-top:20px; background:none; border:none; margin-bottom:5px;"
+                            rendered="#{operation.plan!=null}">
+                    <p:graphicImage value="/ShowImage?id=#{operation.id}" width="960"/>
                 </p:fieldset>
 
 

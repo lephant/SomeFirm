@@ -37,6 +37,8 @@
 
     <view-state id="edit" view="edit.xhtml" model="operation">
 
+        <var class="ru.lephant.learning.spring.SomeFirmWebFlow.operation.FileUploadBean" name="fileUploadBean"/>
+
         <var class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"
              name="addingSacrificialMaterial"/>
 
@@ -94,10 +96,20 @@
 
 
         <transition on="save" to="list">
-            <evaluate expression="operationService.saveOperation(flowScope.operation)"/>
+            <evaluate expression="operationService.saveOperation(flowScope.operation, fileUploadBean)"/>
         </transition>
 
         <transition on="cancel" to="list" bind="false" validate="false"/>
+
+
+        <transition on="clearImage">
+            <evaluate expression="fileUploadBean.clear()"/>
+            <render fragments="mainForm:imageMessage"/>
+        </transition>
+
+        <transition on="imageIsUpload">
+            <render fragments="mainForm:imageMessage"/>
+        </transition>
     </view-state>
 
 </flow>

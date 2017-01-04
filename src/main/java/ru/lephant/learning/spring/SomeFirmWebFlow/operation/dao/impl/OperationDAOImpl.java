@@ -5,6 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation;
+import ru.lephant.learning.spring.SomeFirmWebFlow.operation.FileUploadBean;
 import ru.lephant.learning.spring.SomeFirmWebFlow.operation.dao.OperationDAO;
 
 import java.io.Serializable;
@@ -73,7 +74,8 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
         session.close();
     }
 
-    public void saveOperation(Operation operation) {
+    public void saveOperation(Operation operation, FileUploadBean fileUploadBean) {
+        if (fileUploadBean.getData() != null) operation.setPlan(fileUploadBean.getData());
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(operation);

@@ -95,11 +95,11 @@ a, a:hover {
 
 .list_actions_li {
     float: right;
-    border-right: 1px #858585 solid;
+    border-right: 1px #0090FF solid;
 }
 
 .list_actions_li_a {
-    color: #858585;
+    color: #0090FF;
     padding: 5px 5px;
     font-family: Arial;
     font-size: 12px;
@@ -201,6 +201,14 @@ a, a:hover {
     color: #fff;
     width: 100%;
     height: 100%;
+}
+
+.menu_flex_item_a:visited {
+    color: #fff;
+}
+
+.menu_flex_item_a:active {
+    color: #fff;
 }
 
 /*Work*/
@@ -377,8 +385,7 @@ h1 {
 
 
 
-
-/*Footer*/
+    /*Footer*/
 .footer {
     border-top: 3px #0d83c7 solid;
     background-color: #000000;
@@ -386,6 +393,6 @@ h1 {
 
 .footer_firm_label {
     padding: 20px;
-    color: #fff;
+    color: #0090FF;
     text-align: center;
 }

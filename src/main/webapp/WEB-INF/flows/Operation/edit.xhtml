@@ -17,7 +17,7 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
-            <h:form>
+            <h:form id="mainForm">
 
                 <div class="field_block">
                     <p:outputLabel for="description" value="Описание:" styleClass="field_label"/>
@@ -29,13 +29,6 @@
                     <p:inputText styleClass="text_field" id="duration" value="#{operation.duration}"/>
                 </div>
 
-                <!--<div class="field_block">
-                    <p:outputLabel for="plan"  value="Чертеж:" styleClass="field_label"/>
-                    <p:selectOneMenu styleClass="text_field" id="plan" value="#{operation.plan}" converter="#{planConverterController}">
-                        <f:selectItems value="#{planService.listPlan()}"/>
-                    </p:selectOneMenu>
-                </div>-->
-
                 <div class="field_block">
                     <p:outputLabel for="defaultWorkshop" value="Цех:" styleClass="field_label"/>
                     <p:selectOneMenu id="defaultWorkshop" value="#{operation.defaultWorkshop}"
@@ -44,6 +37,18 @@
                                        itemLabel="#{workshopInView.name}" itemValue="#{workshopInView}"/>
                     </p:selectOneMenu>
                 </div>
+
+                <p:fragment id="imageMessage">
+                    <h:outputText value="При сохранении изображение будет изменено..."
+                                  rendered="#{fileUploadBean.data!=null}"/>
+                </p:fragment>
+                <p:fieldset legend="Чертеж" toggleable="true" toggleSpeed="800" collapsed="true"
+                            style="padding:0; margin-top:20px; background:none; border:none; margin-bottom:5px;"
+                            rendered="#{operation.plan!=null}">
+                    <p:graphicImage value="/ShowImage?id=#{operation.id}" width="960"/>
+                </p:fieldset>
+
+                <!---->
 
                 <div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
                 <h:dataTable id="materialsTable"
@@ -72,7 +77,8 @@
                         </p:commandButton>
                     </h:column>
                 </h:dataTable>
-                <p:commandButton style="float:right; margin:10px;" icon="ui-icon-add" action="showSplitMaterialDialog" oncomplete="PF('splitMaterialDialog').show();"/>
+                <p:commandButton style="float:right; margin:10px;" icon="ui-icon-add" action="showSplitMaterialDialog"
+                                 oncomplete="PF('splitMaterialDialog').show();"/>
 
                 <br/><br/>
 
@@ -102,7 +108,8 @@
                         </p:commandButton>
                     </h:column>
                 </h:dataTable>
-                <p:commandButton style="float:right; margin:10px;" icon="ui-icon-add" action="showSplitToolDialog" oncomplete="PF('splitToolDialog').show();"/>
+                <p:commandButton style="float:right; margin:10px;" icon="ui-icon-add" action="showSplitToolDialog"
+                                 oncomplete="PF('splitToolDialog').show();"/>
 
                 <br/><br/>
 
@@ -112,9 +119,6 @@
                 <p:messages showDetail="true"/>
 
             </h:form>
-
-
-
 
 
             <p:dialog id="splitMaterialDialog" header="Добавление материала" widgetVar="splitMaterialDialog"
@@ -161,6 +165,17 @@
                     <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
+
+
+            <h:form enctype="multipart/form-data">
+                <p:fileUpload fileUploadListener="#{fileUploadBean.handleFileUpload}"
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/" description="Images">
+                </p:fileUpload>
+            </h:form>
+            <h:form>
+                <p:commandButton value="Clear" action="clearImage"/>
+            </h:form>
+
 
         </ui:define>
     </ui:composition>

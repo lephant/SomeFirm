@@ -48,6 +48,7 @@ public class Operation implements Serializable {
     }
 
     @Basic(fetch = FetchType.LAZY)
+    @Lob
     @Column(name = "plan", nullable = true)
     public byte[] getPlan() {
         return plan;
