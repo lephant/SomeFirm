@@ -20,65 +20,68 @@
         <ui:define name="work">
             <h1 class="center">Инфо об операции</h1>
             <h:form>
-                <h:dataTable value="#{operation}" var="oper">
+                <h:outputText value="ID: #{operation.id}"/><br/>
+                <h:outputText value="Описание операции: #{operation.description}"/><br/>
+                <h:outputText value="Продолжительность: #{operation.duration}"/><br/>
+                <h:outputText value="Цех: #{operation.defaultWorkshop.name}"/><br/>
+
+                <p:fieldset legend="Чертеж" toggleable="true" toggleSpeed="800" collapsed="true"
+                            style="padding:0; margin-top:20px; background:none; border:none; margin-bottom:5px;"
+                            rendered="#{operation.plan!=null}">
+                    <p:graphicImage value="/ShowImage?id=#{operation.id}" width="960"/>
+                </p:fieldset>
+
+
+                <br/>
+
+                <div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
+                <h:dataTable id="materialsTable"
+                             value="#{operation.sacrificialMaterials}"
+                             var="sacrificialMaterial"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_name, sub_table_td_desc, sub_table_td_count">
                     <h:column>
-                        <h:outputText value="ID: #{oper.id}"/><br/>
-                        <h:outputText value="Описание операции: #{oper.description}"/><br/>
-                        <h:outputText value="Продолжительность: #{oper.duration}"/><br/>
-                        <h:outputText value="Чертеж: #{oper.plan.id}"/><br/>
-                        <h:outputText value="Цех: #{oper.defaultWorkshop.name}"/><br/>
+                        <f:facet name="header">Название</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Описание</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Количество</f:facet>
+                        <h:outputText value="#{sacrificialMaterial.count}"/>
+                    </h:column>
+                </h:dataTable><br/>
 
-                        <br/>
+                <br/>
 
-                        <div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
-                        <h:dataTable id="materialsTable"
-                                     value="#{operation.sacrificialMaterials}"
-                                     var="sacrificialMaterial"
-                                     rowClasses="sub_table_tr_odd,sub_table_tr_even"
-                                     headerClass="sub_table_th"
-                                     styleClass="sub_table full_width"
-                                     columnClasses="sub_table_td_name, sub_table_td_desc, sub_table_td_count">
-                            <h:column>
-                                <f:facet name="header">Название</f:facet>
-                                <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.name}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">Описание</f:facet>
-                                <h:outputText value="#{sacrificialMaterial.sacrificialMaterial.description}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">Количество</f:facet>
-                                <h:outputText value="#{sacrificialMaterial.count}"/>
-                            </h:column>
-                        </h:dataTable><br/>
-
-                        <br/>
-
-                        <div class="sub_table_header"><h:outputText value="Требуемые инструменты:"/></div>
-                        <h:dataTable value="#{operation.tools}"
-                                     var="tool"
-                                     rowClasses="sub_table_tr_odd,sub_table_tr_even"
-                                     headerClass="sub_table_th"
-                                     styleClass="sub_table full_width"
-                                     columnClasses="sub_table_td_name, sub_table_td_desc, sub_table_td_count">
-                            <h:column>
-                                <f:facet name="header">Название</f:facet>
-                                <h:outputText value="#{tool.toolType.name}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">Описание</f:facet>
-                                <h:outputText value="#{tool.toolType.description}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">Количество</f:facet>
-                                <h:outputText value="#{tool.count}"/>
-                            </h:column>
-                        </h:dataTable>
-
-                        <p:commandButton value="Редактировать" id="editOperation" action="edit"/>
-                        <p:commandButton value="Удалить" id="deleteOperation" action="delete"/>
+                <div class="sub_table_header"><h:outputText value="Требуемые инструменты:"/></div>
+                <h:dataTable value="#{operation.tools}"
+                             var="tool"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_name, sub_table_td_desc, sub_table_td_count">
+                    <h:column>
+                        <f:facet name="header">Название</f:facet>
+                        <h:outputText value="#{tool.toolType.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Описание</f:facet>
+                        <h:outputText value="#{tool.toolType.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Количество</f:facet>
+                        <h:outputText value="#{tool.count}"/>
                     </h:column>
                 </h:dataTable>
+
+                <p:commandButton value="Редактировать" id="editOperation" action="edit"/>
+                <p:commandButton value="Удалить" id="deleteOperation" action="delete"/>
+
             </h:form>
         </ui:define>
     </ui:composition>

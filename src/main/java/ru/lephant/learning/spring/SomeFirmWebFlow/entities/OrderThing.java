@@ -1,5 +1,7 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,6 +13,7 @@ public class OrderThing implements Serializable {
     private Thing thing;
     private int count;
     private String description;
+    private OrderState state;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -62,6 +65,17 @@ public class OrderThing implements Serializable {
         this.description = description;
     }
 
+    @Basic
+    @Column(name = "state", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    public OrderState getState() {
+        return state;
+    }
+
+    public void setState(OrderState state) {
+        this.state = state;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -74,7 +88,8 @@ public class OrderThing implements Serializable {
         if (count != that.count) return false;
         if (!user.equals(that.user)) return false;
         if (!thing.equals(that.thing)) return false;
-        return description != null ? description.equals(that.description) : that.description == null;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        return state == that.state;
 
     }
 
@@ -85,6 +100,7 @@ public class OrderThing implements Serializable {
         result = 31 * result + thing.hashCode();
         result = 31 * result + count;
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + state.hashCode();
         return result;
     }
 }

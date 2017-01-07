@@ -1,7 +1,7 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.tool.service.ToolService;
 
@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Controller(value = "toolTypeConverterController")
+@Component(value = "toolTypeConverterController")
 @FacesConverter(value = "toolTypeConverter")
 public class ToolTypeConverter implements Converter {
 

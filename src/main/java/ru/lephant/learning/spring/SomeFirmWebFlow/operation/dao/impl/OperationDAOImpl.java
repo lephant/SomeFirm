@@ -5,6 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation;
+import ru.lephant.learning.spring.SomeFirmWebFlow.operation.FileUploadBean;
 import ru.lephant.learning.spring.SomeFirmWebFlow.operation.dao.OperationDAO;
 
 import java.io.Serializable;
@@ -43,6 +44,17 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
         return operation;
     }
 
+    public byte[] getPlanOfOperationById(long id) {
+        Session session = sessionFactory.openSession();
+        Operation operation = (Operation)session
+                .createCriteria(Operation.class)
+                .add(Restrictions.idEq(id))
+                .uniqueResult();
+        Hibernate.initialize(operation.getPlan());
+        session.close();
+        return operation.getPlan();
+    }
+
     public List listOperation() {
         Session session = sessionFactory.openSession();
         List list = session
@@ -62,7 +74,8 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
         session.close();
     }
 
-    public void saveOperation(Operation operation) {
+    public void saveOperation(Operation operation, FileUploadBean fileUploadBean) {
+        if (fileUploadBean.getData() != null) operation.setPlan(fileUploadBean.getData());
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(operation);

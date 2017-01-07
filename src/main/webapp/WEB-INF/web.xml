@@ -8,7 +8,8 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
-    </context-param>>
+    </context-param>
+    >
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -22,7 +23,23 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
         </init-param>
+
+        <multipart-config>
+            <max-file-size>10485760</max-file-size><!--10MB-->
+            <max-request-size>20971520</max-request-size><!--20MB-->
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
     </servlet>
+
+    <filter>
+        <display-name>springMultipartFilter</display-name>
+        <filter-name>springMultipartFilter</filter-name>
+        <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springMultipartFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
@@ -49,4 +66,40 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+
+    <context-param>
+        <param-name>primefaces.UPLOADER</param-name>
+        <param-value>auto</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>PrimeFacesFileUploadFilter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+        <init-param>
+            <param-name>thresholdSize</param-name>
+            <param-value>20971520</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>PrimeFacesFileUploadFilter</filter-name>
+        <servlet-name>dispatcher</servlet-name>
+    </filter-mapping>
+
+
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
 </web-app>

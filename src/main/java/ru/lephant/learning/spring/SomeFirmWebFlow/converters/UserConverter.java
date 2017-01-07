@@ -1,29 +1,31 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Plan;
-import ru.lephant.learning.spring.SomeFirmWebFlow.plan.service.PlanService;
+import org.springframework.stereotype.Component;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.User;
+import ru.lephant.learning.spring.SomeFirmWebFlow.user.service.UserService;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Controller(value = "planConverterController")
-@FacesConverter(value = "planConverter")
-public class PlanConverter implements Converter {
+@Component("userConverterController")
+@FacesConverter(value = "userConverter")
+public class UserConverter implements Converter{
 
     @Autowired
-    PlanService planService;
+    UserService userService;
 
+
+    @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-        Plan plan = planService.getPlanById(Long.valueOf(s));
-        return plan;
+        User user = userService.getUserByUsername(s);
+        return user;
     }
 
+    @Override
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object o) {
         return o.toString();
     }
-
 }

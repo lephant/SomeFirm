@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation;
+import ru.lephant.learning.spring.SomeFirmWebFlow.operation.FileUploadBean;
 import ru.lephant.learning.spring.SomeFirmWebFlow.operation.dao.OperationDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.operation.service.OperationService;
 
@@ -27,6 +28,11 @@ public class OperationServiceImpl implements OperationService, Serializable {
     }
 
     @Transactional(readOnly = true)
+    public byte[] getPlanOfOperationById(long id) {
+        return operationDAO.getPlanOfOperationById(id);
+    }
+
+    @Transactional(readOnly = true)
     public List listOperation() {
         return operationDAO.listOperation();
     }
@@ -37,8 +43,8 @@ public class OperationServiceImpl implements OperationService, Serializable {
     }
 
     @Transactional
-    public void saveOperation(Operation operation) {
-        operationDAO.saveOperation(operation);
+    public void saveOperation(Operation operation, FileUploadBean fileUploadBean) {
+        operationDAO.saveOperation(operation, fileUploadBean);
     }
 
 }
