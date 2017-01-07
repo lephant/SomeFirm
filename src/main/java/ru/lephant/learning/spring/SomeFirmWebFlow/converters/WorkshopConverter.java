@@ -1,15 +1,16 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop;
 import ru.lephant.learning.spring.SomeFirmWebFlow.workshop.service.WorkshopService;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Controller(value = "workshopConverterController")
+@Component(value = "workshopConverterController")
 @FacesConverter(value = "workshopConverter")
 public class WorkshopConverter implements Converter {
 

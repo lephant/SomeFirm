@@ -1,15 +1,16 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import ru.lephant.learning.spring.SomeFirmWebFlow.material.service.SacrificialMaterialService;
+import org.springframework.stereotype.Component;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
+import ru.lephant.learning.spring.SomeFirmWebFlow.material.service.SacrificialMaterialService;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Controller(value = "sacrificialMaterialTypeConverterController")
+@Component(value = "sacrificialMaterialTypeConverterController")
 @FacesConverter(value = "sacrificialMaterialTypeConverter")
 public class SacrificialMaterialTypeConverter implements Converter {
 
