@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="list" view="list.xhtml">
+        <on-render>
+            <evaluate expression="orderThingService.listOrders()" result="viewScope.orders" result-type="dataModel"/>
+        </on-render>
+
+        <transition on="select" to="details">
+            <set name="flowScope.orderId" value="viewScope.orders.selectedRow.id"/>
+        </transition>
+    </view-state>
+
+
+    <view-state id="details" view="details.xhtml">
+        <on-render>
+            <evaluate
+                    expression="orderThingService.getOrderById(flowScope.orderId)"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"
+                    result="viewScope.order"
+            />
+            <evaluate expression="orderThingService.makeViewed(viewScope.order)"/>
+        </on-render>
+
+        <transition on="confirm">
+            <evaluate expression="orderThingService.changeOrderState(viewScope.order, T(ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState).DURING)"/>
+        </transition>
+
+        <transition on="deny">
+            <evaluate expression="orderThingService.changeOrderState(viewScope.order, T(ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState).IS_DENIED)"/>
+        </transition>
+
+        <transition on="complete">
+            <evaluate expression="orderThingService.changeOrderState(viewScope.order, T(ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState).DONE)"/>
+        </transition>
+    </view-state>
+
+</flow>

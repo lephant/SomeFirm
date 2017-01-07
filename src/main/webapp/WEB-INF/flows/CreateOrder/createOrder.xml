@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="create" view="create.xhtml">
+
+        <var class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"
+             name="viewScope.order"/>
+
+        <on-entry>
+            <set
+                    value="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing()"
+                    type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"
+                    name="viewScope.order"
+            />
+        </on-entry>
+
+        <transition on="create" to="endState">
+            <evaluate expression="orderThingService.createOrder(viewScope.order)"/>
+        </transition>
+    </view-state>
+
+
+    <end-state id="endState">
+
+    </end-state>
+
+</flow>

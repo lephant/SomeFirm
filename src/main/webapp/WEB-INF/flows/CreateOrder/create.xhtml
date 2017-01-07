@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Оформление заказа</h1>
+
+            <h:form>
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" for="user" value="Заказчик:"/>
+                    <p:selectOneMenu
+                            styleClass="text_field"
+                            id="user"
+                            value="#{order.user}"
+                            converter="#{userConverterController}">
+                        <f:selectItems
+                                value="#{userService.listUser()}"
+                                var="u"
+                                itemLabel="#{u.username}"
+                                itemValue="#{u.username}"
+                        />
+                    </p:selectOneMenu>
+                </div>
+
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" for="thing" value="Предмет:"/>
+                    <p:selectOneMenu
+                            styleClass="text_field"
+                            id="thing"
+                            value="#{order.thing}"
+                            converter="#{thingConverterController}">
+                        <f:selectItems
+                                value="#{thingService.listThing()}"
+                                var="t"
+                                itemLabel="#{t.name}"
+                                itemValue="#{t}"
+                        />
+                    </p:selectOneMenu>
+                </div>
+
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" for="count" value="Количество:"/>
+                    <p:inputText styleClass="text_field" value="#{order.count}" id="count"/>
+                </div>
+
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" for="description" value="Описание:"/>
+                    <p:inputTextarea styleClass="description_field" value="#{order.description}" id="description"/>
+                </div>
+
+                <p:commandButton action="create" value="Заказать"/>
+
+                <p:messages showDetail="true"/>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

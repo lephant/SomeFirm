@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Список заказов</h1>
+            <h:form>
+                <div class="clearfix">
+                    <ui:repeat value="#{orders}" var="order">
+                        <p:panel styleClass="operations_block">
+                            <h:outputText value="Имя: #{order.user.username}"/><br/>
+                            <h:outputText value="Предмет: #{order.thing.name}"/><br/>
+                            <h:outputText value="Кол-во: #{order.count}"/><br/>
+                            <h:outputText value="Статус: #{order.state.stateDescription}"/><br/>
+                            <br/>
+                            <p:commandButton action="select" value="Просмотреть"/>
+                        </p:panel>
+                    </ui:repeat>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

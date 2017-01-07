@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Заказ</h1>
+            <h:form>
+                <h:outputText value="ID: #{order.id}"/><br/>
+                <h:outputText value="Заказчик: #{order.user.username}"/><br/>
+                <h:outputText value="Название предмета: #{order.thing.name}"/><br/>
+                <h:outputText value="Количество: #{order.count}"/><br/>
+                <h:outputText value="Описание: #{order.description}"/><br/>
+                <h:outputText value="Состояние: #{order.state.stateDescription}"/><br/>
+
+                <p:commandButton action="confirm" value="Утвердить" rendered="#{order.state eq 'VIEWED'}"
+                                 update="@form"/>
+                <p:commandButton action="deny" value="Отклонить" rendered="#{order.state eq 'VIEWED'}"
+                                 update="@form"/>
+                <p:commandButton action="complete" value="Сообщить о завершении" rendered="#{order.state eq 'DURING'}"
+                                 update="@form"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
