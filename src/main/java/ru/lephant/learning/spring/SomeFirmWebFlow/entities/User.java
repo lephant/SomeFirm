@@ -62,4 +62,9 @@ public class User implements Serializable {
         result = 31 * result + (int) enabled;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return username;
+    }
 }
