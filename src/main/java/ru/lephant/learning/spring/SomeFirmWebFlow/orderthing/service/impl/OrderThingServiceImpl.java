@@ -7,6 +7,7 @@ import ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState;
 import ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.dao.OrderThingDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.service.OrderThingService;
+import ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.OrderThingSearchCriteria;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class OrderThingServiceImpl implements OrderThingService {
 
     @Override
     @Transactional(readOnly = true)
-    public List listOrders() {
-        return orderThingDAO.listOrders();
+    public List listOrders(OrderThingSearchCriteria searchCriteria) {
+        return orderThingDAO.listOrders(searchCriteria);
     }
 
     @Override
@@ -31,7 +32,6 @@ public class OrderThingServiceImpl implements OrderThingService {
     @Override
     @Transactional
     public void changeOrderState(OrderThing orderThing, OrderState state) {
-        if (orderThing.getState() == state) return;
         orderThing.setState(state);
         orderThingDAO.changeOrderState(orderThing);
     }

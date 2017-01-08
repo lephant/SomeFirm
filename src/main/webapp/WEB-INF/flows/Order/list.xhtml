@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
 >
 
 <h:head>
@@ -16,7 +16,30 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
             <h1 class="center">Список заказов</h1>
-            <h:form>
+
+            <div style="margin-bottom: 15px;" class="clearfix">
+                <h:form>
+                    <div class="search_criteria_block clearfix">
+                        <p:outputLabel styleClass="search_criteria_label" value="Статус:" for="searchCriteriaState"/>
+                        <p:selectOneMenu value="#{searchCriteria.orderState}"
+                                         id="searchCriteriaState"
+                                         styleClass="search_criteria_field">
+                            <f:selectItem value="#{null}" itemValue="#{null}" itemLabel="Любое"/>
+                            <f:selectItems
+                                    value="#{referenceData.getOrderStates()}"
+                                    var="state"
+                                    itemValue="#{state}"
+                                    itemLabel="#{state.stateDescription}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="center">
+                        <p:commandButton action="changeCriteria" value="Искать" ajax=":mainForm"/>
+                    </div>
+                </h:form>
+            </div>
+
+            <h:form id="mainForm">
                 <div class="clearfix">
                     <ui:repeat value="#{orders}" var="order">
                         <p:panel styleClass="operations_block">

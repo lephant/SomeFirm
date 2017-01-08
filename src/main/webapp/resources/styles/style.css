@@ -382,6 +382,25 @@ h1 {
     text-align: center;
 }
 
+.search_criteria_block {
+    padding: 10px;
+    text-align: center;
+}
+
+.search_criteria_label {
+    float: left;
+    text-align: right;
+    width: 360px;
+}
+
+.search_criteria_field {
+    margin-left: 10px;
+    width: 320px;
+    float: left;
+}
+
+
+
 
 
 
