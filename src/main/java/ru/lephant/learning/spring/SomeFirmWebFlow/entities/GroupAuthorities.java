@@ -1,5 +1,7 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.primarykeys.GroupAuthoritiesPK;
+
 import javax.persistence.*;
 import java.io.Serializable;
 

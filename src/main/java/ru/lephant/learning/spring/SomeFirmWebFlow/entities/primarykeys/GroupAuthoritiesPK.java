@@ -1,4 +1,4 @@
-package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
+package ru.lephant.learning.spring.SomeFirmWebFlow.entities.primarykeys;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
