@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Table(name = "group_members", schema = "somefirmdb")
 public class GroupMember implements Serializable {
     private long id;
-    private String username;
+    private User user;
     private long groupId;
 
     @Id
@@ -20,14 +20,14 @@ public class GroupMember implements Serializable {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "username", nullable = false, length = 255)
-    public String getUsername() {
-        return username;
+    @OneToOne
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Basic
@@ -49,25 +49,15 @@ public class GroupMember implements Serializable {
 
         if (id != that.id) return false;
         if (groupId != that.groupId) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+        return user != null ? user.equals(that.user) : that.user == null;
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (int) (groupId ^ (groupId >>> 32));
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "GroupMember{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", groupId=" + groupId +
-                '}';
     }
 }

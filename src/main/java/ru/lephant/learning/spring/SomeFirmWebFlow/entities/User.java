@@ -9,6 +9,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private byte enabled;
+    private GroupMember groupMember;
 
     @Id
     @Column(name = "username", nullable = false, length = 255)
@@ -40,6 +41,14 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
+    @OneToOne(mappedBy = "user")
+    public GroupMember getGroupMember() {
+        return groupMember;
+    }
+
+    public void setGroupMember(GroupMember groupMember) {
+        this.groupMember = groupMember;
+    }
 
     @Override
     public boolean equals(Object o) {

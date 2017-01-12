@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Список нарядов</h1>
+
+            <div style="margin-bottom: 15px;" class="clearfix">
+                <h:form>
+                    <div class="search_criteria_block clearfix">
+                        <p:outputLabel styleClass="search_criteria_label" value="Название:"
+                                       for="searchCriteriaThingName"/>
+                        <p:inputText styleClass="search_criteria_field" value="#{searchCriteria.thingName}"
+                                     id="searchCriteriaThingName"/>
+                    </div>
+
+                    <div class="search_criteria_block clearfix">
+                        <p:outputLabel styleClass="=search_criteria_label" value="Актуальность:"
+                                       for="searchCriteriaSearchType"/>
+                        <p:selectOneMenu styleClass="search_criteria_select" value="#{searchCriteria.searchType}"
+                                         id="searchCriteriaSearchType">
+                            <f:selectItem value="#{null}" itemValue="#{null}" itemLabel="Все"/>
+                            <f:selectItems
+                                    value="#{referenceData.getTeamSearchTypes()}"
+                                    var="type"
+                                    itemValue="#{type}"
+                                    itemLabel="#{type.typeDescription}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="center">
+                        <p:commandButton action="changeCriteria" value="Искать" ajax=":mainForm"/>
+                    </div>
+                </h:form>
+            </div>
+
+            <h:form>
+                <div class="clearfix">
+                    <ui:repeat value="#{teams}" var="teamJsf">
+                        <p:panel styleClass="team_block">
+                            <h:outputText value="Название: #{teamJsf.order.thing.name}"/><br/>
+                            <h:outputText value="Количество: #{teamJsf.order.count}"/><br/>
+                            <h:outputText value="Начало: #{teamJsf.dateOfCreate}"/><br/>
+                            <h:outputText value="Конец: #{teamJsf.dateOfDeadline}"/><br/>
+
+                            <p:commandButton action="select" value="Просмотреть"/>
+                        </p:panel>
+                    </ui:repeat>
+                </div>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

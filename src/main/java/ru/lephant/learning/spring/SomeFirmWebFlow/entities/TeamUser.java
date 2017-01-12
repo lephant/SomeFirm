@@ -10,7 +10,16 @@ public class TeamUser implements Serializable {
     private Team team;
     private User user;
 
+    public TeamUser() {
+    }
+
+    public TeamUser(Team team, User user) {
+        this.team = team;
+        this.user = user;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;

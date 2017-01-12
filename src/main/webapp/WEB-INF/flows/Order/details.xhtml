@@ -24,12 +24,20 @@
                 <h:outputText value="Описание: #{order.description}"/><br/>
                 <h:outputText value="Состояние: #{order.state.stateDescription}"/><br/>
 
-                <p:commandButton action="confirm" value="Утвердить" rendered="#{order.state eq 'VIEWED'}"
-                                 update="@form"/>
-                <p:commandButton action="deny" value="Отклонить" rendered="#{order.state eq 'VIEWED'}"
-                                 update="@form"/>
-                <p:commandButton action="complete" value="Сообщить о завершении" rendered="#{order.state eq 'DURING'}"
-                                 update="@form"/>
+                <p:commandButton action="confirm" value="Утвердить" update="@form"
+                                 rendered="#{order.state eq 'VIEWED'}"/>
+
+                <p:commandButton action="deny" value="Отклонить" update="@form"
+                                 rendered="#{order.state eq 'VIEWED'}"/>
+
+                <p:commandButton action="createTeam" value="Создать наряд" update="@form"
+                                 rendered="#{order.state eq 'DURING' and order.team == null}"/>
+
+                <p:commandButton action="showTeam" value="Осмотреть наряд" update="@form"
+                                 rendered="#{order.team != null}"/>
+
+                <p:commandButton action="complete" value="Сообщить о завершении" update="@form"
+                                 rendered="#{order.state eq 'DURING'}"/>
             </h:form>
         </ui:define>
     </ui:composition>

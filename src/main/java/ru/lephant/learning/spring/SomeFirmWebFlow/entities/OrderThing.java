@@ -14,6 +14,7 @@ public class OrderThing implements Serializable {
     private int count;
     private String description;
     private OrderState state;
+    private Team team;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -76,6 +77,14 @@ public class OrderThing implements Serializable {
         this.state = state;
     }
 
+    @OneToOne(mappedBy = "order")
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
     @Override
     public boolean equals(Object o) {

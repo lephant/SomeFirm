@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Создание наряда</h1>
+            <h:form>
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" value="Время начала:" for="dateOfCreate"/>
+                    <p:inputText styleClass="text_field" value="#{team.dateOfCreate}" id="dateOfCreate"/>
+                </div>
+
+                <div class="field_block">
+                    <p:outputLabel styleClass="field_label" value="Время окончания:" for="dateOfDeadline"/>
+                    <p:inputText styleClass="text_field" value="#{team.dateOfDeadline}" id="dateOfDeadline"/>
+                </div>
+
+                <div class="center">
+                    <p:commandButton value="Задать промежуток времени" action="setTimeInterval" ajax=":chooseWorkers"/>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="center">
+                    <p:pickList
+                            styleClass="userList"
+                            id="chooseWorkers"
+                            value="#{userList}"
+                            var="user"
+                            itemLabel="#{user.username}"
+                            itemValue="#{user}"
+                            converter="#{userConverterController}"
+                    />
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="center">
+                    <p:commandButton action="saveTeam" value="Создать наряд"/>
+                </div>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
