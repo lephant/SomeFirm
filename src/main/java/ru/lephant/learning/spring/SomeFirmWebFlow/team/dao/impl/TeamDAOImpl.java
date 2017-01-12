@@ -23,12 +23,22 @@ public class TeamDAOImpl implements TeamDAO {
         Session session = sessionFactory.openSession();
 
         Criteria criteria = session.createCriteria(Team.class);
+        addCriteriaByThingName(searchCriteria, criteria);
+        addCriteriaBySearchType(searchCriteria, criteria);
+        List list = criteria.list();
 
+        session.close();
+        return list;
+    }
+
+    private void addCriteriaByThingName(TeamSearchCriteria searchCriteria, Criteria criteria) {
         if (searchCriteria.getThingName() != null && !searchCriteria.getThingName().isEmpty()) {
             criteria.createAlias("order.thing", "thing");
             criteria.add(Restrictions.ilike("thing.name", searchCriteria.getThingName(), MatchMode.ANYWHERE));
         }
+    }
 
+    private void addCriteriaBySearchType(TeamSearchCriteria searchCriteria, Criteria criteria) {
         if (searchCriteria.getSearchType() != null) {
             long currentDate = System.currentTimeMillis();
             switch (searchCriteria.getSearchType()) {
@@ -46,11 +56,6 @@ public class TeamDAOImpl implements TeamDAO {
                     break;
             }
         }
-
-        List list = criteria.list();
-
-        session.close();
-        return list;
     }
 
     @Override
