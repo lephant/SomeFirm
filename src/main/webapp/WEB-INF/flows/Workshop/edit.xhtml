@@ -62,8 +62,6 @@
             </h:form>
 
 
-
-
             <p:dialog id="splitSendDialog" header="Отправить на склад" widgetVar="splitSendDialog"
                       width="500" modal="true" resizable="false">
                 <h:form>
@@ -88,7 +86,8 @@
 
                     <div class="dialog_field_block">
                         <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="sendDescription"/>
-                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="sendDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}"
+                                         id="sendDescription"/>
                     </div>
 
                     <p:commandButton id="sendThing" action="sendThing" value="Отправить" ajax="true">
@@ -111,7 +110,7 @@
                     </div>
 
                     <div class="dialog_field_block">
-                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for=""/>
+                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="writeOffEmploye"/>
                         <p:selectOneMenu styleClass="dialog_text_field"
                                          value="#{note.storageEmploye}"
                                          converter="#{storageEmployeConverterController}"
@@ -126,7 +125,8 @@
 
                     <div class="dialog_field_block">
                         <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="writeOffDescription"/>
-                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="writeOffDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}"
+                                         id="writeOffDescription"/>
                     </div>
 
                     <p:commandButton id="writeOffThing" action="writeOffThing" value="Списать" ajax="true">
