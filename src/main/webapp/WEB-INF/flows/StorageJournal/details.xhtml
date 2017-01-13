@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Запись на складе</h1>
+            <h:form>
+                <h:outputText value="ID: #{note.id}"/><br/>
+                <h:outputText value="Название цеха: #{note.workshop.name}"/><br/>
+                <h:outputText value="Название предмета: #{note.thing.name}"/><br/>
+                <h:outputText value="Количество: #{note.count}"/><br/>
+                <h:outputText value="#{note.dateAndTime}"/><br/>
+                <h:outputText value="#{note.storageEmploye.fio}"/><br/>
+                <h:outputText value="#{note.description}"/><br/>
+                <h:outputText value="#{note.journalOperationType.name}"/><br/>
+
+                <p:commandButton action="return" value="Вернуться"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

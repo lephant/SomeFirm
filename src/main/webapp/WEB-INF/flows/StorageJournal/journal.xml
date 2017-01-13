@@ -7,6 +7,22 @@
         <on-render>
             <evaluate expression="journalService.listJournal()" result="viewScope.notes" result-type="dataModel"/>
         </on-render>
+
+        <transition on="select" to="details">
+            <set name="flowScope.noteId" value="viewScope.notes.selectedRow.id" type="long"/>
+        </transition>
     </view-state>
+
+    <view-state id="details" view="details.xhtml">
+        <on-render>
+            <evaluate expression="journalService.getJournalNoteById(flowScope.noteId)"
+                      result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
+                      result="viewScope.note"/>
+        </on-render>
+
+        <transition on="return" to="end"/>
+    </view-state>
+
+    <end-state id="end"/>
 
 </flow>

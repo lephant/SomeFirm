@@ -14,32 +14,19 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
             <h1 class="center">Журнал склада</h1>
-            <ui:repeat value="#{notes}" var="note">
-                <p:panel header="#{note.journalOperationType.name}" styleClass="journal_note_block">
-                    <h:outputText rendered="#{note.workshop != null}" value="Цех: #{note.workshop.name}"/>
-
-                    <br/>
-
-                    <h:outputText value="Предмет: #{note.thing.name}"/>
-
-                    <br/>
-
-                    <h:outputText value="Количество: #{note.count}"/>
-
-                    <br/>
-
-                    <h:outputText value="Дата: #{note.dateAndTime}"/>
-
-                    <br/>
-
-                    <h:outputText value="Складовщик: #{note.storageEmploye}"/>
-
-                    <br/>
-
-                    <h:outputText value="Описание: #{note.description}"/>
-                </p:panel>
-            </ui:repeat>
-            <div class="clearfix"/>
+            <div class="clearfix">
+                <h:form>
+                    <ui:repeat value="#{notes}" var="note">
+                        <p:panel header="#{note.journalOperationType.name}" styleClass="journal_note_block">
+                            <h:outputText rendered="#{note.workshop != null}" value="Цех: #{note.workshop.name}"/><br/>
+                            <h:outputText value="Предмет: #{note.thing.name}"/><br/>
+                            <h:outputText value="Количество: #{note.count}"/><br/>
+                            <h:outputText value="Дата: #{note.dateAndTime}"/><br/>
+                            <p:commandButton action="select" value="Подробнее"/>
+                        </p:panel>
+                    </ui:repeat>
+                </h:form>
+            </div>
         </ui:define>
     </ui:composition>
 </h:body>
