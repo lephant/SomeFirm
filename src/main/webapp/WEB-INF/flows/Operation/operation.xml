@@ -32,6 +32,8 @@
         </transition>
 
         <transition on="edit" to="edit"/>
+
+        <transition on="return" to="end"/>
     </view-state>
 
 
@@ -99,7 +101,7 @@
             <evaluate expression="operationService.saveOperation(flowScope.operation, fileUploadBean)"/>
         </transition>
 
-        <transition on="cancel" to="list" bind="false" validate="false"/>
+        <transition on="cancel" to="end" bind="false" validate="false"/>
 
 
         <transition on="clearImage">
@@ -112,4 +114,5 @@
         </transition>
     </view-state>
 
+    <end-state id="end"/>
 </flow>
