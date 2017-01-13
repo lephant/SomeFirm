@@ -82,7 +82,9 @@
             <evaluate expression="storageService.commitStorage(contents.getWrappedData(), noteList, changedWorkshopContentList)"/>
         </transition>
 
-        <transition on="cancelStorage" to="list" validate="false"/>
+        <transition on="cancelStorage" to="end" validate="false"/>
     </view-state>
+
+    <end-state id="end"/>
 
 </flow>
