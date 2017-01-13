@@ -1,5 +1,7 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.JournalOperationType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -98,8 +100,9 @@ public class StorageJournal implements Serializable {
         this.description = description;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "journal_operation_type", referencedColumnName = "id")
+    @Basic
+    @Column(name = "journal_operation_type", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     public JournalOperationType getJournalOperationType() {
         return journalOperationType;
     }

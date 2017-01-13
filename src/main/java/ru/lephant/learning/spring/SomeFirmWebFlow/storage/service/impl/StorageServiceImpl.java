@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageContent;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Thing;
-import ru.lephant.learning.spring.SomeFirmWebFlow.reference.ReferenceData;
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.JournalOperationType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.storage.dao.StorageDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.storage.service.StorageService;
 import ru.lephant.learning.spring.SomeFirmWebFlow.workshop.service.WorkshopService;
@@ -37,7 +37,7 @@ public class StorageServiceImpl implements StorageService {
         currentContentInWorkshop.setCount(currentContentInWorkshop.getCount() - note.getCount());
 
         note.setDateAndTime(new Date().getTime());
-        note.setJournalOperationType(ReferenceData.JournalOperationTypes.writeOffFromWorkshopOperation);
+        note.setJournalOperationType(JournalOperationType.WRITE_OFF_FROM_WORKSHOP_OPERATION);
 
         noteList.add(note);
     }
@@ -56,7 +56,7 @@ public class StorageServiceImpl implements StorageService {
         currentContentInStorage.setCount(currentContentInStorage.getCount() - note.getCount());
 
         note.setDateAndTime(new Date().getTime());
-        note.setJournalOperationType(ReferenceData.JournalOperationTypes.writeOffFromStorageOperation);
+        note.setJournalOperationType(JournalOperationType.WRITE_OFF_FROM_STORAGE_OPERATION);
 
         noteList.add(note);
     }
@@ -84,7 +84,7 @@ public class StorageServiceImpl implements StorageService {
         currentContentInWorkshop.setCount(currentContentInWorkshop.getCount() - note.getCount());
 
         note.setDateAndTime(new Date().getTime());
-        note.setJournalOperationType(ReferenceData.JournalOperationTypes.sendFromWorkshopToStorageOperation);
+        note.setJournalOperationType(JournalOperationType.SEND_FROM_WORKSHOP_TO_STORAGE_OPERATION);
 
         noteList.add(note);
     }
@@ -117,7 +117,7 @@ public class StorageServiceImpl implements StorageService {
         currentContentInWorkshop.setCount(currentContentInWorkshop.getCount() + note.getCount());
 
         note.setDateAndTime(new Date().getTime());
-        note.setJournalOperationType(ReferenceData.JournalOperationTypes.sendFromStorageToWorkshopOperation);
+        note.setJournalOperationType(JournalOperationType.SEND_FROM_STORAGE_TO_WORKSHOP_OPERATION);
 
         noteList.add(note);
     }
@@ -136,7 +136,7 @@ public class StorageServiceImpl implements StorageService {
         currentContentInStorage.setCount(currentContentInStorage.getCount() + note.getCount());
 
         note.setDateAndTime(new Date().getTime());
-        note.setJournalOperationType(ReferenceData.JournalOperationTypes.importOperation);
+        note.setJournalOperationType(JournalOperationType.IMPORT_OPERATION);
 
         noteList.add(note);
     }

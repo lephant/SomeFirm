@@ -17,7 +17,6 @@
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupAuthorities"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupMember"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Groups"/>
-        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.JournalOperationType"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool"/>

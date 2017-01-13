@@ -17,7 +17,7 @@
             <div class="clearfix">
                 <h:form>
                     <ui:repeat value="#{notes}" var="note">
-                        <p:panel header="#{note.journalOperationType.name}" styleClass="journal_note_block">
+                        <p:panel header="#{note.journalOperationType.stateDescription}" styleClass="journal_note_block">
                             <h:outputText rendered="#{note.workshop != null}" value="Цех: #{note.workshop.name}"/><br/>
                             <h:outputText value="Предмет: #{note.thing.name}"/><br/>
                             <h:outputText value="Количество: #{note.count}"/><br/>
