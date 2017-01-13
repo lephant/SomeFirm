@@ -53,8 +53,8 @@
                         <p:panel styleClass="team_block">
                             <h:outputText value="Название: #{teamJsf.order.thing.name}"/><br/>
                             <h:outputText value="Количество: #{teamJsf.order.count}"/><br/>
-                            <h:outputText value="Начало: #{teamJsf.dateOfCreate}"/><br/>
-                            <h:outputText value="Конец: #{teamJsf.dateOfDeadline}"/><br/>
+                            Начало: <h:outputText value="#{teamJsf.dateOfCreate}" converter="#{dateConverterController}"/><br/>
+                            Конец: <h:outputText value="#{teamJsf.dateOfDeadline}" converter="#{dateConverterController}"/><br/>
 
                             <p:commandButton action="select" value="Просмотреть"/>
                         </p:panel>

@@ -23,7 +23,7 @@
                     <ui:repeat value="#{operations}" var="oper">
                         <p:panel header="#{oper.id}" styleClass="operations_block">
                             <h:outputText value="Описание операции: #{oper.description}"/><br/>
-                            <h:outputText value="Продолжительность: #{oper.duration}"/><br/>
+                            <h:outputText value="Длительность: #{oper.duration} часов"/><br/>
                             <br/>
                             <p:commandButton id="selectOperation" value="Подробнее..." action="select"/>
                         </p:panel>

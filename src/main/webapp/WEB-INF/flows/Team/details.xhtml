@@ -21,8 +21,8 @@
                 <h:outputText value="ID: #{team.id}"/><br/>
                 <h:outputText value="Название: #{team.order.thing.name}"/><br/>
                 <h:outputText value="Количество: #{team.order.count}"/><br/>
-                <h:outputText value="Дата начала: #{team.dateOfCreate}"/><br/>
-                <h:outputText value="Дата конца: #{team.dateOfDeadline}"/><br/>
+                Дата начала: <h:outputText value="#{team.dateOfCreate}" converter="#{dateConverterController}"/><br/>
+                Дата конца: <h:outputText value="#{team.dateOfDeadline}" converter="#{dateConverterController}"/><br/>
 
                 <div class="sub_table_header"><h:outputText value="Список сотрудников:"/></div>
                 <h:dataTable id="workersTable"

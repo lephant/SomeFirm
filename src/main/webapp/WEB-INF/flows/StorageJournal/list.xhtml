@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
 >
 <h:head>
     <title>SomeFirm</title>
@@ -21,7 +21,7 @@
                             <h:outputText rendered="#{note.workshop != null}" value="Цех: #{note.workshop.name}"/><br/>
                             <h:outputText value="Предмет: #{note.thing.name}"/><br/>
                             <h:outputText value="Количество: #{note.count}"/><br/>
-                            <h:outputText value="Дата: #{note.dateAndTime}"/><br/>
+                            Дата: <h:outputText value="#{note.dateAndTime}" converter="#{dateConverterController}"/><br/>
                             <p:commandButton action="select" value="Подробнее"/>
                         </p:panel>
                     </ui:repeat>

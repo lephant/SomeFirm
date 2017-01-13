@@ -3,8 +3,8 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Team implements Serializable {
@@ -16,9 +16,13 @@ public class Team implements Serializable {
 
 
     public Team() {
+        long currentTime = new Date().getTime();
+        dateOfCreate = currentTime;
+        dateOfDeadline = currentTime;
     }
 
     public Team(OrderThing order) {
+        this();
         this.order = order;
     }
 

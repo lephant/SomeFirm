@@ -19,16 +19,22 @@
             <h:form>
                 <div class="field_block">
                     <p:outputLabel styleClass="field_label" value="Время начала:" for="dateOfCreate"/>
-                    <p:inputText styleClass="text_field" value="#{team.dateOfCreate}" id="dateOfCreate"/>
+                    <!--<p:inputText styleClass="text_field" value="#{team.dateOfCreate}" id="dateOfCreate"-->
+                                 <!--converter="#{dateConverterController}"/>-->
+                    <p:calendar styleClass="text_field" id="dateOfCreate" value="#{team.dateOfCreate}"
+                                pattern="dd/MM/yyyy HH:mm:ss" converter="#{dateConverterController}"/>
                 </div>
 
                 <div class="field_block">
                     <p:outputLabel styleClass="field_label" value="Время окончания:" for="dateOfDeadline"/>
-                    <p:inputText styleClass="text_field" value="#{team.dateOfDeadline}" id="dateOfDeadline"/>
+                    <!--<p:inputText styleClass="text_field" value="#{team.dateOfDeadline}" id="dateOfDeadline"-->
+                                 <!--converter="#{dateConverterController}"/>-->
+                    <p:calendar styleClass="text_field" id="dateOfDeadline" value="#{team.dateOfDeadline}"
+                                pattern="dd/MM/yyyy HH:mm:ss" converter="#{dateConverterController}"/>
                 </div>
 
                 <div class="center">
-                    <p:commandButton value="Задать промежуток времени" action="setTimeInterval" ajax=":chooseWorkers"/>
+                    <p:commandButton value="Задать промежуток времени" action="setTimeInterval" ajax="@form"/>
                 </div>
 
                 <div class="clearfix"></div>
@@ -50,6 +56,8 @@
                 <div class="center">
                     <p:commandButton action="saveTeam" value="Создать наряд"/>
                 </div>
+
+                <p:messages showDetail="true"/>
 
             </h:form>
         </ui:define>
