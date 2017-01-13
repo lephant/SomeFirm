@@ -44,8 +44,9 @@
             <evaluate expression="toolService.saveTool(flowScope.tool)"/>
         </transition>
 
-        <transition on="cancelTool" to="list" />
+        <transition on="cancelTool" to="end" />
 
     </view-state>
 
+    <end-state id="end"/>
 </flow>
