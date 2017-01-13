@@ -4,7 +4,6 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <view-state id="list" view="list.xhtml">
-
         <on-render>
             <evaluate expression="sacrificialMaterialService.listSacrificialMaterial()" result="viewScope.materials"
                       result-type="dataModel"/>
@@ -30,12 +29,10 @@
                     result="flowScope.material"
             />
         </transition>
-
     </view-state>
 
 
     <view-state id="edit" view="edit.xhtml" model="flowScope.material">
-
         <on-entry>
             <set name="viewScope.editable" value="flowScope.material.pressmark==0" type="boolean"/>
         </on-entry>
@@ -44,8 +41,8 @@
             <evaluate expression="sacrificialMaterialService.saveSacrificialMaterial(flowScope.material)"/>
         </transition>
 
-        <transition on="cancelMaterial" to="list"/>
-
+        <transition on="cancelMaterial" to="end"/>
     </view-state>
 
+    <end-state id="end"/>
 </flow>
