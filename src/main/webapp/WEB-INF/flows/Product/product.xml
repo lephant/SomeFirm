@@ -36,6 +36,8 @@
         <transition on="deleteProduct" to="list">
             <evaluate expression="productService.deleteProduct(flowScope.product.pressmark)"/>
         </transition>
+
+        <transition on="return" to="end"/>
     </view-state>
 
 
@@ -77,7 +79,9 @@
             <evaluate expression="productService.saveProduct(product)"/>
         </transition>
 
-        <transition on="cancelProduct" to="list" bind="false" validate="false"/>
+        <transition on="cancelProduct" to="end" bind="false" validate="false"/>
     </view-state>
+
+    <end-state id="end"/>
 
 </flow>
