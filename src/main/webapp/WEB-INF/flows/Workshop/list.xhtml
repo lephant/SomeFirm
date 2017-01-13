@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
 <h:head>
@@ -19,12 +19,18 @@
         <ui:define name="work">
             <h1 class="center">Рабочие цеха</h1>
             <h:form>
-                <h:dataTable value="#{workshops}" var="work">
+                <h:dataTable value="#{workshops}"
+                             var="JsfWorkshop"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_workshop_td_name,sub_table_td_button">
                     <h:column>
-                        <h:outputText value="#{work.name}"/><br/>
-                        <p:commandButton value="Подробнее" action="selectWorkshop" id="selectWorkshop"/><br/>
+                        <f:facet name="header">Название цеха</f:facet>
+                        <h:outputText value="#{JsfWorkshop.name}"/>
                     </h:column>
-                    <hr/>
+                    <h:column>
+                        <p:commandButton value="Подробнее" action="selectWorkshop" id="selectWorkshop"/>
+                    </h:column>
                 </h:dataTable>
                 <p:commandButton value="Создать" action="createWorkshop" id="createWorkshop"/>
             </h:form>

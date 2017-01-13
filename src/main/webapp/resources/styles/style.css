@@ -283,6 +283,10 @@ h1 {
     width: 30px;
 }
 
+.sub_table_workshop_td_name {
+    padding: 10px;
+}
+
 .field_block {
     padding: 10px;
 }
