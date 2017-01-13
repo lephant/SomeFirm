@@ -52,6 +52,7 @@
                     expression="orderThingService.changeOrderState(conversationScope.order, T(ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState).DONE)"/>
         </transition>
 
+        <transition on="return" to="end"/>
     </view-state>
 
     <subflow-state id="createTeam" subflow="CreateTeam">
@@ -62,5 +63,7 @@
         <input name="teamId" value="conversationScope.order.team.id" type="long" required="true"/>
         <transition on="return" to="details"/>
     </subflow-state>
+
+    <end-state id="end"/>
 
 </flow>

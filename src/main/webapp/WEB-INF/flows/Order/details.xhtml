@@ -24,20 +24,26 @@
                 <h:outputText value="Описание: #{order.description}"/><br/>
                 <h:outputText value="Состояние: #{order.state.stateDescription}"/><br/>
 
-                <p:commandButton action="confirm" value="Утвердить" update="@form"
-                                 rendered="#{order.state eq 'VIEWED'}"/>
+                <div style="margin-top:10px;">
+                    <p:commandButton action="confirm" value="Утвердить" update="@form"
+                                     rendered="#{order.state eq 'VIEWED'}"/>
 
-                <p:commandButton action="deny" value="Отклонить" update="@form"
-                                 rendered="#{order.state eq 'VIEWED'}"/>
+                    <p:commandButton action="deny" value="Отклонить" update="@form"
+                                     rendered="#{order.state eq 'VIEWED'}"/>
 
-                <p:commandButton action="createTeam" value="Создать наряд" update="@form"
-                                 rendered="#{order.state eq 'DURING' and order.team == null}"/>
+                    <p:commandButton action="createTeam" value="Создать наряд" update="@form"
+                                     rendered="#{order.state eq 'DURING' and order.team == null}"/>
 
-                <p:commandButton action="showTeam" value="Осмотреть наряд" update="@form"
-                                 rendered="#{order.team != null}"/>
+                    <p:commandButton action="showTeam" value="Осмотреть наряд" update="@form"
+                                     rendered="#{order.team != null}"/>
 
-                <p:commandButton action="complete" value="Сообщить о завершении" update="@form"
-                                 rendered="#{order.state eq 'DURING'}"/>
+                    <p:commandButton action="complete" value="Сообщить о завершении" update="@form"
+                                     rendered="#{order.state eq 'DURING'}"/>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <p:commandButton action="return" value="Вернуться"/>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
