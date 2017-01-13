@@ -35,6 +35,8 @@
         <transition on="deleteWorkshop" to="list">
             <evaluate expression="workshopService.deleteWorkshop(flowScope.workshop.id)"/>
         </transition>
+
+        <transition on="return" to="end"/>
     </view-state>
 
 
@@ -89,7 +91,8 @@
             <evaluate expression="workshopService.saveWorkshop(workshop, noteList, storageContent)"/>
         </transition>
 
-        <transition on="cancelWorkshop" to="list" validate="false"/>
+        <transition on="cancelWorkshop" to="end" validate="false"/>
     </view-state>
 
+    <end-state id="end"/>
 </flow>
