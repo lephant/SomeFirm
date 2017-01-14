@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
+import ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.StorageJournalSearchCriteria;
 import ru.lephant.learning.spring.SomeFirmWebFlow.storage.journal.dao.JournalDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.storage.journal.service.JournalService;
 
@@ -16,8 +17,8 @@ public class JournalServiceImpl implements JournalService {
     JournalDAO journalDAO;
 
     @Transactional(readOnly = true)
-    public List listJournal() {
-        return journalDAO.listJournal();
+    public List listJournal(StorageJournalSearchCriteria searchCriteria) {
+        return journalDAO.listJournal(searchCriteria);
     }
 
     @Transactional(readOnly = true)

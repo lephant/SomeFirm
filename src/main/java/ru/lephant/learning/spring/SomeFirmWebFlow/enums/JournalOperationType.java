@@ -9,20 +9,20 @@ public enum JournalOperationType {
     SEND_FROM_WORKSHOP_TO_STORAGE_OPERATION("Отправка на склад из цеха");
 
 
-    private String stateDescription;
+    private String typeDescription;
 
 
-    JournalOperationType(String stateDescription) {
-        this.stateDescription = stateDescription;
+    JournalOperationType(String typeDescription) {
+        this.typeDescription = typeDescription;
     }
 
 
-    public String getStateDescription() {
-        return stateDescription;
+    public String getTypeDescription() {
+        return typeDescription;
     }
 
-    public void setStateDescription(String stateDescription) {
-        this.stateDescription = stateDescription;
+    public void setTypeDescription(String typeDescription) {
+        this.typeDescription = typeDescription;
     }
 
 }

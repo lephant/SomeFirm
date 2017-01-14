@@ -24,6 +24,11 @@ public class WorkshopServiceImpl implements WorkshopService {
     }
 
     @Transactional(readOnly = true)
+    public List listWorkshopWithAbstractMainStorage() {
+        return workshopDAO.listWorkshopWithAbstractMainStorage();
+    }
+
+    @Transactional(readOnly = true)
     public Workshop getWorkshopById(long id) {
         return workshopDAO.getWorkshopById(id);
     }

@@ -4,13 +4,24 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <view-state id="list" view="list.xhtml">
+        <on-entry>
+            <set
+                    name="viewScope.searchCriteria"
+                    value="new ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.StorageJournalSearchCriteria()"
+                    type="ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.StorageJournalSearchCriteria"
+            />
+        </on-entry>
+
         <on-render>
-            <evaluate expression="journalService.listJournal()" result="viewScope.notes" result-type="dataModel"/>
+            <evaluate expression="journalService.listJournal(viewScope.searchCriteria)" result="viewScope.notes"
+                      result-type="dataModel"/>
         </on-render>
 
         <transition on="select" to="details">
             <set name="flowScope.noteId" value="viewScope.notes.selectedRow.id" type="long"/>
         </transition>
+
+        <transition on="changeCriteria"/>
     </view-state>
 
     <view-state id="details" view="details.xhtml">

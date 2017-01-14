@@ -11,6 +11,8 @@ public interface WorkshopService {
 
     public List listWorkshop();
 
+    public List listWorkshopWithAbstractMainStorage();
+
     public Workshop getWorkshopById(long id);
 
     public Workshop getLazyWorkshopById(long id);

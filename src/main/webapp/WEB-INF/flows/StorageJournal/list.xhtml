@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
 >
 <h:head>
     <title>SomeFirm</title>
@@ -14,14 +15,77 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
             <h1 class="center">Журнал склада</h1>
+
+            <div style="margin-bottom: 15px;" class="clearfix">
+                <h:form>
+                    <div class="search_criteria_block clearfix">
+                        <p:outputLabel styleClass="search_criteria_label" value="Актуальность:"
+                                       for="searchCriteriaOperationType"/>
+                        <p:selectOneMenu styleClass="search_criteria_field" value="#{searchCriteria.operationType}"
+                                         id="searchCriteriaOperationType">
+                            <f:selectItem value="#{null}" itemValue="#{null}" itemLabel="Все"/>
+                            <f:selectItems
+                                    value="#{referenceData.getJournalOperationTypes()}"
+                                    var="type"
+                                    itemValue="#{type}"
+                                    itemLabel="#{type.typeDescription}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="search_criteria_block clearfix">
+                        <p:outputLabel styleClass="search_criteria_label" value="Цех:"
+                                       for="searchCriteriaWorkshop"/>
+                        <p:selectOneMenu styleClass="search_criteria_field" value="#{searchCriteria.workshop}"
+                                         id="searchCriteriaWorkshop" converter="#{workshopConverterController}">
+                            <f:selectItem value="#{null}" itemValue="#{null}" itemLabel="Все"/>
+                            <f:selectItems
+                                    value="#{workshopService.listWorkshopWithAbstractMainStorage()}"
+                                    var="workshop"
+                                    itemValue="#{workshop}"
+                                    itemLabel="#{workshop.name}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="search_criteria_block clearfix">
+                        <div class="clearfix">
+                            <p:selectBooleanCheckbox value="#{searchCriteria.searchByDate}" style="margin-right:5px;"/>
+                            <h:outputText value="Время: "/>
+                        </div>
+                        <div>
+                            <span class="date_sub_block">
+                                <p:outputLabel styleClass="label_date" value="От:" for="fromDate"/>
+                                <p:calendar styleClass="date_field" converter="#{dateConverterController}"
+                                            pattern="dd/MM/yyyy HH:mm:ss" id="fromDate"
+                                            value="#{searchCriteria.minTime}"/>
+                            </span>
+                            <span class="date_sub_block">
+                                <p:outputLabel styleClass="label_date" value="До:" for="toDate"/>
+                                <p:calendar styleClass="date_field" converter="#{dateConverterController}"
+                                            pattern="dd/MM/yyyy HH:mm:ss" id="toDate"
+                                            value="#{searchCriteria.maxTime}"/>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="center">
+                        <p:commandButton action="changeCriteria" value="Искать" ajax=":mainForm"/>
+                    </div>
+
+                    <p:messages showDetail="true"/>
+                </h:form>
+            </div>
+
             <div class="clearfix">
                 <h:form>
                     <ui:repeat value="#{notes}" var="note">
-                        <p:panel header="#{note.journalOperationType.stateDescription}" styleClass="journal_note_block">
-                            <h:outputText rendered="#{note.workshop != null}" value="Цех: #{note.workshop.name}"/><br/>
+                        <p:panel header="#{note.journalOperationType.typeDescription}" styleClass="journal_note_block">
+                            <h:outputText value="#{note.workshop==null?'Главный склад':note.workshop.name}"/><br/>
                             <h:outputText value="Предмет: #{note.thing.name}"/><br/>
                             <h:outputText value="Количество: #{note.count}"/><br/>
-                            Дата: <h:outputText value="#{note.dateAndTime}" converter="#{dateConverterController}"/><br/>
+                            Дата: <h:outputText value="#{note.dateAndTime}"
+                                                converter="#{dateConverterController}"/><br/>
                             <p:commandButton action="select" value="Подробнее"/>
                         </p:panel>
                     </ui:repeat>

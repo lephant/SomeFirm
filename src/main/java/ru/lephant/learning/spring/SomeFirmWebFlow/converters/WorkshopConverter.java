@@ -18,11 +18,19 @@ public class WorkshopConverter implements Converter {
     WorkshopService workshopService;
 
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-        Workshop workshop = workshopService.getLazyWorkshopById(Long.valueOf(s));
+        if ("All".equals(s)) return null;
+        Long id = Long.valueOf(s);
+        if (id == 0) {
+            Workshop workshop = new Workshop();
+            workshop.setName("Главный склад");
+            return workshop;
+        }
+        Workshop workshop = workshopService.getLazyWorkshopById(id);
         return workshop;
     }
 
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object o) {
+        if (o == null) return "All";
         return o.toString();
     }
 

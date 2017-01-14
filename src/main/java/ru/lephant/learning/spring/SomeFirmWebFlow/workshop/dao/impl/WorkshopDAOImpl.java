@@ -28,6 +28,20 @@ public class WorkshopDAOImpl implements WorkshopDAO {
         return list;
     }
 
+    public List listWorkshopWithAbstractMainStorage() {
+        Session session = sessionFactory.openSession();
+        List list = session.createCriteria(Workshop.class).list();
+        addAbstractMainStorageToList(list);
+        session.close();
+        return list;
+    }
+
+    private void addAbstractMainStorageToList(List list) {
+        Workshop storage = new Workshop();
+        storage.setName("Главный склад");
+        list.add(0, storage);
+    }
+
     public Workshop getWorkshopById(long id) {
         Session session = sessionFactory.openSession();
         Workshop workshop = (Workshop)session.createCriteria(Workshop.class)

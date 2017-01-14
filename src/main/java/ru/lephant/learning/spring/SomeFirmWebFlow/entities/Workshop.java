@@ -57,13 +57,13 @@ public class Workshop implements Serializable {
         Workshop workshop = (Workshop) o;
 
         if (id != workshop.id) return false;
-        return name.equals(workshop.name);
+        return name != null ? name.equals(workshop.name) : workshop.name == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + name.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 
