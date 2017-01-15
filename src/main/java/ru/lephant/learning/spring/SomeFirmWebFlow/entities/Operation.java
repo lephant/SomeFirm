@@ -1,6 +1,9 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,13 +11,24 @@ import java.util.List;
 
 @Entity
 public class Operation implements Serializable {
+
     private long id;
+
+    @Size(max = 4096, message = "Слишком длинное описание")
     private String description;
+
+    @NotNull(message = "Указание длительности - обязательно!")
+    @Min(value = 1, message = "Операция может длиться минимум 1 час!")
     private long duration;
+
     private byte[] plan;
+
     private Workshop defaultWorkshop;
+
     private List<OperationSacrificialMaterial> sacrificialMaterials = new ArrayList<OperationSacrificialMaterial>();
+
     private List<OperationTool> tools = new ArrayList<OperationTool>();
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

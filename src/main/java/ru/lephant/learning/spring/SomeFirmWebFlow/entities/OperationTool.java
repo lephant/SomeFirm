@@ -1,15 +1,26 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "operation_tool", schema = "somefirmdb")
 public class OperationTool implements Serializable {
+
     private long id;
+
+    @NotNull(message = "Не задана операция. Ошибка!")
     private Operation operation;
+
+    @NotNull(message = "Не задан инструмент!")
     private ToolType toolType;
+
+    @NotNull(message = "Указание количества - обязательно!")
+    @Min(value = 1, message = "Количество может быть только положительным целым числом!")
     private int count;
+
 
     public OperationTool() {
     }
