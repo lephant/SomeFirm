@@ -1,6 +1,7 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -8,6 +9,7 @@ import java.io.Serializable;
 @PrimaryKeyJoinColumn(name = "pressmark")
 public class SacrificialMaterialType extends Thing implements Serializable {
 
+    @Size(max = 4096, message = "Слишком длинное описание!")
     private String description;
 
     @Basic

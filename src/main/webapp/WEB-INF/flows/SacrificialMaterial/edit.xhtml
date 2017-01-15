@@ -19,6 +19,8 @@
         <ui:define name="work">
             <h1 class="center">Расходуемый материал</h1>
             <h:form>
+                <p:growl id="messages"/>
+
                 <div class="field_block">
                     <p:outputLabel for="pressmark" value="Шифр:" styleClass="field_label"/>
                     <p:inputText styleClass="text_field" id="pressmark" value="#{material.pressmark}" disabled="#{!editable}"/>
@@ -32,8 +34,8 @@
                     <p:inputTextarea styleClass="description_field" id="description" value="#{material.description}"/>
                 </div>
                 <div style="float:right; margin:15px;">
-                    <p:commandButton value="Сохранить" id="createMaterial" action="createMaterial"/>
-                    <p:commandButton value="Отмена" id="cancelMaterial" action="cancelMaterial" immediate="false" />
+                    <p:commandButton value="Сохранить" id="createMaterial" action="createMaterial" ajax="@form"/>
+                    <p:commandButton value="Отмена" id="cancelMaterial" action="cancelMaterial" immediate="true" />
                 </div>
                 <div class="clearfix"></div>
             </h:form>

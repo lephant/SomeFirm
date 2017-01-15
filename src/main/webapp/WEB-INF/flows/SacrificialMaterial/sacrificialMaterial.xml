@@ -41,7 +41,7 @@
             <evaluate expression="sacrificialMaterialService.saveSacrificialMaterial(flowScope.material)"/>
         </transition>
 
-        <transition on="cancelMaterial" to="end"/>
+        <transition on="cancelMaterial" to="end" validate="false" bind="false"/>
     </view-state>
 
     <end-state id="end"/>
