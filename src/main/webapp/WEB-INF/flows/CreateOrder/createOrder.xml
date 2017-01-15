@@ -4,7 +4,6 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <view-state id="create" view="create.xhtml">
-
         <var class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"
              name="viewScope.order"/>
 
@@ -21,9 +20,5 @@
         </transition>
     </view-state>
 
-
-    <end-state id="endState">
-
-    </end-state>
-
+    <end-state id="endState"/>
 </flow>

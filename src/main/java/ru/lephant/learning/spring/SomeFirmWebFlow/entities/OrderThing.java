@@ -3,18 +3,34 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "order_thing", schema = "somefirmdb")
 public class OrderThing implements Serializable {
+
     private long id;
+
+    @NotNull
     private User user;
+
+    @NotNull
     private Thing thing;
+
+    @NotNull(message = "Указание количества - обязательно!")
+    @Min(value = 1, message = "Нужно указать целое положительное число заказываемых товаров!")
     private int count;
+
+    @Size(min = 0, max = 4096, message = "Слишком длинное описание!")
     private String description;
+
     private OrderState state;
+
     private Team team;
+
 
     @Id
     @Column(name = "id", nullable = false)

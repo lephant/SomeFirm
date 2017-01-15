@@ -60,9 +60,9 @@
                     <p:inputTextarea styleClass="description_field" value="#{order.description}" id="description"/>
                 </div>
 
-                <p:commandButton action="create" value="Заказать"/>
+                <p:commandButton action="create" value="Заказать" update="messages"/>
 
-                <p:messages showDetail="true"/>
+                <p:messages id="messages"/>
             </h:form>
 
         </ui:define>
