@@ -28,8 +28,6 @@ public class StorageServiceImpl implements StorageService {
     public void writeOffThingFromWorkshop(StorageJournal note, ArrayList<StorageJournal> noteList) {
         StorageContent currentContentInWorkshop = note.getWorkshop().getContentByThing(note.getThing());
 
-        if (note.getCount() <= 0) return; // TODO: сделать валидаторы
-
         if (currentContentInWorkshop == null || currentContentInWorkshop.getCount() < note.getCount()) {
             return; // TODO: сделать обработку ошибок
         }
@@ -47,10 +45,8 @@ public class StorageServiceImpl implements StorageService {
                                          ArrayList<StorageContent> storageContent) {
         StorageContent currentContentInStorage = getContentOfStorageByThing(storageContent, note.getThing());
 
-        if (note.getCount() <= 0) return; // TODO: сделать валидаторы
-
         if (currentContentInStorage == null || currentContentInStorage.getCount() < note.getCount()) {
-            return; // TODO: сделать обработку ошибок
+            return; // TODO: сделать обработку ошибок (вывод сообщений)
         }
 
         currentContentInStorage.setCount(currentContentInStorage.getCount() - note.getCount());
@@ -66,8 +62,6 @@ public class StorageServiceImpl implements StorageService {
                                                ArrayList<StorageContent> storageContent) {
 
         StorageContent currentContentInWorkshop = note.getWorkshop().getContentByThing(note.getThing());
-
-        if (note.getCount() <= 0) return; // TODO: сделать валидаторы
 
         if (currentContentInWorkshop == null || currentContentInWorkshop.getCount() < note.getCount()) {
             return; // TODO: сделать обработку ошибок
@@ -94,8 +88,6 @@ public class StorageServiceImpl implements StorageService {
                                                ArrayList<StorageContent> storageContent,
                                                ArrayList<StorageContent> contentsOfWorkshops) {
         StorageContent currentContentInStorage = getContentOfStorageByThing(storageContent, note.getThing());
-
-        if (note.getCount() <= 0) return; // TODO: сделать валидаторы
 
         if (currentContentInStorage == null || currentContentInStorage.getCount() < note.getCount()) {
             return; // TODO: сделать обработку ошибок
@@ -125,8 +117,6 @@ public class StorageServiceImpl implements StorageService {
     public void importThingToStorage(StorageJournal note, ArrayList<StorageJournal> noteList,
                                      ArrayList<StorageContent> storageContent) {
         StorageContent currentContentInStorage = getContentOfStorageByThing(storageContent, note.getThing());
-
-        if (note.getCount() <= 0) return; // TODO: сделать валидаторы
 
         if (currentContentInStorage == null) {
             currentContentInStorage = createContentByNote(note);

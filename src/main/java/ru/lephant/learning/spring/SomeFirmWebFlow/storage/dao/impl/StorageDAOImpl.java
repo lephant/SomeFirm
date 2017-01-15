@@ -52,7 +52,12 @@ public class StorageDAOImpl implements StorageDAO {
         Transaction transaction = session.beginTransaction();
 
         for (StorageContent content: storageContent) {
-            session.saveOrUpdate(content);
+            if (content.getCount() == 0) {
+                StorageContent dbContent = (StorageContent) session.load(StorageContent.class, content.getId());
+                if (dbContent != null) session.delete(dbContent);
+            } else {
+                session.saveOrUpdate(content);
+            }
         }
 
         for (StorageContent content: changedWorkshopContents) {

@@ -1,13 +1,20 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "storage_employe", schema = "somefirmdb")
 public class StorageEmploye implements Serializable {
+
     private long id;
+
+    @NotNull(message = "Складовщик не может быть без имени!")
+    @Size(min = 1, max = 255, message = "У каждого складовщика должно быть имя и оно не может быть длиннее 255 символов!")
     private String fio;
+
 
     @Id
     @Column(name = "id", nullable = false)

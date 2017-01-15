@@ -74,6 +74,19 @@ public class WorkshopDAOImpl implements WorkshopDAO {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
+        boolean check = false;
+        while (!check) {
+            check = true;
+            for (StorageContent content: workshop.getContents()) {
+                if (content.getCount() == 0) {
+                    workshop.getContents().remove(content);
+                    check = false;
+                    break;
+                }
+            }
+        }
+
+
         session.saveOrUpdate(workshop);
 
         if (storageContent != null) {

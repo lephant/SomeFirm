@@ -21,6 +21,7 @@
             <h1 class="center">Рабочий цех</h1>
 
             <h:form>
+                <p:growl id="messages"/>
 
                 <div class="field_block">
                     <p:outputLabel styleClass="field_label" for="name" value="Название:"/>
@@ -58,7 +59,7 @@
                 </h:dataTable>
 
                 <p:commandButton value="Сохранить" id="saveWorkshop" action="saveWorkshop"/>
-                <p:commandButton value="Отмена" id="cancelWorkshop" action="cancelWorkshop"/>
+                <p:commandButton value="Отмена" id="cancelWorkshop" action="cancelWorkshop" immediate="true"/>
             </h:form>
 
 
@@ -96,7 +97,6 @@
 
                     <p:commandButton id="cancelSend" action="cancelSend" value="Отмена" ajax="true"
                                      oncomplete="PF('splitSendDialog').hide()" immediate="true"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 
@@ -135,7 +135,6 @@
 
                     <p:commandButton id="cancelWriteOff" action="cancelWriteOff" value="Отмена" ajax="true"
                                      oncomplete="PF('splitWriteOffDialog').hide()" immediate="true"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 
