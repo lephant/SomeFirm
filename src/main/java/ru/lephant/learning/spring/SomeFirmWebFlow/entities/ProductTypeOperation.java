@@ -1,14 +1,21 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "product_type_operation", schema = "somefirmdb")
 public class ProductTypeOperation implements Serializable {
+
     private long id;
+
+    @NotNull(message = "Продукт не указан. Ошибка!")
     private ProductType productType;
+
+    @NotNull(message = "Не указана операция!")
     private Operation operation;
+
 
     public ProductTypeOperation(ProductType productType) {
         this.productType = productType;

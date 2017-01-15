@@ -1,6 +1,10 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -10,9 +14,17 @@ import java.util.List;
 @Table(name = "product_type", schema = "somefirmdb")
 @PrimaryKeyJoinColumn(name = "pressmark")
 public class ProductType extends Thing implements Serializable {
+
+    @Size(max = 4096, message = "Слишком длинное описание!")
     private String description;
+
+    @NotNull(message = "Стоимость должна быть указана!")
+    @Min(value = 0, message = "Стоимость должна быть положительной!")
+    @Digits(integer = 10, fraction = 2, message = "Стоимость должна быть десятизначным числом с максимум 2 знаками после запятой!")
     private BigDecimal cost;
+
     private List<ProductTypeOperation> operations = new ArrayList<ProductTypeOperation>();
+
 
     @Basic
     @Column(name = "description", nullable = true, length = 4096)
