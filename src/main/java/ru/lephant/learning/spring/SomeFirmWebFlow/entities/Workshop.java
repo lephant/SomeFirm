@@ -1,14 +1,21 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Workshop implements Serializable {
+
     private long id;
+
+    @Size(min = 1, max = 255, message = "Название должно быть указано и не может быть больше 255 символов!")
     private String name;
-    private List<StorageContent> contents;
+
+    private List<StorageContent> contents = new ArrayList<StorageContent>();
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,6 +55,7 @@ public class Workshop implements Serializable {
         }
         return null;
     }
+
 
     @Override
     public boolean equals(Object o) {
