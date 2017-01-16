@@ -1,15 +1,23 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "users", schema = "somefirmdb")
 public class User implements Serializable {
+
+    @Size(min = 6, max = 255, message = "Логин должен быть от 6 до 255 символов!")
     private String username;
+
+    @Size(min = 6, max = 128, message = "Пароль должен быть от 6 до 128 символов!")
     private String password;
+
     private byte enabled;
+
     private GroupMember groupMember;
+
 
     @Id
     @Column(name = "username", nullable = false, length = 255)
@@ -49,6 +57,7 @@ public class User implements Serializable {
     public void setGroupMember(GroupMember groupMember) {
         this.groupMember = groupMember;
     }
+
 
     @Override
     public boolean equals(Object o) {
