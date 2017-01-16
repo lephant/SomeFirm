@@ -17,6 +17,8 @@
         <ui:define name="work">
             <h1 class="center">Создание наряда</h1>
             <h:form>
+                <p:growl id="messages"/>
+
                 <div class="field_block">
                     <p:outputLabel styleClass="field_label" value="Время начала:" for="dateOfCreate"/>
                     <p:calendar styleClass="text_field" id="dateOfCreate" value="#{team.dateOfCreate}"
@@ -32,7 +34,9 @@
                 <div class="center">
                     <p:commandButton value="Задать промежуток времени" action="setTimeInterval" ajax="@form"/>
                 </div>
+            </h:form>
 
+            <h:form>
                 <div class="clearfix"></div>
 
                 <div class="center">
@@ -44,17 +48,16 @@
                             itemLabel="#{user.username}"
                             itemValue="#{user}"
                             converter="#{userConverterController}"
+                            validator="workersValidator"
                     />
                 </div>
 
                 <div class="clearfix"></div>
 
                 <div class="center">
-                    <p:commandButton action="saveTeam" value="Создать наряд"/>
+                    <p:commandButton action="saveTeam" value="Создать наряд" ajax="@form"/>
+                    <p:commandButton action="cancel" value="Отмена"/>
                 </div>
-
-                <p:messages showDetail="true"/>
-
             </h:form>
         </ui:define>
     </ui:composition>

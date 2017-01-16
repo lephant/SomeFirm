@@ -41,8 +41,9 @@
             <evaluate expression="team.addWorkers(userList.target)"/>
             <evaluate expression="teamService.saveTeam(team)"/>
         </transition>
+
+        <transition on="cancel" to="end"/>
     </view-state>
 
     <end-state id="end"/>
-
 </flow>

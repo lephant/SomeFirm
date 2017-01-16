@@ -1,6 +1,12 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,10 +14,16 @@ import java.util.List;
 
 @Entity
 public class Team implements Serializable {
+
     private long id;
+
+    @NotNull(message = "Не указан заказ, для которого создается наряд!")
     private OrderThing order;
+
     private long dateOfCreate;
+
     private long dateOfDeadline;
+
     private List<TeamUser> workers = new ArrayList<>();
 
 

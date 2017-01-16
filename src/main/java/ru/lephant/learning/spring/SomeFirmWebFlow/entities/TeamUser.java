@@ -1,14 +1,21 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "team_users", schema = "somefirmdb")
 public class TeamUser implements Serializable {
+
     private long id;
+
+    @NotNull(message = "Не указан наряд, в который добавляется рабочий!")
     private Team team;
+
+    @NotNull(message = "Не указан рабочий, который вступает в наряд!")
     private User user;
+
 
     public TeamUser() {
     }
@@ -17,6 +24,7 @@ public class TeamUser implements Serializable {
         this.team = team;
         this.user = user;
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
