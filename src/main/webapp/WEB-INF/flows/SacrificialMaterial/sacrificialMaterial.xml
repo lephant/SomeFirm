@@ -19,7 +19,7 @@
 
         <transition on="deleteMaterial">
             <evaluate
-                    expression="sacrificialMaterialService.deleteSacrificialMaterial(materials.selectedRow.pressmark)"/>
+                    expression="sacrificialMaterialService.deleteSacrificialMaterial(materials.selectedRow.pressmark, messageContext)"/>
         </transition>
 
         <transition on="createMaterial" to="edit">
@@ -38,7 +38,8 @@
         </on-entry>
 
         <transition on="createMaterial" to="list">
-            <evaluate expression="sacrificialMaterialService.saveSacrificialMaterial(flowScope.material)"/>
+            <evaluate
+                    expression="sacrificialMaterialService.saveSacrificialMaterial(flowScope.material, messageContext, editable)"/>
         </transition>
 
         <transition on="cancelMaterial" to="end" validate="false" bind="false"/>
