@@ -18,10 +18,9 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
-
             <h1 class="center">Продукт</h1>
-
             <h:form>
+                <p:growl id="messages"/>
                 <h:outputText value="Шифр: #{product.pressmark}"/><br/>
                 <h:outputText value="Название: #{product.name}"/><br/>
                 <h:outputText value="Описание: #{product.description}"/><br/>

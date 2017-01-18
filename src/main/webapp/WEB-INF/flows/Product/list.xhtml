@@ -19,6 +19,7 @@
         <ui:define name="work">
             <h1 class="center">Продукты</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <h:dataTable value="#{products}" var="JsfProduct">
                     <h:column>
                         <h:outputText value="Название: #{JsfProduct.name}"/><br/>

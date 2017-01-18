@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.product.service;
 
+import org.springframework.binding.message.MessageContext;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType;
 import java.util.List;
 
@@ -9,8 +10,8 @@ public interface ProductService {
 
     public List listProduct();
 
-    public void saveProduct(ProductType product);
+    public boolean saveProduct(ProductType product, MessageContext messageContext, boolean isNew);
 
-    public void deleteProduct(long pressmark);
+    public boolean deleteProduct(long pressmark, MessageContext messageContext);
 
 }
