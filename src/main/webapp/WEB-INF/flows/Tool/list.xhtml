@@ -19,6 +19,7 @@
         <ui:define name="work">
             <h1 class="center">Инструменты</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
                 <h:dataTable id="toolsTable"
                              value="#{tools}"

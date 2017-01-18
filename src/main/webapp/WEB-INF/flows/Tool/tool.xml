@@ -16,11 +16,12 @@
                     result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType"
                     result="flowScope.tool"
             />
+            <set name="flowScope.editable" value="flowScope.tool.pressmark==0" type="boolean"/>
         </transition>
 
         <transition on="deleteTool">
             <evaluate
-                    expression="toolService.deleteTool(tools.selectedRow.pressmark)"/>
+                    expression="toolService.deleteTool(tools.selectedRow.pressmark, messageContext)"/>
         </transition>
 
         <transition on="createTool" to="edit">
@@ -29,24 +30,23 @@
                     result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType"
                     result="flowScope.tool"
             />
+            <set name="flowScope.editable" value="flowScope.tool.pressmark==0" type="boolean"/>
         </transition>
-
     </view-state>
 
 
     <view-state id="edit" view="edit.xhtml" model="flowScope.tool">
-
-        <on-entry>
-            <set name="viewScope.editable" value="flowScope.tool.pressmark==0" type="boolean"/>
-        </on-entry>
-
-        <transition on="createTool" to="list">
-            <evaluate expression="toolService.saveTool(flowScope.tool)"/>
-        </transition>
-
-        <transition on="cancelTool" to="end" />
-
+        <transition on="createTool" to="createTool"/>
+        <transition on="cancelTool" to="end"/>
     </view-state>
+
+
+    <action-state id="createTool">
+        <evaluate expression="toolService.saveTool(flowScope.tool, messageContext, editable)"/>
+        <transition on="yes" to="list"/>
+        <transition on="no" to="edit"/>
+    </action-state>
+
 
     <end-state id="end"/>
 </flow>

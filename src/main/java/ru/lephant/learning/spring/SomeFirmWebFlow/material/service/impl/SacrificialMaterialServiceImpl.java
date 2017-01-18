@@ -86,7 +86,7 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
         messageContext
                 .addMessage(builder
                         .error()
-                        .defaultText("Материал не был удален, так как он используется!")
+                        .defaultText("Материал не может быть удален, так как он используется!")
                         .build()
                 );
     }
@@ -95,7 +95,7 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
         messageContext
                 .addMessage(builder
                         .info()
-                        .defaultText("Материал был удален!")
+                        .defaultText("Материал успешно удален!")
                         .build()
                 );
     }

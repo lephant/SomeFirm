@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.tool.service;
 
+import org.springframework.binding.message.MessageContext;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType;
 
 import java.util.List;
@@ -10,8 +11,8 @@ public interface ToolService {
 
     public List listTool();
 
-    public void saveTool(ToolType tool);
+    public boolean saveTool(ToolType tool, MessageContext messageContext, boolean isNew);
 
-    public void deleteTool(long pressmark);
+    public void deleteTool(long pressmark, MessageContext messageContext);
 
 }

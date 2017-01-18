@@ -63,7 +63,6 @@ public class SacrificialMaterialDAOImpl implements SacrificialMaterialDAO {
         try {
             session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
-            sacrificialMaterial.setType(ItemType.SACRIFICIAL_MATERIAL);
             session.update(sacrificialMaterial);
             transaction.commit();
         } finally {

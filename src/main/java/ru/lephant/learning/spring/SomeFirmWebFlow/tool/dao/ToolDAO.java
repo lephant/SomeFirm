@@ -1,6 +1,8 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.tool.dao;
 
+import org.hibernate.exception.ConstraintViolationException;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType;
+
 import java.util.List;
 
 public interface ToolDAO {
@@ -9,8 +11,13 @@ public interface ToolDAO {
 
     public List listTool();
 
-    public void saveTool(ToolType tool);
+    public void createTool(ToolType tool)
+            throws ConstraintViolationException;
 
-    public void deleteTool(long pressmark);
+    public void updateTool(ToolType tool)
+            throws ConstraintViolationException;
+
+    public void deleteTool(long pressmark)
+            throws ConstraintViolationException;
 
 }
