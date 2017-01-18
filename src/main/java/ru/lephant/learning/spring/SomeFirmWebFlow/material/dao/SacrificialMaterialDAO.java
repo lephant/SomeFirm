@@ -11,10 +11,10 @@ public interface SacrificialMaterialDAO {
     public List listSacrificialMaterial();
 
     public void createSacrificialMaterial(SacrificialMaterialType sacrificialMaterial)
-            throws ConstraintViolationException, Exception;
+            throws ConstraintViolationException;
 
     public void updateSacrificialMaterial(SacrificialMaterialType sacrificialMaterial)
-            throws ConstraintViolationException, Exception;
+            throws ConstraintViolationException;
 
     public void deleteSacrificialMaterial(long pressmark)
             throws ConstraintViolationException;

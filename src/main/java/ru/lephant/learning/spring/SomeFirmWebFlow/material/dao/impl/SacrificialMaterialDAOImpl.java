@@ -41,35 +41,54 @@ public class SacrificialMaterialDAOImpl implements SacrificialMaterialDAO {
 
     @Override
     public void createSacrificialMaterial(SacrificialMaterialType sacrificialMaterial)
-            throws ConstraintViolationException, Exception {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        sacrificialMaterial.setType(ItemType.SACRIFICIAL_MATERIAL);
-        session.save(sacrificialMaterial);
-        transaction.commit();
-        session.close();
+            throws ConstraintViolationException {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
+            sacrificialMaterial.setType(ItemType.SACRIFICIAL_MATERIAL);
+            session.save(sacrificialMaterial);
+            transaction.commit();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     @Override
     public void updateSacrificialMaterial(SacrificialMaterialType sacrificialMaterial)
-            throws ConstraintViolationException, Exception {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        sacrificialMaterial.setType(ItemType.SACRIFICIAL_MATERIAL);
-        session.update(sacrificialMaterial);
-        transaction.commit();
-        session.close();
+            throws ConstraintViolationException {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
+            sacrificialMaterial.setType(ItemType.SACRIFICIAL_MATERIAL);
+            session.update(sacrificialMaterial);
+            transaction.commit();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     @Override
-    public void deleteSacrificialMaterial(long pressmark) throws ConstraintViolationException{
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        SacrificialMaterialType sacrificialMaterial = (SacrificialMaterialType) session
-                .load(SacrificialMaterialType.class, pressmark);
-        if (sacrificialMaterial != null) session.delete(sacrificialMaterial);
-        transaction.commit();
-        session.close();
+    public void deleteSacrificialMaterial(long pressmark)
+            throws ConstraintViolationException {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
+            SacrificialMaterialType sacrificialMaterial = (SacrificialMaterialType) session
+                    .load(SacrificialMaterialType.class, pressmark);
+            if (sacrificialMaterial != null) session.delete(sacrificialMaterial);
+            transaction.commit();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
 }

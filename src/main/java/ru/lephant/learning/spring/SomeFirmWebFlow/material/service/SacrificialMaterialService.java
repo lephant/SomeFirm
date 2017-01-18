@@ -10,8 +10,8 @@ public interface SacrificialMaterialService {
 
     public List listSacrificialMaterial();
 
-    public void saveSacrificialMaterial(SacrificialMaterialType sacrificialMaterial, MessageContext messageContext,
-                                        boolean editable);
+    public boolean saveSacrificialMaterial(SacrificialMaterialType sacrificialMaterial, MessageContext messageContext,
+                                           boolean editable);
 
     public void deleteSacrificialMaterial(long pressmark, MessageContext messageContext);
 

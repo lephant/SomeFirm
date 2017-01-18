@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.material.dao.SacrificialMaterialDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.material.service.SacrificialMaterialService;
@@ -18,43 +17,40 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
     @Autowired
     SacrificialMaterialDAO sacrificialMaterialDAO;
 
-    @Transactional(readOnly = true)
+
     public SacrificialMaterialType getSacrificialMaterialByPressmark(long pressmark) {
         return sacrificialMaterialDAO.getSacrificialMaterialByPressmark(pressmark);
     }
 
-    @Transactional(readOnly = true)
     public List listSacrificialMaterial() {
         return sacrificialMaterialDAO.listSacrificialMaterial();
     }
 
-    @Transactional
-    public void saveSacrificialMaterial(SacrificialMaterialType sacrificialMaterial, MessageContext messageContext,
-                                        boolean editable) {
+    public boolean saveSacrificialMaterial(SacrificialMaterialType sacrificialMaterial, MessageContext messageContext,
+                                           boolean editable) {
         try {
             if (editable) {
                 sacrificialMaterialDAO.createSacrificialMaterial(sacrificialMaterial);
                 addCreateMessage(sacrificialMaterial, messageContext, new MessageBuilder());
+                return true;
             } else {
                 sacrificialMaterialDAO.updateSacrificialMaterial(sacrificialMaterial);
                 addUpdateMessage(sacrificialMaterial, messageContext, new MessageBuilder());
+                return true;
             }
         } catch (ConstraintViolationException e) {
-            e.printStackTrace();
+            // TODO: Сделать логгер
             addPressmarkNotAvailableMessage(messageContext, new MessageBuilder());
-        } catch (Exception e) {
-            e.printStackTrace();
-            addErrorMessage(messageContext, new MessageBuilder());
+            return false;
         }
     }
 
-    @Transactional
     public void deleteSacrificialMaterial(long pressmark, MessageContext messageContext) {
         try {
             sacrificialMaterialDAO.deleteSacrificialMaterial(pressmark);
             addDeleteMessage(messageContext, new MessageBuilder());
         } catch (ConstraintViolationException e) {
-            e.printStackTrace();
+            // TODO: Сделать логгер
             addUsedMaterialMessage(messageContext, new MessageBuilder());
         }
     }
