@@ -51,7 +51,7 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
             addDeleteMessage(messageContext, new MessageBuilder());
         } catch (ConstraintViolationException e) {
             // TODO: Сделать логгер
-            addUsedMaterialMessage(messageContext, new MessageBuilder());
+            addMaterialIsUsedMessage(messageContext, new MessageBuilder());
         }
     }
 
@@ -73,15 +73,6 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
                 );
     }
 
-    private void addErrorMessage(MessageContext messageContext, MessageBuilder builder) {
-        messageContext
-                .addMessage(builder
-                        .error()
-                        .defaultText("Материал не был создан из-за ошибки!")
-                        .build()
-                );
-    }
-
     private void addPressmarkNotAvailableMessage(MessageContext messageContext, MessageBuilder builder) {
         messageContext
                 .addMessage(builder
@@ -91,7 +82,7 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
                 );
     }
 
-    private void addUsedMaterialMessage(MessageContext messageContext, MessageBuilder builder) {
+    private void addMaterialIsUsedMessage(MessageContext messageContext, MessageBuilder builder) {
         messageContext
                 .addMessage(builder
                         .error()
