@@ -27,9 +27,9 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
     }
 
     public boolean saveSacrificialMaterial(SacrificialMaterialType sacrificialMaterial, MessageContext messageContext,
-                                           boolean editable) {
+                                           boolean isNew) {
         try {
-            if (editable) {
+            if (isNew) {
                 sacrificialMaterialDAO.createSacrificialMaterial(sacrificialMaterial);
                 addCreateMessage(sacrificialMaterial, messageContext, new MessageBuilder());
                 return true;
