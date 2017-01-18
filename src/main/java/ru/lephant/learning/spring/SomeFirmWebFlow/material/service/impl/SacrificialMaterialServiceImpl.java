@@ -18,14 +18,17 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
     SacrificialMaterialDAO sacrificialMaterialDAO;
 
 
+    @Override
     public SacrificialMaterialType getSacrificialMaterialByPressmark(long pressmark) {
         return sacrificialMaterialDAO.getSacrificialMaterialByPressmark(pressmark);
     }
 
+    @Override
     public List listSacrificialMaterial() {
         return sacrificialMaterialDAO.listSacrificialMaterial();
     }
 
+    @Override
     public boolean saveSacrificialMaterial(SacrificialMaterialType sacrificialMaterial, MessageContext messageContext,
                                            boolean isNew) {
         try {
@@ -45,6 +48,7 @@ public class SacrificialMaterialServiceImpl implements SacrificialMaterialServic
         }
     }
 
+    @Override
     public void deleteSacrificialMaterial(long pressmark, MessageContext messageContext) {
         try {
             sacrificialMaterialDAO.deleteSacrificialMaterial(pressmark);

@@ -18,14 +18,17 @@ public class ToolServiceImpl implements ToolService {
     ToolDAO toolDAO;
 
 
+    @Override
     public ToolType getToolByPressmark(long pressmark) {
         return toolDAO.getToolByPressmark(pressmark);
     }
 
+    @Override
     public List listTool() {
         return toolDAO.listTool();
     }
 
+    @Override
     public boolean saveTool(ToolType tool, MessageContext messageContext, boolean isNew) {
         try {
             if (isNew) {
@@ -44,6 +47,7 @@ public class ToolServiceImpl implements ToolService {
         }
     }
 
+    @Override
     public void deleteTool(long pressmark, MessageContext messageContext) {
         try {
             toolDAO.deleteTool(pressmark);
