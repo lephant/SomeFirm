@@ -6,6 +6,7 @@ import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Service;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductTypeOperation;
 import ru.lephant.learning.spring.SomeFirmWebFlow.product.dao.ProductDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.product.service.ProductService;
 
@@ -60,6 +61,18 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public void addOperationToList(ProductType product, ProductTypeOperation operation, MessageContext messageContext) {
+        product.addOperation(operation);
+        addMessageWhenAddingOperation(messageContext, new MessageBuilder());
+    }
+
+    @Override
+    public void removeOperationFromList(ProductType product, ProductTypeOperation operation, MessageContext messageContext) {
+        product.removeOperation(operation);
+        addMessageWhenRemovingOperation(messageContext, new MessageBuilder());
+    }
+
 
     private void addCreateMessage(MessageContext messageContext, MessageBuilder builder) {
         messageContext
@@ -106,4 +119,21 @@ public class ProductServiceImpl implements ProductService {
                 );
     }
 
+    private void addMessageWhenAddingOperation(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .info()
+                        .defaultText("Операция будет добавлена после сохранения.")
+                        .build()
+                );
+    }
+
+    private void addMessageWhenRemovingOperation(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .info()
+                        .defaultText("Операция будет удалена после сохранения.")
+                        .build()
+                );
+    }
 }

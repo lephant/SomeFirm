@@ -265,17 +265,17 @@ h1 {
 
 .sub_table_td_name {
     padding: 10px;
-    width: 140px;
+    width: 160px;
 }
 
 .sub_table_td_count {
     padding: 10px;
-    width: 120px;
+    width: 170px;
 }
 
 .sub_table_td_desc {
     padding: 10px;
-    width: 590px;
+    /*width: 590px;*/
 }
 
 .sub_table_td_button {

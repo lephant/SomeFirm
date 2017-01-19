@@ -64,11 +64,11 @@
         </transition>
 
         <transition on="addOperation">
-            <evaluate expression="flowScope.product.addOperation(addingOperation)"/>
+            <evaluate expression="productService.addOperationToList(product, addingOperation, messageContext)"/>
         </transition>
 
         <transition on="deleteOperation">
-            <evaluate expression="flowScope.product.removeOperation(operations.selectedRow)"/>
+            <evaluate expression="productService.removeOperationFromList(product, operations.selectedRow, messageContext)"/>
         </transition>
 
 
