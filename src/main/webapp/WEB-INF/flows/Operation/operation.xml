@@ -27,12 +27,8 @@
                       result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation"/>
         </on-render>
 
-        <transition on="delete" to="list">
-            <evaluate expression="operationService.deleteOperation(flowScope.operation.id)"/>
-        </transition>
-
+        <transition on="delete" to="deleteOperation"/>
         <transition on="edit" to="edit"/>
-
         <transition on="return" to="end"/>
     </view-state>
 
@@ -68,11 +64,11 @@
         </transition>
 
         <transition on="addMaterial">
-            <evaluate expression="operation.addSacrificialMaterial(addingSacrificialMaterial)"/>
+            <evaluate expression="operationService.addMaterialToList(operation, addingSacrificialMaterial, messageContext)"/>
         </transition>
 
         <transition on="deleteMaterial">
-            <evaluate expression="operation.removeSacrificialMaterial(sacrificialMaterials.selectedRow)"/>
+            <evaluate expression="operationService.removeMaterialFromList(operation, sacrificialMaterials.selectedRow, messageContext)"/>
         </transition>
 
 
@@ -89,16 +85,16 @@
         </transition>
 
         <transition on="addTool">
-            <evaluate expression="operation.addTool(addingTool)"/>
+            <evaluate expression="operationService.addToolToList(operation, addingTool, messageContext)"/>
         </transition>
 
         <transition on="deleteTool">
-            <evaluate expression="operation.removeTool(tools.selectedRow)"/>
+            <evaluate expression="operationService.removeToolFromList(operation, tools.selectedRow, messageContext)"/>
         </transition>
 
 
         <transition on="save" to="list">
-            <evaluate expression="operationService.saveOperation(flowScope.operation, fileUploadBean)"/>
+            <evaluate expression="operationService.saveOperation(flowScope.operation, fileUploadBean, messageContext)"/>
         </transition>
 
         <transition on="cancel" to="end" bind="false" validate="false"/>
@@ -113,6 +109,14 @@
             <render fragments="mainForm:imageMessage"/>
         </transition>
     </view-state>
+
+
+    <action-state id="deleteOperation">
+        <evaluate expression="operationService.deleteOperation(flowScope.operation.id, messageContext)"/>
+        <transition on="yes" to="list"/>
+        <transition on="no" to="details"/>
+    </action-state>
+
 
     <end-state id="end"/>
 </flow>

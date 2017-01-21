@@ -17,8 +17,7 @@ public class ShowImage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("image/jpeg");
-        OutputStream out = response.getOutputStream();
-        try {
+        try (OutputStream out = response.getOutputStream()) {
             long id = Long.valueOf(request.getParameter("id"));
             OperationService operationService = (OperationService) getServletContext().getAttribute("operationService");
             byte[] image = operationService.getPlanOfOperationById(id);
@@ -26,8 +25,6 @@ public class ShowImage extends HttpServlet {
             out.write(image);
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            out.close();
         }
     }
 

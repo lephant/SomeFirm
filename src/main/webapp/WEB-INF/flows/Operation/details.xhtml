@@ -20,6 +20,7 @@
         <ui:define name="work">
             <h1 class="center">Инфо об операции</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <h:outputText value="ID: #{operation.id}"/><br/>
                 <h:outputText value="Описание операции: #{operation.description}"/><br/>
                 <h:outputText value="Длительность: #{operation.duration} часов"/><br/>

@@ -19,6 +19,7 @@
         <ui:define name="work">
             <h1 class="center">Операции</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <div class="clearfix">
                     <ui:repeat value="#{operations}" var="oper">
                         <p:panel header="#{oper.id}" styleClass="operations_block">

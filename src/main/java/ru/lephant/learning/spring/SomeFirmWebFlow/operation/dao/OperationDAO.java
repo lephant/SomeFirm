@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.operation.dao;
 
+import org.hibernate.exception.ConstraintViolationException;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation;
 import ru.lephant.learning.spring.SomeFirmWebFlow.operation.FileUploadBean;
 
@@ -15,8 +16,10 @@ public interface OperationDAO {
 
     public List listOperation();
 
-    public void deleteOperation(long id);
+    public void deleteOperation(long id)
+            throws ConstraintViolationException;
 
-    public void saveOperation(Operation operation, FileUploadBean fileUploadBean);
+    public void saveOperation(Operation operation, FileUploadBean fileUploadBean)
+            throws ConstraintViolationException;
 
 }

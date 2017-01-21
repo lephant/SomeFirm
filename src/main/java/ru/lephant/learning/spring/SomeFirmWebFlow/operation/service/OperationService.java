@@ -1,6 +1,9 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.operation.service;
 
+import org.springframework.binding.message.MessageContext;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool;
 import ru.lephant.learning.spring.SomeFirmWebFlow.operation.FileUploadBean;
 
 import java.util.List;
@@ -15,8 +18,20 @@ public interface OperationService {
 
     public List listOperation();
 
-    public void deleteOperation(long id);
+    public boolean deleteOperation(long id, MessageContext messageContext);
 
-    public void saveOperation(Operation operation, FileUploadBean fileUploadBean);
+    public void saveOperation(Operation operation, FileUploadBean fileUploadBean, MessageContext messageContext);
+
+    public void addToolToList(Operation operation, OperationTool tool,
+                              MessageContext messageContext);
+
+    public void removeToolFromList(Operation operation, OperationTool tool,
+                                   MessageContext messageContext);
+
+    public void addMaterialToList(Operation operation, OperationSacrificialMaterial material,
+                                  MessageContext messageContext);
+
+    public void removeMaterialFromList(Operation operation, OperationSacrificialMaterial material,
+                                       MessageContext messageContext);
 
 }
