@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -21,7 +20,7 @@ public class Operation implements Serializable {
     @Min(value = 1, message = "Операция может длиться минимум 1 час!")
     private long duration;
 
-    private byte[] plan;
+    private Plan plan;
 
     private Workshop defaultWorkshop;
 
@@ -61,14 +60,13 @@ public class Operation implements Serializable {
         this.duration = duration;
     }
 
-    @Basic(fetch = FetchType.LAZY)
-    @Lob
-    @Column(name = "plan", nullable = true)
-    public byte[] getPlan() {
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "plan_id", referencedColumnName = "id")
+    public Plan getPlan() {
         return plan;
     }
 
-    public void setPlan(byte[] plan) {
+    public void setPlan(Plan plan) {
         this.plan = plan;
     }
 
@@ -96,7 +94,7 @@ public class Operation implements Serializable {
     }
 
     public void removeSacrificialMaterial(OperationSacrificialMaterial operationSacrificialMaterial) {
-        if(sacrificialMaterials.contains(operationSacrificialMaterial))
+        if (sacrificialMaterials.contains(operationSacrificialMaterial))
             sacrificialMaterials.remove(operationSacrificialMaterial);
     }
 
@@ -114,7 +112,7 @@ public class Operation implements Serializable {
     }
 
     public void removeTool(OperationTool operationTool) {
-        if(tools.contains(operationTool))
+        if (tools.contains(operationTool))
             tools.remove(operationTool);
     }
 
@@ -130,7 +128,6 @@ public class Operation implements Serializable {
         if (duration != operation.duration) return false;
         if (description != null ? !description.equals(operation.description) : operation.description != null)
             return false;
-        if (!Arrays.equals(plan, operation.plan)) return false;
         return defaultWorkshop != null ? defaultWorkshop.equals(operation.defaultWorkshop) : operation.defaultWorkshop == null;
 
     }
@@ -140,7 +137,6 @@ public class Operation implements Serializable {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (int) (duration ^ (duration >>> 32));
-        result = 31 * result + Arrays.hashCode(plan);
         result = 31 * result + (defaultWorkshop != null ? defaultWorkshop.hashCode() : 0);
         return result;
     }

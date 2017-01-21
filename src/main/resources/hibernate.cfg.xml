@@ -18,6 +18,8 @@
         <property name="hibernate.format_sql">true</property>
 
 
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Plan"/>
+
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupAuthorities"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupMember"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Groups"/>

@@ -5,6 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Plan;
 import ru.lephant.learning.spring.SomeFirmWebFlow.operation.FileUploadBean;
 import ru.lephant.learning.spring.SomeFirmWebFlow.operation.dao.OperationDAO;
 
@@ -26,7 +27,6 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
                 .uniqueResult();
 
         Hibernate.initialize(operation.getPlan());
-        Hibernate.initialize(operation.getDefaultWorkshop());
         Hibernate.initialize(operation.getSacrificialMaterials());
         Hibernate.initialize(operation.getTools());
 
@@ -44,7 +44,7 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
         return operation;
     }
 
-    public byte[] getPlanOfOperationById(long id) {
+    public byte[] getPlanOfOperationById(long id) { // TODO: Add projections
         Session session = sessionFactory.openSession();
         Operation operation = (Operation)session
                 .createCriteria(Operation.class)
@@ -52,7 +52,7 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
                 .uniqueResult();
         Hibernate.initialize(operation.getPlan());
         session.close();
-        return operation.getPlan();
+        return operation.getPlan().getContent();//TODO
     }
 
     public List listOperation() {
@@ -75,7 +75,12 @@ public class OperationDAOImpl implements OperationDAO, Serializable {
     }
 
     public void saveOperation(Operation operation, FileUploadBean fileUploadBean) {
-        if (fileUploadBean.getData() != null) operation.setPlan(fileUploadBean.getData());
+        if (operation.getPlan() == null) {
+            operation.setPlan(new Plan());
+        }
+        if (fileUploadBean.getData() != null) {
+            operation.getPlan().setContent(fileUploadBean.getData());
+        }
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(operation);
