@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageContent;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Thing;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.JournalOperationType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.exceptions.InsufficientNumberOfItemsException;
 import ru.lephant.learning.spring.SomeFirmWebFlow.storage.dao.StorageDAO;
@@ -125,7 +126,8 @@ public class StorageServiceImpl implements StorageService {
                 throw new InsufficientNumberOfItemsException("Недостаточное количество предметов на складе.");
             }
 
-            StorageContent currentContentInWorkshop = getContentOfStorageByThing(contentsOfWorkshops, note.getThing());
+            StorageContent currentContentInWorkshop = getContentOfStorageByThingAndWorkshop(contentsOfWorkshops,
+                    note.getThing(), note.getWorkshop());
             if (currentContentInWorkshop == null) {
                 currentContentInWorkshop = workshopService
                         .getWorkshopById(note.getWorkshop().getId())
@@ -150,7 +152,6 @@ public class StorageServiceImpl implements StorageService {
             addSendThingFromStorageToWorkshopErrorMessage(messageContext, new MessageBuilder());
         }
     }
-
 
     @Override
     public void importThingToStorage(StorageJournal note,
@@ -180,6 +181,7 @@ public class StorageServiceImpl implements StorageService {
         return storageDAO.listStorageContent();
     }
 
+
     @Override
     public StorageContent getStorageContentByThing(Thing thing) {
         return storageDAO.getStorageContentByThing(thing);
@@ -205,6 +207,16 @@ public class StorageServiceImpl implements StorageService {
         return contentInStorage;
     }
 
+    private StorageContent getContentOfStorageByThingAndWorkshop(ArrayList<StorageContent> contentsOfWorkshops, Thing thing, Workshop workshop) {
+        StorageContent contentInStorage = null;
+        for (StorageContent content : contentsOfWorkshops) {
+            if (content.getThing().equals(thing) && content.getWorkshop().equals(workshop)) {
+                contentInStorage = content;
+                break;
+            }
+        }
+        return contentInStorage;
+    }
 
     private StorageContent createContentByNote(StorageJournal note) {
         StorageContent contentInStorage;
