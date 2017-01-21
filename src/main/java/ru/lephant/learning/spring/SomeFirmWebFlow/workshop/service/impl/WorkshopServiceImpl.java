@@ -1,10 +1,12 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.workshop.service.impl;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageContent;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop;
 import ru.lephant.learning.spring.SomeFirmWebFlow.workshop.dao.WorkshopDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.workshop.service.WorkshopService;
@@ -18,33 +20,73 @@ public class WorkshopServiceImpl implements WorkshopService {
     @Autowired
     WorkshopDAO workshopDAO;
 
-    @Transactional(readOnly = true)
+
+    @Override
     public List listWorkshop() {
         return workshopDAO.listWorkshop();
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public List listWorkshopWithAbstractMainStorage() {
         return workshopDAO.listWorkshopWithAbstractMainStorage();
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public Workshop getWorkshopById(long id) {
         return workshopDAO.getWorkshopById(id);
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public Workshop getLazyWorkshopById(long id) {
         return workshopDAO.getLazyWorkshopById(id);
     }
 
-    @Transactional
-    public void deleteWorkshop(long id) {
-        workshopDAO.deleteWorkshop(id);
+    @Override
+    public boolean deleteWorkshop(long id, MessageContext messageContext) {
+        try {
+            workshopDAO.deleteWorkshop(id);
+            addDeleteMessage(messageContext, new MessageBuilder());
+            return true;
+        } catch (ConstraintViolationException e) {
+            addWorkshopIsUsedMessage(messageContext, new MessageBuilder());
+            return false;
+        }
     }
 
-    @Transactional
-    public void saveWorkshop(Workshop workshop, ArrayList<StorageJournal> noteList, ArrayList<StorageContent> storageContent) {
+    @Override
+    public void saveWorkshop(Workshop workshop,
+                             ArrayList<StorageJournal> noteList,
+                             ArrayList<StorageContent> storageContent,
+                             MessageContext messageContext) {
         workshopDAO.saveWorkshop(workshop, noteList, storageContent);
+        addSaveMessage(messageContext, new MessageBuilder());
+    }
+
+
+    private void addDeleteMessage(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .info()
+                        .defaultText("Цех успешно удален!")
+                        .build()
+                );
+    }
+
+    private void addWorkshopIsUsedMessage(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .error()
+                        .defaultText("Цех не может быть удален, так как он используется!")
+                        .build()
+                );
+    }
+
+    private void addSaveMessage(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .info()
+                        .defaultText("Цех успешно сохранен!")
+                        .build()
+                );
     }
 }

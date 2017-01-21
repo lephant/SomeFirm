@@ -19,28 +19,32 @@
         <ui:define name="work">
             <h1 class="center">Рабочий цех</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <h:outputText value="#{workshop.id}"/><br/>
                 <h:outputText value="#{workshop.name}"/><br/>
 
                 <br/>
 
-                <div class="sub_table_header"><h:outputText value="Список содержимого:"/></div>
-                <h:dataTable id="workshopsTable"
-                             value="#{workshop.contents}"
-                             var="content"
-                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
-                             headerClass="sub_table_th"
-                             styleClass="sub_table full_width"
-                             columnClasses="sub_table_td_desc,sub_table_td_count">
-                    <h:column>
-                        <f:facet name="header">Название</f:facet>
-                        <h:outputText value="#{content.thing.name}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Количество</f:facet>
-                        <h:outputText value="#{content.count}"/>
-                    </h:column>
-                </h:dataTable>
+                <h:panelGroup rendered="#{workshop.contents.size()>0}">
+                    <div class="sub_table_header"><h:outputText value="Список содержимого:"/></div>
+                    <h:dataTable id="workshopsTable"
+                                 value="#{workshop.contents}"
+                                 var="content"
+                                 rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                                 headerClass="sub_table_th"
+                                 styleClass="sub_table full_width"
+                                 columnClasses="sub_table_td_desc,sub_table_td_count">
+                        <h:column>
+                            <f:facet name="header">Название</f:facet>
+                            <h:outputText value="#{content.thing.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Количество</f:facet>
+                            <h:outputText value="#{content.count}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+
 
                 <p:commandButton value="Вернуться" id="return" action="return"/>
                 <p:commandButton style="float:right;" value="Редактировать" id="editWorkshop" action="editWorkshop"/>

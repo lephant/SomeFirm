@@ -21,6 +21,7 @@ public class StorageDAOImpl implements StorageDAO {
     SessionFactory sessionFactory;
 
 
+    @Override
     public List listStorageContent() {
         Session session = sessionFactory.openSession();
         List list = session
@@ -31,6 +32,7 @@ public class StorageDAOImpl implements StorageDAO {
         return list;
     }
 
+    @Override
     public StorageContent getStorageContentByThing(Thing thing) {
         Session session = sessionFactory.openSession();
         StorageContent content = (StorageContent) session
@@ -46,30 +48,39 @@ public class StorageDAOImpl implements StorageDAO {
         return content;
     }
 
-    public void commitStorage(ArrayList<StorageContent> storageContent, ArrayList<StorageJournal> noteList,
+    @Override
+    public void commitStorage(ArrayList<StorageContent> storageContent,
+                              ArrayList<StorageJournal> noteList,
                               ArrayList<StorageContent> changedWorkshopContents) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
 
-        for (StorageContent content: storageContent) {
-            if (content.getCount() == 0) {
-                StorageContent dbContent = (StorageContent) session.load(StorageContent.class, content.getId());
-                if (dbContent != null) session.delete(dbContent);
-            } else {
+            for (StorageContent content: storageContent) {
+                if (content.getCount() == 0) {
+                    if (content.getId() == 0) continue;
+                    StorageContent dbContent = (StorageContent) session.load(StorageContent.class, content.getId());
+                    if (dbContent != null) session.delete(dbContent);
+                } else {
+                    session.saveOrUpdate(content);
+                }
+            }
+
+            for (StorageContent content: changedWorkshopContents) {
                 session.saveOrUpdate(content);
             }
-        }
 
-        for (StorageContent content: changedWorkshopContents) {
-            session.saveOrUpdate(content);
-        }
+            for (StorageJournal note: noteList) {
+                session.merge(note);
+            }
 
-        for (StorageJournal note: noteList) {
-            session.merge(note);
+            transaction.commit();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
-
-        transaction.commit();
-        session.close();
     }
 
 }

@@ -19,6 +19,7 @@
         <ui:define name="work">
             <h1 class="center">Рабочие цеха</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <h:dataTable value="#{workshops}"
                              var="JsfWorkshop"
                              rowClasses="sub_table_tr_odd,sub_table_tr_even"

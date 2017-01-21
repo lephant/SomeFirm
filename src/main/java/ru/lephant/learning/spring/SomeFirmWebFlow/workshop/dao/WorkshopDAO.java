@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.workshop.dao;
 
+import org.hibernate.exception.ConstraintViolationException;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageContent;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Workshop;
@@ -17,7 +18,8 @@ public interface WorkshopDAO {
 
     public Workshop getLazyWorkshopById(long id);
 
-    public void deleteWorkshop(long id);
+    public void deleteWorkshop(long id)
+            throws ConstraintViolationException;
 
     public void saveWorkshop(Workshop workshop, ArrayList<StorageJournal> noteList, ArrayList<StorageContent> storageContent);
 
