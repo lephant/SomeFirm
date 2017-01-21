@@ -17,6 +17,7 @@
         <ui:define name="work">
             <h1 class="center">Заказ</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <h:outputText value="ID: #{order.id}"/><br/>
                 <h:outputText value="Заказчик: #{order.user.username}"/><br/>
                 <h:outputText value="Название предмета: #{order.thing.name}"/><br/>

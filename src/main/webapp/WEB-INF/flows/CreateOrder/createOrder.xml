@@ -3,22 +3,23 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <action-state id="init">
+        <set
+                value="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing()"
+                type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"
+                name="flowScope.order"
+        />
+        <transition to="create"/>
+    </action-state>
+
     <view-state id="create" view="create.xhtml">
-        <var class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"
-             name="viewScope.order"/>
-
-        <on-entry>
-            <set
-                    value="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing()"
-                    type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing"
-                    name="viewScope.order"
-            />
-        </on-entry>
-
-        <transition on="create" to="endState">
-            <evaluate expression="orderThingService.createOrder(viewScope.order)"/>
-        </transition>
+        <transition on="create" to="doCreate"/>
     </view-state>
 
-    <end-state id="endState"/>
+    <action-state id="doCreate">
+        <evaluate expression="orderThingService.createOrder(flowScope.order, messageContext)"/>
+        <transition on="yes" to="init"/>
+        <transition on="no" to="create"/>
+    </action-state>
+
 </flow>

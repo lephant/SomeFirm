@@ -25,8 +25,6 @@
                     value="new org.primefaces.model.DualListModel()"
                     type="org.primefaces.model.DualListModel"
             />
-
-
         </on-entry>
 
         <transition on="setTimeInterval">
@@ -37,13 +35,15 @@
             />
         </transition>
 
-        <transition on="saveTeam" to="end">
+        <transition on="saveTeam" to="created">
             <evaluate expression="team.addWorkers(userList.target)"/>
             <evaluate expression="teamService.saveTeam(team)"/>
         </transition>
 
         <transition on="cancel" to="end"/>
     </view-state>
+
+    <end-state id="created"/>
 
     <end-state id="end"/>
 </flow>

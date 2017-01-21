@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.service;
 
+import org.springframework.binding.message.MessageContext;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState;
 import ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.OrderThingSearchCriteria;
@@ -12,10 +13,12 @@ public interface OrderThingService {
 
     public OrderThing getOrderById(long id);
 
-    public void changeOrderState(OrderThing orderThing, OrderState state);
+    public void changeOrderState(OrderThing orderThing, OrderState state, MessageContext messageContext);
 
-    public void makeViewed(OrderThing orderThing);
+    public void makeViewed(OrderThing orderThing, MessageContext messageContext);
 
-    public void createOrder(OrderThing orderThing);
+    public boolean createOrder(OrderThing orderThing, MessageContext messageContext);
+
+    public void addCreateTeamMessage(MessageContext messageContext);
 
 }
