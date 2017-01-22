@@ -19,6 +19,8 @@ public class JournalDAOImpl implements JournalDAO {
     @Autowired
     SessionFactory sessionFactory;
 
+
+    @Override
     public List listJournal(StorageJournalSearchCriteria searchCriteria) {
         Session session = sessionFactory.openSession();
 
@@ -58,6 +60,7 @@ public class JournalDAOImpl implements JournalDAO {
         }
     }
 
+    @Override
     public StorageJournal getJournalNoteById(long id) {
         Session session = sessionFactory.openSession();
         StorageJournal note = (StorageJournal) session

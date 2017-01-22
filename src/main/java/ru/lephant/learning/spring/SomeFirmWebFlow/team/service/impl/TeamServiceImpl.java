@@ -3,7 +3,6 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.team.service.impl;
 import org.primefaces.model.DualListModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Team;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.TeamUser;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.User;
@@ -25,26 +24,23 @@ public class TeamServiceImpl implements TeamService {
     @Autowired
     UserDAO userDAO;
 
+
     @Override
-    @Transactional(readOnly = true)
     public List listTeam(TeamSearchCriteria searchCriteria) {
         return teamDAO.listTeam(searchCriteria);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Team getTeamById(long id) {
         return teamDAO.getTeamById(id);
     }
 
     @Override
-    @Transactional
     public void saveTeam(Team team) {
         teamDAO.saveTeam(team);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public DualListModel getFreeWorkers(long from, long to) {
         List<Team> actualTeams = teamDAO.getActualTeamsWithWorkersByTime(from, to);
 

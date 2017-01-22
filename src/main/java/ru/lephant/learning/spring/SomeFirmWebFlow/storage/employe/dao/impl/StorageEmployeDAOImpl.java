@@ -16,6 +16,8 @@ public class StorageEmployeDAOImpl implements StorageEmployeDAO  {
     @Autowired
     SessionFactory sessionFactory;
 
+
+    @Override
     public List listStorageEmploye() {
         Session session = sessionFactory.openSession();
         List list = session.createCriteria(StorageEmploye.class).list();
@@ -23,6 +25,7 @@ public class StorageEmployeDAOImpl implements StorageEmployeDAO  {
         return list;
     }
 
+    @Override
     public StorageEmploye getStorageEmployeById(long id) {
         Session session = sessionFactory.openSession();
         StorageEmploye storageEmploye = (StorageEmploye)session
@@ -33,6 +36,7 @@ public class StorageEmployeDAOImpl implements StorageEmployeDAO  {
         return storageEmploye;
     }
 
+    @Override
     public void saveStorageEmploye(StorageEmploye storageEmploye) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -41,6 +45,7 @@ public class StorageEmployeDAOImpl implements StorageEmployeDAO  {
         session.close();
     }
 
+    @Override
     public void deleteStorageEmploye(long id) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
