@@ -24,17 +24,20 @@
                 Дата начала: <h:outputText value="#{team.dateOfCreate}" converter="#{dateConverterController}"/><br/>
                 Дата конца: <h:outputText value="#{team.dateOfDeadline}" converter="#{dateConverterController}"/><br/>
 
-                <div class="sub_table_header"><h:outputText value="Список сотрудников:"/></div>
-                <h:dataTable id="workersTable"
-                             value="#{team.workers}"
-                             var="worker"
-                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
-                             styleClass="sub_table full_width"
-                             columnClasses="sub_table_td_desc">
-                    <h:column>
-                        <h:outputText value="#{worker.user.username}"/>
-                    </h:column>
-                </h:dataTable>
+                <h:panelGroup rendered="#{team.workers.size()>0}">
+                    <div class="sub_table_header"><h:outputText value="Список сотрудников:"/></div>
+                    <h:dataTable id="workersTable"
+                                 value="#{team.workers}"
+                                 var="worker"
+                                 rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                                 styleClass="sub_table full_width"
+                                 columnClasses="sub_table_td_desc">
+                        <h:column>
+                            <h:outputText value="#{worker.user.username}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+
 
                 <p:commandButton action="return" value="Вернуться"/>
             </h:form>
