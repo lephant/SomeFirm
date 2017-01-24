@@ -11,6 +11,7 @@
 
         <!--<property name="hibernate.current_session_context_class">thread</property>-->
         <!--<property name="hibernate.max_fetch_depth">1</property>-->
+        <!--<property name="connection.pool_size"></property>-->
 
         <property name="hibernate.connection.autocommit">false</property>
 
@@ -22,7 +23,7 @@
 
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupAuthorities"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupMember"/>
-        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Groups"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Group"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool"/>

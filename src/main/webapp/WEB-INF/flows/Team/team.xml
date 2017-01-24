@@ -29,6 +29,8 @@
         </transition>
 
         <transition on="changeCriteria"/>
+
+        <transition on="toUser" to="toUser"/>
     </view-state>
 
 
@@ -45,5 +47,7 @@
     </view-state>
 
     <end-state id="return"/>
+
+    <end-state id="toUser"/>
 
 </flow>

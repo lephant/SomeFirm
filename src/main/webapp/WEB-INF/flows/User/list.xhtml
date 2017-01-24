@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="src/main/webapp/resources/styles/style.css"/>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Список пользователей</h1>
+
+            <p:commandButton action="toTeam" value="Перейти к списку нарядов"/>
+
+            <h:form>
+                <div class="clearfix">
+                    <h:dataTable id="materialsTable"
+                                 value="#{users}"
+                                 var="userJsf"
+                                 rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                                 headerClass="sub_table_th"
+                                 styleClass="sub_table full_width"
+                                 columnClasses="sub_table_td_desc,sub_table_td_name">
+                        <h:column>
+                            <f:facet name="header">Имя пользователя</f:facet>
+                            <h:outputText value="#{userJsf.username}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Роль</f:facet>
+                            <h:outputText value="#{userJsf.groupMember.group.groupName}"/>
+                        </h:column>
+                        <!--<h:column>
+                            <p:commandLink value="Подробнее" action="select"/>
+                        </h:column>-->
+                    </h:dataTable>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

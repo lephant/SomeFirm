@@ -16,7 +16,7 @@ import java.util.Set;
 @Repository
 public class UserDAOImpl implements UserDAO {
 
-    public static final long WORKER_GROUP_ID = 2L;
+    public static final String WORKER_GROUP_NAME = "workers";
 
 
     @Autowired
@@ -54,8 +54,9 @@ public class UserDAOImpl implements UserDAO {
 
         Criteria criteria = session
                 .createCriteria(User.class)
-                .createAlias("groupMember", "group")
-                .add(Restrictions.eq("group.groupId", WORKER_GROUP_ID));
+                .createAlias("groupMember", "groupMember")
+                .createAlias("groupMember.group", "group")
+                .add(Restrictions.ilike("group.groupName", WORKER_GROUP_NAME));
 
         if (!usernames.isEmpty()) {
             criteria.add(Restrictions.not(

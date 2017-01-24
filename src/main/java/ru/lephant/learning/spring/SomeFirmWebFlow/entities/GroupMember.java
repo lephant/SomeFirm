@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class GroupMember implements Serializable {
     private long id;
     private User user;
-    private long groupId;
+    private Group group;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -30,15 +30,16 @@ public class GroupMember implements Serializable {
         this.user = user;
     }
 
-    @Basic
-    @Column(name = "group_id", nullable = false)
-    public long getGroupId() {
-        return groupId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
+    public void setGroup(Group groupId) {
+        this.group = groupId;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -48,8 +49,8 @@ public class GroupMember implements Serializable {
         GroupMember that = (GroupMember) o;
 
         if (id != that.id) return false;
-        if (groupId != that.groupId) return false;
-        return user != null ? user.equals(that.user) : that.user == null;
+        if (user != null ? !user.equals(that.user) : that.user != null) return false;
+        return group != null ? group.equals(that.group) : that.group == null;
 
     }
 
@@ -57,7 +58,7 @@ public class GroupMember implements Serializable {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (int) (groupId ^ (groupId >>> 32));
+        result = 31 * result + (group != null ? group.hashCode() : 0);
         return result;
     }
 }
