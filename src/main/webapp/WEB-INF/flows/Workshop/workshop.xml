@@ -31,10 +31,8 @@
         </on-render>
 
         <transition on="editWorkshop" to="edit"/>
-
-        <transition on="deleteWorkshop" to="list">
-            <evaluate expression="workshopService.deleteWorkshop(flowScope.workshop.id)"/>
-        </transition>
+        <transition on="deleteWorkshop" to="deleteWorkshop"/>
+        <transition on="return" to="end"/>
     </view-state>
 
 
@@ -60,7 +58,7 @@
         </transition>
 
         <transition on="sendThing">
-            <evaluate expression="storageService.sendThingFromWorkshopToStorage(note,noteList,storageContent)"/>
+            <evaluate expression="storageService.sendThingFromWorkshopToStorage(note, noteList, storageContent, messageContext)"/>
         </transition>
 
         <transition on="cancelSend">
@@ -77,7 +75,7 @@
         </transition>
 
         <transition on="writeOffThing">
-            <evaluate expression="storageService.writeOffThingFromWorkshop(note, noteList)"/>
+            <evaluate expression="storageService.writeOffThingFromWorkshop(note, noteList, messageContext)"/>
         </transition>
 
         <transition on="cancelWriteOff">
@@ -86,10 +84,19 @@
 
 
         <transition on="saveWorkshop" to="list">
-            <evaluate expression="workshopService.saveWorkshop(workshop, noteList, storageContent)"/>
+            <evaluate expression="workshopService.saveWorkshop(workshop, noteList, storageContent, messageContext)"/>
         </transition>
 
-        <transition on="cancelWorkshop" to="list" validate="false"/>
+        <transition on="cancelWorkshop" to="end" validate="false"/>
     </view-state>
 
+
+    <action-state id="deleteWorkshop">
+        <evaluate expression="workshopService.deleteWorkshop(flowScope.workshop.id, messageContext)"/>
+        <transition on="yes" to="list"/>
+        <transition on="no" to="details"/>
+    </action-state>
+
+
+    <end-state id="end"/>
 </flow>

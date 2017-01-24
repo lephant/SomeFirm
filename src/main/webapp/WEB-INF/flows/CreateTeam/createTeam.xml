@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <var class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Team"
+         name="team"/>
+
+    <var class="org.primefaces.model.DualListModel"
+         name="userList"/>
+
+    <on-start>
+        <set
+                name="team"
+                value="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.Team(conversationScope.order)"
+                type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Team"
+        />
+    </on-start>
+
+
+    <view-state id="create" view="create.xhtml" model="team">
+        <on-entry>
+            <set
+                    name="userList"
+                    value="new org.primefaces.model.DualListModel()"
+                    type="org.primefaces.model.DualListModel"
+            />
+        </on-entry>
+
+        <transition on="setTimeInterval">
+            <evaluate
+                    expression="teamService.getFreeWorkers(team.dateOfCreate,team.dateOfDeadline)"
+                    result-type="org.primefaces.model.DualListModel"
+                    result="userList"
+            />
+        </transition>
+
+        <transition on="saveTeam" to="created">
+            <evaluate expression="team.addWorkers(userList.target)"/>
+            <evaluate expression="teamService.saveTeam(team)"/>
+        </transition>
+
+        <transition on="cancel" to="end"/>
+    </view-state>
+
+    <end-state id="created"/>
+
+    <end-state id="end"/>
+</flow>

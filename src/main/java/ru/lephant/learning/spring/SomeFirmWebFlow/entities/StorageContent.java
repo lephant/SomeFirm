@@ -1,15 +1,24 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "storages_content", schema = "somefirmdb")
 public class StorageContent implements Serializable {
+
     private long id;
+
     private Workshop workshop;
+
     private Thing thing;
+
+    @NotNull(message = "Введите количество!")
+    @Min(value = 0, message = "Количество не может быть отрицательным! Действие не совершено.")
     private int count;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

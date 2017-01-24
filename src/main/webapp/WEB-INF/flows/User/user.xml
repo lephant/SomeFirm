@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="list" view="list.xhtml">
+        <on-render>
+            <evaluate
+                    expression="userService.listUser()" result="viewScope.users" result-type="dataModel"/>
+        </on-render>
+
+        <!--<transition on="select" to="details">
+            <set name="flowScope.username" value="viewScope.users.selectedRow.username"/>
+        </transition>-->
+
+        <transition on="toTeam" to="toTeam"/>
+    </view-state>
+
+
+    <!--<view-state id="details" view="details.xhtml">
+
+    </view-state>-->
+
+
+    <!--<end-state id="return"/>-->
+    <end-state id="toTeam"/>
+
+</flow>

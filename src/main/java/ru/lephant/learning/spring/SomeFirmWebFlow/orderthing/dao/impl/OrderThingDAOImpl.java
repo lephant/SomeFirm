@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.dao.impl;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing;
 import ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.dao.OrderThingDAO;
+import ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.OrderThingSearchCriteria;
 
 import java.util.List;
 
@@ -18,9 +20,13 @@ public class OrderThingDAOImpl implements OrderThingDAO {
     SessionFactory sessionFactory;
 
     @Override
-    public List listOrders() {
+    public List listOrders(OrderThingSearchCriteria searchCriteria) {
         Session session = sessionFactory.openSession();
-        List list = session.createCriteria(OrderThing.class).list();
+        Criteria criteria = session.createCriteria(OrderThing.class);
+        if (searchCriteria.getOrderState() != null) {
+            criteria.add(Restrictions.eq("state", searchCriteria.getOrderState()));
+        }
+        List list = criteria.list();
         session.close();
         return list;
     }

@@ -1,19 +1,38 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.JournalOperationType;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "storage_journal", schema = "somefirmdb")
 public class StorageJournal implements Serializable {
+
     private long id;
+
     private Workshop workshop;
+
+    @NotNull(message = "Необходимо указать предмет!")
     private Thing thing;
+
+    @NotNull(message = "Введите количество!")
+    @Min(value = 1, message = "Количество не может быть отрицательным или равно нулю! Действие не совершено.")
     private int count;
+
     private long dateAndTime;
+
+    @NotNull(message = "Не указан складовщик!")
     private StorageEmploye storageEmploye;
+
+    @Size(max = 4096, message = "Слишком длинное описание!")
     private String description;
+
     private JournalOperationType journalOperationType;
+
 
     public StorageJournal() {
     }
@@ -26,6 +45,7 @@ public class StorageJournal implements Serializable {
         this.workshop = workshop;
         this.thing = thing;
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -98,8 +118,9 @@ public class StorageJournal implements Serializable {
         this.description = description;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "journal_operation_type", referencedColumnName = "id")
+    @Basic
+    @Column(name = "journal_operation_type", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     public JournalOperationType getJournalOperationType() {
         return journalOperationType;
     }

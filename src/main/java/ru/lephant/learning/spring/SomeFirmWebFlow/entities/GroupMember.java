@@ -7,8 +7,8 @@ import java.io.Serializable;
 @Table(name = "group_members", schema = "somefirmdb")
 public class GroupMember implements Serializable {
     private long id;
-    private String username;
-    private long groupId;
+    private User user;
+    private Group group;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -20,25 +20,26 @@ public class GroupMember implements Serializable {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "username", nullable = false, length = 255)
-    public String getUsername() {
-        return username;
+    @OneToOne
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    @Basic
-    @Column(name = "group_id", nullable = false)
-    public long getGroupId() {
-        return groupId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
+    public void setGroup(Group groupId) {
+        this.group = groupId;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -48,26 +49,16 @@ public class GroupMember implements Serializable {
         GroupMember that = (GroupMember) o;
 
         if (id != that.id) return false;
-        if (groupId != that.groupId) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+        if (user != null ? !user.equals(that.user) : that.user != null) return false;
+        return group != null ? group.equals(that.group) : that.group == null;
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (int) (groupId ^ (groupId >>> 32));
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (group != null ? group.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "GroupMember{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", groupId=" + groupId +
-                '}';
     }
 }

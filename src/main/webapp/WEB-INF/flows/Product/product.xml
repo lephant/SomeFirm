@@ -18,6 +18,7 @@
                     result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductType"
                     result="flowScope.product"
             />
+            <set name="flowScope.editable" value="flowScope.product.pressmark==0" type="boolean"/>
         </transition>
     </view-state>
 
@@ -31,21 +32,19 @@
             />
         </on-render>
 
-        <transition on="editProduct" to="edit"/>
-
-        <transition on="deleteProduct" to="list">
-            <evaluate expression="productService.deleteProduct(flowScope.product.pressmark)"/>
+        <transition on="editProduct" to="edit">
+            <set name="flowScope.editable" value="flowScope.product.pressmark==0" type="boolean"/>
         </transition>
+
+        <transition on="deleteProduct" to="deleteProduct"/>
+
+        <transition on="return" to="end"/>
     </view-state>
 
 
     <view-state id="edit" view="edit.xhtml" model="product">
 
         <var name="addingOperation" class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.ProductTypeOperation"/>
-
-        <on-entry>
-            <set name="viewScope.editable" value="flowScope.product.pressmark==0" type="boolean"/>
-        </on-entry>
 
         <on-render>
             <evaluate expression="product.getOperations()" result="viewScope.operations" result-type="dataModel"/>
@@ -65,19 +64,34 @@
         </transition>
 
         <transition on="addOperation">
-            <evaluate expression="flowScope.product.addOperation(addingOperation)"/>
+            <evaluate expression="productService.addOperationToList(product, addingOperation, messageContext)"/>
         </transition>
 
         <transition on="deleteOperation">
-            <evaluate expression="flowScope.product.removeOperation(operations.selectedRow)"/>
+            <evaluate expression="productService.removeOperationFromList(product, operations.selectedRow, messageContext)"/>
         </transition>
 
 
-        <transition on="saveProduct" to="list">
-            <evaluate expression="productService.saveProduct(product)"/>
-        </transition>
+        <transition on="saveProduct" to="saveProduct"/>
 
-        <transition on="cancelProduct" to="list" bind="false" validate="false"/>
+        <transition on="cancelProduct" to="end" bind="false" validate="false"/>
     </view-state>
+
+
+    <action-state id="deleteProduct">
+        <evaluate expression="productService.deleteProduct(flowScope.product.pressmark, messageContext)"/>
+        <transition on="yes" to="list"/>
+        <transition on="no" to="details"/>
+    </action-state>
+
+
+    <action-state id="saveProduct">
+        <evaluate expression="productService.saveProduct(product, messageContext, editable)"/>
+        <transition on="yes" to="list"/>
+        <transition on="no" to="edit"/>
+    </action-state>
+
+
+    <end-state id="end"/>
 
 </flow>

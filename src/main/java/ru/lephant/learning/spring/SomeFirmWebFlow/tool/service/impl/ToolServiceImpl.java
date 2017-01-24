@@ -1,8 +1,10 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.tool.service.impl;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.ToolType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.tool.dao.ToolDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.tool.service.ToolService;
@@ -15,24 +17,90 @@ public class ToolServiceImpl implements ToolService {
     @Autowired
     ToolDAO toolDAO;
 
-    @Transactional(readOnly = true)
+
+    @Override
     public ToolType getToolByPressmark(long pressmark) {
         return toolDAO.getToolByPressmark(pressmark);
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public List listTool() {
         return toolDAO.listTool();
     }
 
-    @Transactional
-    public void saveTool(ToolType tool) {
-        toolDAO.saveTool(tool);
+    @Override
+    public boolean saveTool(ToolType tool, MessageContext messageContext, boolean isNew) {
+        try {
+            if (isNew) {
+                toolDAO.createTool(tool);
+                addCreateMessage(messageContext, new MessageBuilder());
+                return true;
+            } else {
+                toolDAO.updateTool(tool);
+                addUpdateMessage(messageContext, new MessageBuilder());
+                return true;
+            }
+        } catch (ConstraintViolationException e) {
+            //TODO: сделать логгер
+            addPressmarkNotAvailableMessage(messageContext, new MessageBuilder());
+            return false;
+        }
     }
 
-    @Transactional
-    public void deleteTool(long pressmark) {
-        toolDAO.deleteTool(pressmark);
+    @Override
+    public void deleteTool(long pressmark, MessageContext messageContext) {
+        try {
+            toolDAO.deleteTool(pressmark);
+            addDeleteMessage(messageContext, new MessageBuilder());
+        } catch (ConstraintViolationException e) {
+            // TODO: сделать логгер
+            addMaterialIsUsedMessage(messageContext, new MessageBuilder());
+        }
+    }
+
+    private void addCreateMessage(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .info()
+                        .defaultText("Инструмент успешно создан!")
+                        .build()
+                );
+    }
+
+    private void addUpdateMessage(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .info()
+                        .defaultText("Инструмент успешно обновлен!")
+                        .build()
+                );
+    }
+
+    private void addPressmarkNotAvailableMessage(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .error()
+                        .defaultText("Материал не был создан, так как этот шифр уже занят!")
+                        .build()
+                );
+    }
+
+    private void addDeleteMessage(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .info()
+                        .defaultText("Инструмент успешно удален!")
+                        .build()
+                );
+    }
+
+    private void addMaterialIsUsedMessage(MessageContext messageContext, MessageBuilder builder) {
+        messageContext
+                .addMessage(builder
+                        .error()
+                        .defaultText("Инструмент не может быть удален, так как он используется!")
+                        .build()
+                );
     }
 
 }

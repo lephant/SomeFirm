@@ -35,7 +35,7 @@
         </transition>
 
         <transition on="writeOffThing">
-            <evaluate expression="storageService.writeOffThingFromStorage(note, noteList, contents.getWrappedData())"/>
+            <evaluate expression="storageService.writeOffThingFromStorage(note, noteList, contents.getWrappedData(), messageContext)"/>
         </transition>
 
         <transition on="cancelWriteOff">
@@ -52,7 +52,7 @@
         </transition>
 
         <transition on="importThing">
-            <evaluate expression="storageService.importThingToStorage(note, noteList, contents.getWrappedData())"/>
+            <evaluate expression="storageService.importThingToStorage(note, noteList, contents.getWrappedData(), messageContext)"/>
         </transition>
 
         <transition on="cancelImport">
@@ -70,7 +70,7 @@
 
         <transition on="sendThing">
             <evaluate
-                    expression="storageService.sendThingFromStorageToWorkshop(note, noteList, contents.getWrappedData(), changedWorkshopContentList)"/>
+                    expression="storageService.sendThingFromStorageToWorkshop(note, noteList, contents.getWrappedData(), changedWorkshopContentList, messageContext)"/>
         </transition>
 
         <transition on="cancelSend">
@@ -79,10 +79,12 @@
 
 
         <transition on="saveStorage" to="list">
-            <evaluate expression="storageService.commitStorage(contents.getWrappedData(), noteList, changedWorkshopContentList)"/>
+            <evaluate expression="storageService.commitStorage(contents.getWrappedData(), noteList, changedWorkshopContentList, messageContext)"/>
         </transition>
 
-        <transition on="cancelStorage" to="list" validate="false"/>
+        <transition on="cancelStorage" to="end" validate="false"/>
     </view-state>
+
+    <end-state id="end"/>
 
 </flow>

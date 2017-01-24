@@ -19,6 +19,8 @@
         <ui:define name="work">
             <h1 class="center">Склад</h1>
             <h:form>
+                <p:growl id="messages"/>
+
                 <h:dataTable id="contentsTable"
                              value="#{contents}"
                              var="JsfContent"
@@ -52,7 +54,6 @@
 
                 <p:commandButton value="Сохранить" id="saveStorage" action="saveStorage"/>
                 <p:commandButton value="Отмена" id="cancelStorage" action="cancelStorage" immediate="true"/>
-                <p:messages showDetail="true"/>
             </h:form>
 
 
@@ -92,7 +93,6 @@
 
                     <p:commandButton id="cancelWriteOff" action="cancelWriteOff" value="Отмена" ajax="true"
                                      oncomplete="PF('splitWriteOffDialog').hide()" immediate="true"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 
@@ -144,7 +144,6 @@
 
                     <p:commandButton id="cancelImport" action="cancelImport" value="Отмена" ajax="true"
                                      oncomplete="PF('splitImportDialog').hide()" immediate="true"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 
@@ -196,7 +195,6 @@
 
                     <p:commandButton id="cancelSend" action="cancelSend" value="Отмена" ajax="true"
                                      oncomplete="PF('splitSendDialog').hide()" immediate="true"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 

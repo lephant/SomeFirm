@@ -18,6 +18,7 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
             <h:form id="mainForm">
+                <p:growl id="messages" />
 
                 <div class="field_block">
                     <p:outputLabel for="description" value="Описание:" styleClass="field_label"/>
@@ -25,7 +26,7 @@
                 </div>
 
                 <div class="field_block">
-                    <p:outputLabel for="duration" value="Продолжительность:" styleClass="field_label"/>
+                    <p:outputLabel for="duration" value="Длительность (часов):" styleClass="field_label"/>
                     <p:inputText styleClass="text_field" id="duration" value="#{operation.duration}"/>
                 </div>
 
@@ -47,8 +48,6 @@
                             rendered="#{operation.plan!=null}">
                     <p:graphicImage value="/ShowImage?id=#{operation.id}" width="960"/>
                 </p:fieldset>
-
-                <!---->
 
                 <div class="sub_table_header"><h:outputText value="Требуемые расходники:"/></div>
                 <h:dataTable id="materialsTable"
@@ -116,8 +115,6 @@
                 <p:commandButton value="Сохранить" action="save" id="save" ajax="@form"/>
                 <p:commandButton value="Отмена" action="cancel" id="cancel" immediate="true"/>
 
-                <p:messages showDetail="true"/>
-
             </h:form>
 
 
@@ -139,7 +136,6 @@
                     </p:commandButton>
                     <p:commandButton id="cancelMaterial" action="cancelMaterial" value="Отмена" ajax="true"
                                      oncomplete="PF('splitMaterialDialog').hide()"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 
@@ -162,7 +158,6 @@
                     </p:commandButton>
                     <p:commandButton id="cancelTool" action="cancelTool" value="Отмена" ajax="true"
                                      oncomplete="PF('splitToolDialog').hide()"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 

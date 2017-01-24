@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Наряд</h1>
+
+            <h:form>
+                <h:outputText value="ID: #{team.id}"/><br/>
+                <h:outputText value="Название: #{team.order.thing.name}"/><br/>
+                <h:outputText value="Количество: #{team.order.count}"/><br/>
+                Дата начала: <h:outputText value="#{team.dateOfCreate}" converter="#{dateConverterController}"/><br/>
+                Дата конца: <h:outputText value="#{team.dateOfDeadline}" converter="#{dateConverterController}"/><br/>
+
+                <h:panelGroup rendered="#{team.workers.size()>0}">
+                    <div class="sub_table_header"><h:outputText value="Список сотрудников:"/></div>
+                    <h:dataTable id="workersTable"
+                                 value="#{team.workers}"
+                                 var="worker"
+                                 rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                                 styleClass="sub_table full_width"
+                                 columnClasses="sub_table_td_desc">
+                        <h:column>
+                            <h:outputText value="#{worker.user.username}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+
+
+                <p:commandButton action="return" value="Вернуться"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

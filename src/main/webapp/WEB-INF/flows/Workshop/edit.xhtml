@@ -17,10 +17,9 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
-
             <h1 class="center">Рабочий цех</h1>
-
             <h:form>
+                <p:growl id="messages"/>
 
                 <div class="field_block">
                     <p:outputLabel styleClass="field_label" for="name" value="Название:"/>
@@ -29,39 +28,39 @@
 
                 <br/>
 
-                <div class="sub_table_header"><h:outputText value="Список содержимого:"/></div>
-                <h:dataTable id="thingsTable"
-                             value="#{content}"
-                             var="con"
-                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
-                             headerClass="sub_table_th"
-                             styleClass="sub_table full_width"
-                             columnClasses="sub_table_td_desc,sub_table_td_count,sub_table_td_button,sub_table_td_button">
-                    <h:column>
-                        <f:facet name="header">Название</f:facet>
-                        <h:outputText value="#{con.thing.name}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Количество</f:facet>
-                        <h:outputText value="#{con.count}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header"/>
-                        <p:commandButton icon="ui-icon-send" action="showSplitSendDialog"
-                                         oncomplete="PF('splitSendDialog').show();"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header"/>
-                        <p:commandButton icon="ui-icon-writeOff" action="showSplitWriteOffDialog"
-                                         oncomplete="PF('splitWriteOffDialog').show();"/>
-                    </h:column>
-                </h:dataTable>
+                <h:panelGroup rendered="#{workshop.contents.size()>0}">
+                    <div class="sub_table_header"><h:outputText value="Список содержимого:"/></div>
+                    <h:dataTable id="thingsTable"
+                                 value="#{content}"
+                                 var="con"
+                                 rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                                 headerClass="sub_table_th"
+                                 styleClass="sub_table full_width"
+                                 columnClasses="sub_table_td_desc,sub_table_td_count,sub_table_td_button,sub_table_td_button">
+                        <h:column>
+                            <f:facet name="header">Название</f:facet>
+                            <h:outputText value="#{con.thing.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Количество</f:facet>
+                            <h:outputText value="#{con.count}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"/>
+                            <p:commandButton icon="ui-icon-send" action="showSplitSendDialog"
+                                             oncomplete="PF('splitSendDialog').show();"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"/>
+                            <p:commandButton icon="ui-icon-writeOff" action="showSplitWriteOffDialog"
+                                             oncomplete="PF('splitWriteOffDialog').show();"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
 
-                <p:commandButton value="Сохранить" id="saveWorkshop" action="saveWorkshop"/>
-                <p:commandButton value="Отмена" id="cancelWorkshop" action="cancelWorkshop"/>
+                <p:commandButton value="Сохранить" id="saveWorkshop" action="saveWorkshop" update="messages"/>
+                <p:commandButton value="Отмена" id="cancelWorkshop" action="cancelWorkshop" immediate="true"/>
             </h:form>
-
-
 
 
             <p:dialog id="splitSendDialog" header="Отправить на склад" widgetVar="splitSendDialog"
@@ -88,7 +87,8 @@
 
                     <div class="dialog_field_block">
                         <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="sendDescription"/>
-                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="sendDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}"
+                                         id="sendDescription"/>
                     </div>
 
                     <p:commandButton id="sendThing" action="sendThing" value="Отправить" ajax="true">
@@ -97,7 +97,6 @@
 
                     <p:commandButton id="cancelSend" action="cancelSend" value="Отмена" ajax="true"
                                      oncomplete="PF('splitSendDialog').hide()" immediate="true"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 
@@ -111,7 +110,7 @@
                     </div>
 
                     <div class="dialog_field_block">
-                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for=""/>
+                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="writeOffEmploye"/>
                         <p:selectOneMenu styleClass="dialog_text_field"
                                          value="#{note.storageEmploye}"
                                          converter="#{storageEmployeConverterController}"
@@ -126,7 +125,8 @@
 
                     <div class="dialog_field_block">
                         <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="writeOffDescription"/>
-                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="writeOffDescription"/>
+                        <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}"
+                                         id="writeOffDescription"/>
                     </div>
 
                     <p:commandButton id="writeOffThing" action="writeOffThing" value="Списать" ajax="true">
@@ -135,7 +135,6 @@
 
                     <p:commandButton id="cancelWriteOff" action="cancelWriteOff" value="Отмена" ajax="true"
                                      oncomplete="PF('splitWriteOffDialog').hide()" immediate="true"/>
-                    <p:messages showDetail="true"/>
                 </h:form>
             </p:dialog>
 

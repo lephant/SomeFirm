@@ -3,6 +3,9 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.ItemType;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -10,9 +13,16 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Thing implements Serializable {
 
+    @NotNull(message = "Шифр должен быть задан!")
+    @Min(value = 1, message = "Шифр должен быть задан!")
     private long pressmark;
+
+    @NotNull(message = "Название должно быть указано!")
+    @Size(min = 1, max = 255, message = "Название должно быть указано и состоять не больше чем из 255 символов!")
     private String name;
+
     private ItemType type;
+
 
     @Id
     @Column(name = "pressmark", nullable = false)

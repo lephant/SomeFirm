@@ -7,17 +7,23 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/somefirmdb</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.show_sql">true</property>
-        <!--<property name="hibernate.current_session_context_class">thread</property>-->
         <property name="hibernate.connection.datasource">java:/comp/env/jdbc/somefirmdb</property>
-        <property name="hibernate.max_fetch_depth">1</property>
+
+        <!--<property name="hibernate.current_session_context_class">thread</property>-->
+        <!--<property name="hibernate.max_fetch_depth">1</property>-->
+        <!--<property name="connection.pool_size"></property>-->
+
+        <property name="hibernate.connection.autocommit">false</property>
+
+        <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
 
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Plan"/>
+
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupAuthorities"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.GroupMember"/>
-        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Groups"/>
-        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.JournalOperationType"/>
+        <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Group"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Operation"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationSacrificialMaterial"/>
         <mapping class="ru.lephant.learning.spring.SomeFirmWebFlow.entities.OperationTool"/>

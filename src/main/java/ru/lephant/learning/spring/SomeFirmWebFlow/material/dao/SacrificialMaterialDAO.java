@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.material.dao;
 
+import org.hibernate.exception.ConstraintViolationException;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType;
 import java.util.List;
 
@@ -9,8 +10,13 @@ public interface SacrificialMaterialDAO {
 
     public List listSacrificialMaterial();
 
-    public void saveSacrificialMaterial(SacrificialMaterialType sacrificialMaterial);
+    public void createSacrificialMaterial(SacrificialMaterialType sacrificialMaterial)
+            throws ConstraintViolationException;
 
-    public void deleteSacrificialMaterial(long pressmark);
+    public void updateSacrificialMaterial(SacrificialMaterialType sacrificialMaterial)
+            throws ConstraintViolationException;
+
+    public void deleteSacrificialMaterial(long pressmark)
+            throws ConstraintViolationException;
 
 }

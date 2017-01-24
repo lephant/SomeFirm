@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <subflow-state id="user" subflow="User">
+        <transition on="toTeam" to="team"/>
+        <transition on="return" to="user"/>
+    </subflow-state>
+
+    <subflow-state id="team" subflow="Team">
+        <transition on="toUser" to="user"/>
+        <transition on="return" to="team"/>
+    </subflow-state>
+
+</flow>

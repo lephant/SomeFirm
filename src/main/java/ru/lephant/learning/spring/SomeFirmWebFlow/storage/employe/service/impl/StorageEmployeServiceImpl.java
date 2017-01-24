@@ -2,7 +2,6 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.storage.employe.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageEmploye;
 import ru.lephant.learning.spring.SomeFirmWebFlow.storage.employe.dao.StorageEmployeDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.storage.employe.service.StorageEmployeService;
@@ -15,22 +14,23 @@ public class StorageEmployeServiceImpl implements StorageEmployeService {
     @Autowired
     StorageEmployeDAO storageEmployeDAO;
 
-    @Transactional(readOnly = true)
+
+    @Override
     public List listStorageEmploye() {
         return storageEmployeDAO.listStorageEmploye();
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public StorageEmploye getStorageEmployeById(long id) {
         return storageEmployeDAO.getStorageEmployeById(id);
     }
 
-    @Transactional
+    @Override
     public void saveStorageEmploye(StorageEmploye storageEmploye) {
         storageEmployeDAO.saveStorageEmploye(storageEmploye);
     }
 
-    @Transactional
+    @Override
     public void deleteStorageEmploye(long id) {
         storageEmployeDAO.deleteStorageEmploye(id);
     }

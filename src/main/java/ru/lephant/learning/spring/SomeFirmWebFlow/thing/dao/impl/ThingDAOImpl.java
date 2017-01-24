@@ -16,6 +16,8 @@ public class ThingDAOImpl implements ThingDAO {
     @Autowired
     SessionFactory sessionFactory;
 
+
+    @Override
     public List listThing() {
         Session session = sessionFactory.openSession();
         List list = session.createCriteria(Thing.class).list();
@@ -23,6 +25,7 @@ public class ThingDAOImpl implements ThingDAO {
         return list;
     }
 
+    @Override
     public Thing getThingByPressmark(long pressmark) {
         Session session = sessionFactory.openSession();
         Thing thing = (Thing) session.createCriteria(Thing.class)

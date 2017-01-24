@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <input name="teamId" value="flowScope.teamId" type="long"/>
+
+
+    <decision-state id="start">
+        <if test="flowScope.teamId == null" then="list" else="details"/>
+    </decision-state>
+
+    <view-state id="list" view="list.xhtml">
+        <on-entry>
+            <set
+                    value="new ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.TeamSearchCriteria()"
+                    type="ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.TeamSearchCriteria"
+                    name="viewScope.searchCriteria"
+            />
+        </on-entry>
+
+        <on-render>
+            <evaluate expression="teamService.listTeam(viewScope.searchCriteria)"
+                      result="viewScope.teams" result-type="dataModel"/>
+        </on-render>
+
+        <transition on="select" to="details">
+            <set name="flowScope.teamId" value="viewScope.teams.selectedRow.id" type="long"/>
+        </transition>
+
+        <transition on="changeCriteria"/>
+
+        <transition on="toUser" to="toUser"/>
+    </view-state>
+
+
+    <view-state id="details" view="details.xhtml">
+        <on-render>
+            <evaluate
+                    expression="teamService.getTeamById(flowScope.teamId)"
+                    result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.Team"
+                    result="viewScope.team"
+            />
+        </on-render>
+
+        <transition on="return" to="return"/>
+    </view-state>
+
+    <end-state id="return"/>
+
+    <end-state id="toUser"/>
+
+</flow>

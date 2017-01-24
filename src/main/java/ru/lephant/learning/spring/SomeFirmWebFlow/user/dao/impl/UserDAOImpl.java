@@ -1,5 +1,6 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.user.dao.impl;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -8,10 +9,15 @@ import org.springframework.stereotype.Repository;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.User;
 import ru.lephant.learning.spring.SomeFirmWebFlow.user.dao.UserDAO;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
+
+    public static final String WORKER_GROUP_NAME = "workers";
+
 
     @Autowired
     SessionFactory sessionFactory;
@@ -34,5 +40,33 @@ public class UserDAOImpl implements UserDAO {
                 .uniqueResult();
         session.close();
         return user;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<User> getAnotherWorkers(Set<User> engagedWorkers) {
+        Session session = sessionFactory.openSession();
+
+        Set<String> usernames = new HashSet<>();
+        for (User user : engagedWorkers) {
+            usernames.add(user.getUsername());
+        }
+
+        Criteria criteria = session
+                .createCriteria(User.class)
+                .createAlias("groupMember", "groupMember")
+                .createAlias("groupMember.group", "group")
+                .add(Restrictions.ilike("group.groupName", WORKER_GROUP_NAME));
+
+        if (!usernames.isEmpty()) {
+            criteria.add(Restrictions.not(
+                    Restrictions.in("username", usernames)
+            ));
+        }
+
+        List list = criteria.list();
+
+        session.close();
+        return list;
     }
 }

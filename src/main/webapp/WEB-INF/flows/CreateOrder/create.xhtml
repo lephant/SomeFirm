@@ -18,6 +18,8 @@
             <h1 class="center">Оформление заказа</h1>
 
             <h:form>
+                <p:growl id="messages"/>
+
                 <div class="field_block">
                     <p:outputLabel styleClass="field_label" for="user" value="Заказчик:"/>
                     <p:selectOneMenu
@@ -60,9 +62,7 @@
                     <p:inputTextarea styleClass="description_field" value="#{order.description}" id="description"/>
                 </div>
 
-                <p:commandButton action="create" value="Заказать"/>
-
-                <p:messages showDetail="true"/>
+                <p:commandButton action="create" value="Заказать" update="messages"/>
             </h:form>
 
         </ui:define>

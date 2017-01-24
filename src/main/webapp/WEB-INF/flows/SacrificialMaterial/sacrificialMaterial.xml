@@ -4,7 +4,6 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <view-state id="list" view="list.xhtml">
-
         <on-render>
             <evaluate expression="sacrificialMaterialService.listSacrificialMaterial()" result="viewScope.materials"
                       result-type="dataModel"/>
@@ -16,11 +15,12 @@
                     result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType"
                     result="flowScope.material"
             />
+            <set name="flowScope.editable" value="flowScope.material.pressmark==0" type="boolean"/>
         </transition>
 
         <transition on="deleteMaterial">
             <evaluate
-                    expression="sacrificialMaterialService.deleteSacrificialMaterial(materials.selectedRow.pressmark)"/>
+                    expression="sacrificialMaterialService.deleteSacrificialMaterial(materials.selectedRow.pressmark, messageContext)"/>
         </transition>
 
         <transition on="createMaterial" to="edit">
@@ -29,23 +29,24 @@
                     result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.SacrificialMaterialType"
                     result="flowScope.material"
             />
+            <set name="flowScope.editable" value="flowScope.material.pressmark==0" type="boolean"/>
         </transition>
-
     </view-state>
 
 
     <view-state id="edit" view="edit.xhtml" model="flowScope.material">
-
-        <on-entry>
-            <set name="viewScope.editable" value="flowScope.material.pressmark==0" type="boolean"/>
-        </on-entry>
-
-        <transition on="createMaterial" to="list">
-            <evaluate expression="sacrificialMaterialService.saveSacrificialMaterial(flowScope.material)"/>
-        </transition>
-
-        <transition on="cancelMaterial" to="list"/>
-
+        <transition on="createMaterial" to="createMaterial"/>
+        <transition on="cancelMaterial" to="end" validate="false" bind="false"/>
     </view-state>
+    
+    
+    <action-state id="createMaterial">
+        <evaluate
+                expression="sacrificialMaterialService.saveSacrificialMaterial(flowScope.material, messageContext, editable)"/>
+        <transition on="yes" to="list"/>
+        <transition on="no" to="edit"/>
+    </action-state>
+    
 
+    <end-state id="end"/>
 </flow>

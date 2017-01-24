@@ -1,13 +1,11 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Groups implements Serializable {
+@Table(name = "groups", schema = "somefirmdb")
+public class Group implements Serializable {
     private long id;
     private String groupName;
 
@@ -36,10 +34,10 @@ public class Groups implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Groups groups = (Groups) o;
+        Group group = (Group) o;
 
-        if (id != groups.id) return false;
-        if (groupName != null ? !groupName.equals(groups.groupName) : groups.groupName != null) return false;
+        if (id != group.id) return false;
+        if (groupName != null ? !groupName.equals(group.groupName) : group.groupName != null) return false;
 
         return true;
     }
@@ -53,7 +51,7 @@ public class Groups implements Serializable {
 
     @Override
     public String toString() {
-        return "Groups{" +
+        return "Group{" +
                 "id=" + id +
                 ", groupName='" + groupName + '\'' +
                 '}';

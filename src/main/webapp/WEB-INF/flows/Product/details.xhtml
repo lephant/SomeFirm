@@ -18,10 +18,9 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
-
             <h1 class="center">Продукт</h1>
-
             <h:form>
+                <p:growl id="messages"/>
                 <h:outputText value="Шифр: #{product.pressmark}"/><br/>
                 <h:outputText value="Название: #{product.name}"/><br/>
                 <h:outputText value="Описание: #{product.description}"/><br/>
@@ -42,13 +41,14 @@
                         <h:outputText value="#{operation.operation.description}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Продолжительность</f:facet>
+                        <f:facet name="header">Длительность (часов)</f:facet>
                         <h:outputText value="#{operation.operation.duration}"/>
                     </h:column>
                 </h:dataTable>
 
-                <p:commandButton value="Редактировать" id="editProduct" action="editProduct"/>
-                <p:commandButton value="Удалить" id="deleteProduct" action="deleteProduct"/>
+                <p:commandButton value="Вернуться" id="return" action="return"/>
+                <p:commandButton style="float:right;" value="Редактировать" id="editProduct" action="editProduct"/>
+                <p:commandButton style="float:right;" value="Удалить" id="deleteProduct" action="deleteProduct"/>
             </h:form>
         </ui:define>
     </ui:composition>

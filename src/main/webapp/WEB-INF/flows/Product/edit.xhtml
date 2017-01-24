@@ -20,6 +20,7 @@
         <ui:define name="work">
             <h1 class="center">Продукт</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <div class="field_block">
                     <p:outputLabel styleClass="field_label" for="pressmark" value="Шифр:"/>
                     <p:inputText styleClass="text_field" id="pressmark" value="#{product.pressmark}" disabled="#{!editable}"/>
@@ -53,7 +54,7 @@
                         <h:outputText value="#{operation.operation.description}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Продолжительность</f:facet>
+                        <f:facet name="header">Длительность (часов)</f:facet>
                         <h:outputText value="#{operation.operation.duration}"/>
                     </h:column>
                     <h:column>
@@ -69,19 +70,17 @@
 
                 <p:commandButton value="Сохранить" action="saveProduct" id="saveProduct" ajax="@form"/>
                 <p:commandButton value="Отмена" action="cancelProduct" id="cancelProduct" immediate="true"/>
-
-                <p:messages showDetail="true"/>
             </h:form>
 
 
             <p:dialog id="splitOperationDialog" header="Добавление операции" widgetVar="splitOperationDialog"
-                      width="500" modal="true">
+                      width="500" modal="true" resizable="false">
                 <h:form>
                     <p:selectOneMenu value="#{addingOperation.operation}"
                                      converter="#{operationConverterController}">
                         <f:selectItems value="#{operationService.listOperation()}" var="oper"
                                        itemValue="#{oper}"
-                                       itemLabel="#{oper.description.length()>30?oper.description.substring(0,30):oper.description}"/>
+                                       itemLabel="#{oper.description.length()>40?oper.description.substring(0,40):oper.description}"/>
                     </p:selectOneMenu>
 
                     <br/>
@@ -90,8 +89,7 @@
                         <f:ajax onevent="addOperation" render=":operationsTable"/>
                     </p:commandButton>
                     <p:commandButton id="cancelOperation" action="cancelOperation" value="Отмена" ajax="true"
-                                     oncomplete="PF('splitMaterialDialog').hide()" immediate="true"/>
-                    <p:messages showDetail="true"/>
+                                     oncomplete="PF('splitOperationDialog').hide()" immediate="true"/>
                 </h:form>
             </p:dialog>
         </ui:define>

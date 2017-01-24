@@ -26,7 +26,7 @@ html {
 body {
     height: 100%;
     font: 14px/24px Arial, Tahoma, sans-serif;
-    background-color: #ebebeb;
+    background-color: #000000;
 }
 
 ol, ul {
@@ -215,6 +215,7 @@ a, a:hover {
 
 .work {
     padding: 5px 0;
+    background-color: #ebebeb;
 }
 
 .center {
@@ -264,22 +265,26 @@ h1 {
 
 .sub_table_td_name {
     padding: 10px;
-    width: 140px;
+    width: 160px;
 }
 
 .sub_table_td_count {
     padding: 10px;
-    width: 120px;
+    width: 170px;
 }
 
 .sub_table_td_desc {
     padding: 10px;
-    width: 590px;
+    /*width: 590px;*/
 }
 
 .sub_table_td_button {
     padding: 10px;
     width: 30px;
+}
+
+.sub_table_workshop_td_name {
+    padding: 10px;
 }
 
 .field_block {
@@ -318,28 +323,28 @@ h1 {
 }
 
 .ui-icon-edit {
-    background-image:url("#{resource['images/edit.png']}") !important;
+    background-image: url("#{resource['images/edit.png']}") !important;
     background-size: 18px 18px;
     width: 30px;
     height: 30px;
 }
 
 .ui-icon-writeOff {
-    background-image:url("#{resource['images/writeOff.png']}") !important;
+    background-image: url("#{resource['images/writeOff.png']}") !important;
     background-size: 18px 18px;
     width: 30px;
     height: 30px;
 }
 
 .ui-icon-send {
-    background-image:url("#{resource['images/send.png']}") !important;
+    background-image: url("#{resource['images/send.png']}") !important;
     background-size: 18px 18px;
     width: 30px;
     height: 30px;
 }
 
 .ui-icon-import {
-    background-image:url("#{resource['images/import.png']}") !important;
+    background-image: url("#{resource['images/import.png']}") !important;
     background-size: 18px 18px;
     width: 30px;
     height: 30px;
@@ -351,7 +356,6 @@ h1 {
     float: left;
     margin: 0 1% 1% 0;
 }
-
 
 .dialog_field_block {
     padding: 10px 0;
@@ -382,10 +386,58 @@ h1 {
     text-align: center;
 }
 
+.search_criteria_block {
+    padding: 10px;
+    text-align: center;
+}
 
+.search_criteria_label {
+    float: left;
+    text-align: right;
+    width: 360px;
+}
 
+.search_criteria_field {
+    margin-left: 10px;
+    width: 320px;
+    float: left;
+}
 
-    /*Footer*/
+.search_criteria_select {
+    margin-left: 10px;
+    width: 320px;
+}
+
+.userList {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.userList tr td {
+    float: left;
+    margin-left: 5px;
+}
+
+.team_block {
+    float: left;
+    margin: 0 1% 1% 0;
+    width: 49%;
+    text-align: center;
+}
+
+.date_sub_block {
+    padding: 0 2% 0 2%;
+}
+
+.label_date {
+    padding-right:10px;
+}
+
+.date_field {
+
+}
+
+/*Footer*/
 .footer {
     border-top: 3px #0d83c7 solid;
     background-color: #000000;

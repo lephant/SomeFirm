@@ -17,8 +17,9 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="work">
-            <h1 class="center">Продукты</h1>
+            <h1 class="center">Склад</h1>
             <h:form>
+                <p:growl id="messages"/>
                 <h:dataTable id="contentsTable"
                              value="#{contents}"
                              var="JsfContent"
