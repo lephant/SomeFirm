@@ -21,22 +21,6 @@
                 <p:growl id="messages"/>
 
                 <div class="field_block">
-                    <p:outputLabel styleClass="field_label" for="user" value="Заказчик:"/>
-                    <p:selectOneMenu
-                            styleClass="text_field"
-                            id="user"
-                            value="#{order.user}"
-                            converter="#{userConverterController}">
-                        <f:selectItems
-                                value="#{userService.listUser()}"
-                                var="u"
-                                itemLabel="#{u.username}"
-                                itemValue="#{u.username}"
-                        />
-                    </p:selectOneMenu>
-                </div>
-
-                <div class="field_block">
                     <p:outputLabel styleClass="field_label" for="thing" value="Предмет:"/>
                     <p:selectOneMenu
                             styleClass="text_field"
@@ -44,7 +28,7 @@
                             value="#{order.thing}"
                             converter="#{thingConverterController}">
                         <f:selectItems
-                                value="#{thingService.listThing()}"
+                                value="#{thingService.listThing(user)}"
                                 var="t"
                                 itemLabel="#{t.name}"
                                 itemValue="#{t}"

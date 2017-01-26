@@ -6,7 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/tags"
 >
 
 <h:head>
@@ -36,16 +38,17 @@
                         <f:facet name="header">Описание</f:facet>
                         <h:outputText value="#{sacrificialMaterial.description}"/>
                     </h:column>
-                    <h:column>
+                    <h:column rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}">
                         <p:commandButton icon="ui-icon-edit" action="editMaterial"/>
                     </h:column>
-                    <h:column>
+                    <h:column rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}">
                         <p:commandButton icon="ui-icon-delete" action="deleteMaterial">
                             <f:ajax onevent="deleteMaterial" execute=":materialsTable"/>
                         </p:commandButton>
                     </h:column>
                 </h:dataTable>
-                <p:commandButton value="Создать" id="createMaterial" action="createMaterial"/>
+                <p:commandButton rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}" value="Создать" id="createMaterial"
+                                 action="createMaterial"/>
             </h:form>
 
         </ui:define>

@@ -5,7 +5,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:p="http://primefaces.org/ui"
+>
 
 <h:head>
     <title>SomeFirm</title>
@@ -27,19 +30,65 @@
             <div class="up_header clearfix">
                 <div class="action_menu">
                     <ul class="list_actions">
-                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/app/Operation">Операции</h:outputLink></li>
-                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/app/Tool">Инструменты</h:outputLink></li>
-                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/app/SacrificialMaterial">Расходники</h:outputLink></li>
-                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/app/Order">Заявки</h:outputLink></li>
-                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/app/Personnel">Персонал</h:outputLink></li>
-                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/app/Workshop">Цеха</h:outputLink></li>
-                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/app/Storage">Склад</h:outputLink></li>
-                        <li class="list_actions_li"><h:outputLink class="list_actions_li_a" value="/app/StorageJournal">Журнал склада</h:outputLink></li>
+                        <li class="list_actions_li">
+                            <h:outputLink rendered="#{sec:areAnyGranted('ROLE_WORKER')}" class="list_actions_li_a"
+                                          value="/app/Operation">Операции</h:outputLink>
+                        </li>
+                        <li class="list_actions_li">
+                            <h:outputLink rendered="#{sec:areAnyGranted('ROLE_WORKER')}" class="list_actions_li_a"
+                                          value="/app/Tool">Инструменты</h:outputLink>
+                        </li>
+                        <li class="list_actions_li">
+                            <h:outputLink rendered="#{sec:areAnyGranted('ROLE_WORKER')}" class="list_actions_li_a"
+                                          value="/app/SacrificialMaterial">Расходники</h:outputLink>
+                        </li>
+                        <li class="list_actions_li">
+                            <h:outputLink
+                                    rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER') or sec:areAnyGranted('ROLE_MANAGER')}"
+                                    class="list_actions_li_a" value="/app/Order">Заявки</h:outputLink>
+                        </li>
+                        <li class="list_actions_li">
+                            <h:outputLink rendered="#{sec:areAnyGranted('ROLE_MANAGER')}" class="list_actions_li_a"
+                                          value="/app/Personnel">Персонал</h:outputLink>
+                        </li>
+                        <li class="list_actions_li">
+                            <h:outputLink
+                                    rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER') or sec:areAnyGranted('ROLE_MANAGER')}"
+                                    class="list_actions_li_a"
+                                    value="/app/Workshop">Цеха</h:outputLink>
+                        </li>
+                        <li class="list_actions_li">
+                            <h:outputLink
+                                    rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER') or sec:areAnyGranted('ROLE_MANAGER')}"
+                                    class="list_actions_li_a"
+                                    value="/app/Storage">Склад</h:outputLink>
+                        </li>
+                        <li class="list_actions_li">
+                            <h:outputLink
+                                    rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER') or sec:areAnyGranted('ROLE_MANAGER')}"
+                                    class="list_actions_li_a"
+                                    value="/app/StorageJournal">Журнал склада</h:outputLink>
+                        </li>
                     </ul>
-                    <h:outputLink value="#" class="autentification">
-                        <span class="autentif_image"><h:graphicImage library="images" name="man.png"/></span>
-                        <span class="autentif_text">Войти</span>
-                    </h:outputLink>
+
+                    <h:panelGroup rendered="#{sec:areNotGranted('ROLE_USER')}">
+                        <h:outputLink value="/app/login" class="autentification">
+                            <span class="autentif_image"><h:graphicImage library="images" name="man.png"/></span>
+                            <span class="autentif_text">Войти</span>
+                        </h:outputLink>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{sec:areAnyGranted('ROLE_USER')}">
+                        <h:outputLink value="#" class="autentification" id="dynaButton">
+                            <span class="autentif_image"><h:graphicImage library="images" name="man.png"/></span>
+                            <span class="autentif_text">Пользователь</span>
+                        </h:outputLink>
+
+                        <p:tieredMenu overlay="true" trigger="dynaButton" my="right top" at="right bottom">
+                            <p:menuitem value="Личный кабинет" url="/app/lk"/>
+                            <p:menuitem value="Выход" url="/app/logout"/>
+                        </p:tieredMenu>
+                    </h:panelGroup>
                 </div>
             </div>
             <div class="down_header">

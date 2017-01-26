@@ -3,6 +3,14 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <on-start>
+        <evaluate
+                expression="userService.getUserByUsername(currentUser.name)"
+                result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.User"
+                result="flowScope.user"
+        />
+    </on-start>
+
     <view-state id="list" view="list.xhtml">
         <on-entry>
             <set value="new ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.OrderThingSearchCriteria()"
@@ -11,7 +19,8 @@
         </on-entry>
 
         <on-render>
-            <evaluate expression="orderThingService.listOrders(searchCriteria)" result="viewScope.orders"
+            <evaluate expression="orderThingService.listOrders(searchCriteria, user)"
+                      result="viewScope.orders"
                       result-type="dataModel"/>
         </on-render>
 

@@ -8,6 +8,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.User;
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.GroupType;
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.ItemType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.dao.OrderThingDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.OrderThingSearchCriteria;
 
@@ -26,6 +29,19 @@ public class OrderThingDAOImpl implements OrderThingDAO {
         if (searchCriteria.getOrderState() != null) {
             criteria.add(Restrictions.eq("state", searchCriteria.getOrderState()));
         }
+        List list = criteria.list();
+        session.close();
+        return list;
+    }
+
+    @Override
+    public List listOrders(OrderThingSearchCriteria searchCriteria, User user) {
+        Session session = sessionFactory.openSession();
+        Criteria criteria = session.createCriteria(OrderThing.class);
+        if (searchCriteria.getOrderState() != null) {
+            criteria.add(Restrictions.eq("state", searchCriteria.getOrderState()));
+        }
+        addCriteriaByUser(user, criteria);
         List list = criteria.list();
         session.close();
         return list;
@@ -58,5 +74,20 @@ public class OrderThingDAOImpl implements OrderThingDAO {
         session.save(orderThing);
         transaction.commit();
         session.close();
+    }
+
+    private void addCriteriaByUser(User user, Criteria criteria) {
+        criteria.createAlias("thing", "thing");
+        if (user.getGroupMember().getGroup().equals(GroupType.MANAGER_GROUP.getGroup())) {
+            criteria.add(Restrictions.eq("thing.type", ItemType.PRODUCT));
+        }
+        if (user.getGroupMember().getGroup().equals(GroupType.STOREKEEPER_GROUP.getGroup())) {
+            criteria.add(
+                    Restrictions.or(
+                            Restrictions.eq("thing.type", ItemType.TOOL),
+                            Restrictions.eq("thing.type", ItemType.SACRIFICIAL_MATERIAL)
+                    )
+            );
+        }
     }
 }

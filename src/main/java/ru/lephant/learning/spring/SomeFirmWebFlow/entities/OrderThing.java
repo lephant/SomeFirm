@@ -32,6 +32,18 @@ public class OrderThing implements Serializable {
     private Team team;
 
 
+    public OrderThing() {
+    }
+
+    public OrderThing(String username) {
+        this.user = new User(username);
+    }
+
+    public OrderThing(User user) {
+        this.user = user;
+    }
+
+
     @Id
     @Column(name = "id", nullable = false)
     public long getId() {

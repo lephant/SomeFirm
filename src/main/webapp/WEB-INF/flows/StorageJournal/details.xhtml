@@ -22,7 +22,7 @@
                 <h:outputText value="Название предмета: #{note.thing.name}"/><br/>
                 <h:outputText value="Количество: #{note.count}"/><br/>
                 Время: <h:outputText value="#{note.dateAndTime}" converter="#{dateConverterController}"/><br/>
-                <h:outputText value="Складовщик: #{note.storageEmploye.fio}"/><br/>
+                <h:outputText value="Складовщик: #{note.storekeeper.username}"/><br/>
                 <h:outputText value="Описание: #{note.description}"/><br/>
                 <h:outputText value="#{note.journalOperationType.typeDescription}"/><br/>
 

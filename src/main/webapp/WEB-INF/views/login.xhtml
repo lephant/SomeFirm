@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+    <title>Авторизация SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <form id="formLogin" action="#{request.contextPath}/app/checkuser" method="POST" class="authorize_form">
+        <p:growl id="messages"/>
+
+        <div class="authorize_header">Авторизация</div>
+
+        <div class="form_content_block">
+            <div class="authorize_field_block">
+                <p:outputLabel for="username" value="Имя пользователя:" styleClass="authorize_field_label"/><br/>
+                <p:inputText id="username" value="#{user.username}" required="true" styleClass="authorize_field"/>
+            </div>
+
+            <div class="authorize_field_block">
+                <p:outputLabel for="password" value="Пароль:" styleClass="authorize_field_label"/><br/>
+                <p:password id="password" value="#{user.password}" redisplay="true" required="true"
+                            styleClass="authorize_field"/>
+            </div>
+
+            <div class="authorize_error">
+                <c:if test="${not empty param.login_failed}">Ошибка входа</c:if>
+            </div>
+
+            <div class="authorize_submit_block">
+                <input type="submit" value="Войти" class="authorize_submit_button"/>
+                <h:outputLink styleClass="authorize_register_link" value="/app/Register">Зарегистрироваться</h:outputLink>
+            </div>
+        </div>
+    </form>
+</h:body>
+</html>

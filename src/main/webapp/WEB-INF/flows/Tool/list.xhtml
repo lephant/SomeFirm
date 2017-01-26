@@ -6,7 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/tags"
 >
 
 <h:head>
@@ -36,16 +38,16 @@
                         <f:facet name="header">Описание</f:facet>
                         <h:outputText value="#{toolType.description}"/>
                     </h:column>
-                    <h:column>
+                    <h:column rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}">
                         <p:commandButton icon="ui-icon-edit" action="editTool"/>
                     </h:column>
-                    <h:column>
+                    <h:column rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}">
                         <p:commandButton icon="ui-icon-delete" action="deleteTool">
                             <f:ajax onevent="deleteTool" execute=":toolsTable"/>
                         </p:commandButton>
                     </h:column>
                 </h:dataTable>
-                <p:commandButton value="Создать" id="createTool" action="createTool"/>
+                <p:commandButton rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}" value="Создать" id="createTool" action="createTool"/>
             </h:form>
 
         </ui:define>

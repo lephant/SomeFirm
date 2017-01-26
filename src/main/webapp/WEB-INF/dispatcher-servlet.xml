@@ -6,6 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/faces http://www.springframework.org/schema/faces/spring-faces.xsd">
 
     <import resource="spring-webflow.xml"/>
+    <import resource="controllers.xml"/>
 
     <mvc:resources mapping="resources/**" location="/"/>
 
@@ -40,22 +41,6 @@
     </bean>
 
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/somefirmdb"/>
-        <!--<property name="username" value="lephanted"/>
-        <property name="password" value="qytesehev"/>-->
-    </bean>
-
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property ref="dataSource" name="dataSource"/>
-        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
-    </bean>
-
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
 
     <bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
         <property name="attributes">

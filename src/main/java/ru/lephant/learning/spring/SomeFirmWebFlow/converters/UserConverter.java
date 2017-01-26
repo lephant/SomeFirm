@@ -20,7 +20,7 @@ public class UserConverter implements Converter{
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-        User user = userService.getUserByUsername(s);
+        User user = userService.getLazyUserByUsername(s);
         return user;
     }
 

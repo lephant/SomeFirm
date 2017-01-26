@@ -51,7 +51,7 @@
 
         <transition on="showSplitSendDialog">
             <evaluate
-                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(workshop,viewScope.content.selectedRow.thing)"
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(workshop,viewScope.content.selectedRow.thing,currentUser.name)"
                     result="viewScope.note"
                     result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
             />
@@ -68,7 +68,7 @@
 
         <transition on="showSplitWriteOffDialog">
             <evaluate
-                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(workshop,viewScope.content.selectedRow.thing)"
+                    expression="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal(workshop,viewScope.content.selectedRow.thing,currentUser.name)"
                     result="viewScope.note"
                     result-type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.StorageJournal"
             />

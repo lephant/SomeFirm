@@ -6,7 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/tags"
 >
 
 <h:head>
@@ -45,12 +47,12 @@
                             <f:facet name="header">Количество</f:facet>
                             <h:outputText value="#{con.count}"/>
                         </h:column>
-                        <h:column>
+                        <h:column rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER')}">
                             <f:facet name="header"/>
                             <p:commandButton icon="ui-icon-send" action="showSplitSendDialog"
                                              oncomplete="PF('splitSendDialog').show();"/>
                         </h:column>
-                        <h:column>
+                        <h:column rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER')}">
                             <f:facet name="header"/>
                             <p:commandButton icon="ui-icon-writeOff" action="showSplitWriteOffDialog"
                                              oncomplete="PF('splitWriteOffDialog').show();"/>
@@ -64,25 +66,11 @@
 
 
             <p:dialog id="splitSendDialog" header="Отправить на склад" widgetVar="splitSendDialog"
-                      width="500" modal="true" resizable="false">
+                      width="500" modal="true" resizable="false" rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER')}">
                 <h:form>
                     <div class="dialog_field_block">
                         <p:outputLabel styleClass="dialog_field_label" value="Количество:" for="sendCount"/>
                         <p:inputText styleClass="dialog_text_field" value="#{note.count}" id="sendCount"/>
-                    </div>
-
-                    <div class="dialog_field_block">
-                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="sendEmploye"/>
-                        <p:selectOneMenu styleClass="dialog_text_field"
-                                         value="#{note.storageEmploye}"
-                                         converter="#{storageEmployeConverterController}"
-                                         id="sendEmploye">
-                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
-                                           var="employe"
-                                           itemValue="#{employe}"
-                                           itemLabel="#{employe.fio}"
-                            />
-                        </p:selectOneMenu>
                     </div>
 
                     <div class="dialog_field_block">
@@ -102,25 +90,11 @@
 
 
             <p:dialog id="splitWriteOffDialog" header="Списать" widgetVar="splitWriteOffDialog"
-                      width="500" modal="true" resizable="false">
+                      width="500" modal="true" resizable="false" rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER')}">
                 <h:form>
                     <div class="dialog_field_block">
                         <p:outputLabel styleClass="dialog_field_label" value="Количество:" for="writeOffCount"/>
                         <p:inputText styleClass="dialog_text_field" value="#{note.count}" id="writeOffCount"/>
-                    </div>
-
-                    <div class="dialog_field_block">
-                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="writeOffEmploye"/>
-                        <p:selectOneMenu styleClass="dialog_text_field"
-                                         value="#{note.storageEmploye}"
-                                         converter="#{storageEmployeConverterController}"
-                                         id="writeOffEmploye">
-                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
-                                           var="employe"
-                                           itemValue="#{employe}"
-                                           itemLabel="#{employe.fio}"
-                            />
-                        </p:selectOneMenu>
                     </div>
 
                     <div class="dialog_field_block">

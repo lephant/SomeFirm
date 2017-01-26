@@ -2,6 +2,7 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.service;
 
 import org.springframework.binding.message.MessageContext;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.User;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState;
 import ru.lephant.learning.spring.SomeFirmWebFlow.searchcriteries.OrderThingSearchCriteria;
 
@@ -10,6 +11,8 @@ import java.util.List;
 public interface OrderThingService {
 
     public List listOrders(OrderThingSearchCriteria searchCriteria);
+
+    public List listOrders(OrderThingSearchCriteria searchCriteria, User user);
 
     public OrderThing getOrderById(long id);
 

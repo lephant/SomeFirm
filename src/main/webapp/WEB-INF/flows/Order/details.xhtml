@@ -33,7 +33,7 @@
                                      rendered="#{order.state eq 'VIEWED'}"/>
 
                     <p:commandButton action="createTeam" value="Создать наряд" update="@form"
-                                     rendered="#{order.state eq 'DURING' and order.team == null}"/>
+                                     rendered="#{order.state eq 'DURING' and order.team == null and order.thing.type eq 'PRODUCT'}"/>
 
                     <p:commandButton action="showTeam" value="Осмотреть наряд" update="@form"
                                      rendered="#{order.team != null}"/>

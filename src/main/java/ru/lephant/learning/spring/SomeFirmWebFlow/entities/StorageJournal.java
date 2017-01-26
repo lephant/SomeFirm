@@ -26,7 +26,7 @@ public class StorageJournal implements Serializable {
     private long dateAndTime;
 
     @NotNull(message = "Не указан складовщик!")
-    private StorageEmploye storageEmploye;
+    private User storekeeper;
 
     @Size(max = 4096, message = "Слишком длинное описание!")
     private String description;
@@ -37,13 +37,19 @@ public class StorageJournal implements Serializable {
     public StorageJournal() {
     }
 
-    public StorageJournal(Thing thing) {
-        this.thing = thing;
+    public StorageJournal(String username) {
+        this.storekeeper = new User(username);
     }
 
-    public StorageJournal(Workshop workshop, Thing thing) {
+    public StorageJournal(Thing thing, String username) {
+        this.thing = thing;
+        this.storekeeper = new User(username);
+    }
+
+    public StorageJournal(Workshop workshop, Thing thing, String username) {
         this.workshop = workshop;
         this.thing = thing;
+        this.storekeeper = new User(username);
     }
 
 
@@ -99,13 +105,13 @@ public class StorageJournal implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "storage_employe_id", referencedColumnName = "id")
-    public StorageEmploye getStorageEmploye() {
-        return storageEmploye;
+    @JoinColumn(name = "storekeeper_username", referencedColumnName = "username")
+    public User getStorekeeper() {
+        return storekeeper;
     }
 
-    public void setStorageEmploye(StorageEmploye storageEmployeId) {
-        this.storageEmploye = storageEmployeId;
+    public void setStorekeeper(User storekeeper) {
+        this.storekeeper = storekeeper;
     }
 
     @Basic
@@ -140,20 +146,22 @@ public class StorageJournal implements Serializable {
         if (id != that.id) return false;
         if (count != that.count) return false;
         if (dateAndTime != that.dateAndTime) return false;
+        if (workshop != null ? !workshop.equals(that.workshop) : that.workshop != null) return false;
         if (!thing.equals(that.thing)) return false;
-        if (!storageEmploye.equals(that.storageEmploye)) return false;
+        if (!storekeeper.equals(that.storekeeper)) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        return journalOperationType.equals(that.journalOperationType);
+        return journalOperationType == that.journalOperationType;
 
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (workshop != null ? workshop.hashCode() : 0);
         result = 31 * result + thing.hashCode();
         result = 31 * result + count;
         result = 31 * result + (int) (dateAndTime ^ (dateAndTime >>> 32));
-        result = 31 * result + storageEmploye.hashCode();
+        result = 31 * result + storekeeper.hashCode();
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + journalOperationType.hashCode();
         return result;

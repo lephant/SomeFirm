@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="register" view="register.xhtml">
+        <on-entry>
+            <set
+                    name="flowScope.user"
+                    value="new ru.lephant.learning.spring.SomeFirmWebFlow.entities.User()"
+                    type="ru.lephant.learning.spring.SomeFirmWebFlow.entities.User"
+            />
+        </on-entry>
+
+        <transition on="save" to="saveUser"/>
+    </view-state>
+
+
+    <action-state id="saveUser">
+        <evaluate expression="userService.registerUser(user, messageContext)"/>
+        <transition on="yes" to="end"/>
+        <transition on="no" to="register"/>
+    </action-state>
+
+
+    <end-state id="end" view="externalRedirect:contextRelative:/app/login"/>
+
+</flow>

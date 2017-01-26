@@ -3,6 +3,7 @@ package ru.lephant.learning.spring.SomeFirmWebFlow.thing.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.Thing;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.User;
 import ru.lephant.learning.spring.SomeFirmWebFlow.thing.dao.ThingDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.thing.service.ThingService;
 
@@ -18,6 +19,11 @@ public class ThingServiceImpl implements ThingService {
     @Override
     public List listThing() {
         return thingDAO.listThing();
+    }
+
+    @Override
+    public List listThing(User user) {
+        return thingDAO.listThing(user);
     }
 
     @Override

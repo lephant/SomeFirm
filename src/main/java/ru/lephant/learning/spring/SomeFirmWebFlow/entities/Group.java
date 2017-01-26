@@ -9,6 +9,16 @@ public class Group implements Serializable {
     private long id;
     private String groupName;
 
+
+    public Group() {
+    }
+
+    public Group(long id, String groupName) {
+        this.id = id;
+        this.groupName = groupName;
+    }
+
+
     @Id
     @Column(name = "id", nullable = false)
     public long getId() {
