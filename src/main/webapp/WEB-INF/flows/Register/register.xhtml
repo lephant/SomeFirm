@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Авторизация SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <h:form id="formLogin" styleClass="authorize_form">
+        <p:growl id="messages"/>
+
+        <div class="authorize_header">Регистрация</div>
+
+        <div class="form_content_block">
+            <div class="authorize_field_block">
+                <p:outputLabel for="username" value="Имя пользователя:" styleClass="authorize_field_label"/><br/>
+                <p:inputText id="username" value="#{user.username}" required="true" styleClass="authorize_field"/>
+            </div>
+
+            <div class="authorize_field_block">
+                <p:outputLabel for="password" value="Пароль:" styleClass="authorize_field_label"/><br/>
+                <p:inputText id="password" value="#{user.password}" required="true" styleClass="authorize_field"/>
+            </div>
+
+            <div class="authorize_submit_block">
+                <p:commandButton value="Зарегистрироваться" styleClass="authorize_submit_button" action="save"/>
+            </div>
+        </div>
+    </h:form>
+</h:body>
+</html>

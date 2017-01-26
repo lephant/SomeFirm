@@ -6,7 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/tags"
 >
 
 <h:head>
@@ -48,7 +50,8 @@
 
                 <p:commandButton value="Вернуться" id="return" action="return"/>
                 <p:commandButton style="float:right;" value="Редактировать" id="editWorkshop" action="editWorkshop"/>
-                <p:commandButton style="float:right;" value="Удалить" id="deleteWorkshop" action="deleteWorkshop"/>
+                <p:commandButton rendered="#{sec:areAnyGranted('ROLE_MANAGER')}" style="float:right;" value="Удалить"
+                                 id="deleteWorkshop" action="deleteWorkshop"/>
             </h:form>
         </ui:define>
     </ui:composition>

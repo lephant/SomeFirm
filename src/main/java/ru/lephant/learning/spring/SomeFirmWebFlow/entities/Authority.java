@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "group_authorities", schema = "somefirmdb")
 @IdClass(GroupAuthoritiesPK.class)
-public class GroupAuthorities implements Serializable {
+public class Authority implements Serializable {
     private long groupId;
     private String authority;
 
@@ -37,7 +37,7 @@ public class GroupAuthorities implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupAuthorities that = (GroupAuthorities) o;
+        Authority that = (Authority) o;
 
         if (groupId != that.groupId) return false;
         if (authority != null ? !authority.equals(that.authority) : that.authority != null) return false;
@@ -54,7 +54,7 @@ public class GroupAuthorities implements Serializable {
 
     @Override
     public String toString() {
-        return "GroupAuthorities{" +
+        return "Authority{" +
                 "groupId=" + groupId +
                 ", authority='" + authority + '\'' +
                 '}';

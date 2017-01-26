@@ -6,7 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
 <h:head>
@@ -69,20 +70,6 @@
                     </div>
 
                     <div class="dialog_field_block">
-                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="writeOffEmploye"/>
-                        <p:selectOneMenu styleClass="dialog_text_field"
-                                         value="#{note.storageEmploye}"
-                                         converter="#{storageEmployeConverterController}"
-                                         id="writeOffEmploye">
-                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
-                                           var="employe"
-                                           itemValue="#{employe}"
-                                           itemLabel="#{employe.fio}"
-                            />
-                        </p:selectOneMenu>
-                    </div>
-
-                    <div class="dialog_field_block">
                         <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="writeOffDescription"/>
                         <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="writeOffDescription"/>
                     </div>
@@ -120,20 +107,6 @@
                     </div>
 
                     <div class="dialog_field_block">
-                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="importEmploye"/>
-                        <p:selectOneMenu styleClass="dialog_text_field"
-                                         value="#{note.storageEmploye}"
-                                         converter="#{storageEmployeConverterController}"
-                                         id="importEmploye">
-                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
-                                           var="employe"
-                                           itemValue="#{employe}"
-                                           itemLabel="#{employe.fio}"
-                            />
-                        </p:selectOneMenu>
-                    </div>
-
-                    <div class="dialog_field_block">
                         <p:outputLabel styleClass="dialog_field_label" value="Описание:" for="importDescription"/>
                         <p:inputTextarea styleClass="dialog_description_field" value="#{note.description}" id="importDescription"/>
                     </div>
@@ -166,20 +139,6 @@
                                            var="workshop"
                                            itemValue="#{workshop}"
                                            itemLabel="#{workshop.name}"
-                            />
-                        </p:selectOneMenu>
-                    </div>
-
-                    <div class="dialog_field_block">
-                        <p:outputLabel styleClass="dialog_field_label" value="Складовщик:" for="sendEmploye"/>
-                        <p:selectOneMenu styleClass="dialog_text_field"
-                                         value="#{note.storageEmploye}"
-                                         converter="#{storageEmployeConverterController}"
-                                         id="sendEmploye">
-                            <f:selectItems value="#{storageEmployeService.listStorageEmploye()}"
-                                           var="employe"
-                                           itemValue="#{employe}"
-                                           itemLabel="#{employe.fio}"
                             />
                         </p:selectOneMenu>
                     </div>

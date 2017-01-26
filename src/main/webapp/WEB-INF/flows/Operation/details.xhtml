@@ -8,6 +8,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
 >
 
 <h:head>
@@ -81,8 +82,10 @@
                 </h:dataTable>
 
                 <p:commandButton value="Вернуться" id="return" action="return"/>
-                <p:commandButton style="float:right;" value="Редактировать" id="editOperation" action="edit"/>
-                <p:commandButton style="float:right;" value="Удалить" id="deleteOperation" action="delete"/>
+                <p:commandButton rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}" style="float:right;"
+                                 value="Редактировать" id="editOperation" action="edit"/>
+                <p:commandButton rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}" style="float:right;" value="Удалить"
+                                 id="deleteOperation" action="delete"/>
             </h:form>
         </ui:define>
     </ui:composition>

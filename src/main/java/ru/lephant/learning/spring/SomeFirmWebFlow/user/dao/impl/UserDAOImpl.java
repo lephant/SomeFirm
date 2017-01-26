@@ -1,9 +1,8 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.user.dao.impl;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.User;
@@ -32,12 +31,24 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getLazyUserByUsername(String username) {
+        Session session = sessionFactory.openSession();
+        User user = (User) session
+                .createCriteria(User.class)
+                .add(Restrictions.idEq(username))
+                .uniqueResult();
+        session.close();
+        return user;
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         Session session = sessionFactory.openSession();
         User user = (User) session
                 .createCriteria(User.class)
                 .add(Restrictions.idEq(username))
                 .uniqueResult();
+        Hibernate.initialize(user.getOrders());
         session.close();
         return user;
     }
@@ -68,5 +79,20 @@ public class UserDAOImpl implements UserDAO {
 
         session.close();
         return list;
+    }
+
+    @Override
+    public void registerUser(User user) throws ConstraintViolationException {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
+            session.save(user);
+            transaction.commit();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 }

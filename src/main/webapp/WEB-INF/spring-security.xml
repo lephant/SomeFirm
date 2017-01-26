@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <http use-expressions="true">
+        <intercept-url pattern="/" access="permitAll"/>
+        <intercept-url pattern="/index.html" access="permitAll"/>
+        <intercept-url pattern="/favicon.ico" access="permitAll"/>
+
+        <intercept-url pattern="/app/contacts" access="permitAll"/>
+        <intercept-url pattern="/app/delivery" access="permitAll"/>
+        <intercept-url pattern="/app/index" access="permitAll"/>
+        <intercept-url pattern="/app/" access="permitAll"/>
+
+        <intercept-url pattern="/app/login" access="permitAll"/>
+        <intercept-url pattern="/app/Register" access="permitAll"/>
+
+        <intercept-url pattern="/app/resources/**" access="permitAll"/>
+        <intercept-url pattern="/resources/**" access="permitAll"/>
+        <intercept-url pattern="/app/javax.faces.resource/**" access="permitAll"/>
+        <intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>
+
+        <intercept-url pattern="/app/CreateOrder" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/app/CreateTeam" access="hasRole('ROLE_MANAGER')"/>
+        <intercept-url pattern="/app/Operation" access="hasRole('ROLE_WORKER')"/>
+        <intercept-url pattern="/app/Order" access="hasRole('ROLE_MANAGER') || hasRole('ROLE_STOREKEEPER')"/>
+        <intercept-url pattern="/app/Personnel" access="hasRole('ROLE_MANAGER')"/>
+        <intercept-url pattern="/app/Product" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/app/SacrificialMaterial" access="hasRole('ROLE_WORKER')"/>
+        <intercept-url pattern="/app/Storage" access="hasRole('ROLE_MANAGER') || hasRole('ROLE_STOREKEEPER')"/>
+        <intercept-url pattern="/app/StorageJournal" access="hasRole('ROLE_MANAGER') || hasRole('ROLE_STOREKEEPER')"/>
+        <intercept-url pattern="/app/Team" access="hasRole('ROLE_MANAGER')"/>
+        <intercept-url pattern="/app/Tool" access="hasRole('ROLE_WORKER')"/>
+        <intercept-url pattern="/app/User" access="hasRole('ROLE_MANAGER')"/>
+        <intercept-url pattern="/app/Workshop" access="hasRole('ROLE_MANAGER') || hasRole('ROLE_STOREKEEPER')"/>
+
+        <intercept-url pattern="/app/lk" access="hasRole('ROLE_USER')"/>
+
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+
+        <form-login
+                login-page="/app/login"
+                authentication-failure-url="/app/login?login_failed=true"
+                login-processing-url="/app/checkuser"
+                default-target-url="/app/"
+                username-parameter="username"
+                password-parameter="password"
+        />
+        <http-basic/>
+        <logout logout-success-url="/app/" logout-url="/app/logout"/>
+        <headers/>
+        <csrf disabled="true"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="jdbcGroups"/>
+    </authentication-manager>
+
+    <beans:bean id="jdbcGroups" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="enableGroups" value="true"/>
+        <beans:property name="enableAuthorities" value="false"/>
+    </beans:bean>
+
+</beans:beans>

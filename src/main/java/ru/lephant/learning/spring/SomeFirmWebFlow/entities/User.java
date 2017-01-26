@@ -1,8 +1,12 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.entities;
 
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.GroupType;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users", schema = "somefirmdb")
@@ -17,6 +21,32 @@ public class User implements Serializable {
     private byte enabled;
 
     private GroupMember groupMember;
+
+    private List<OrderThing> orders = new ArrayList<>();
+
+
+    public User() {
+        this.enabled = 1;
+        this.groupMember = new GroupMember(this, GroupType.USER_GROUP.getGroup());
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.enabled = 1;
+        this.groupMember = new GroupMember(this, GroupType.USER_GROUP.getGroup());
+    }
+
+    public User(String username, String password, GroupMember groupMember) {
+        this.username = username;
+        this.password = password;
+        this.enabled = 1;
+        this.groupMember = groupMember;
+    }
 
 
     @Id
@@ -49,7 +79,7 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     public GroupMember getGroupMember() {
         return groupMember;
     }
@@ -58,6 +88,14 @@ public class User implements Serializable {
         this.groupMember = groupMember;
     }
 
+    @OneToMany(mappedBy = "user")
+    public List<OrderThing> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderThing> orders) {
+        this.orders = orders;
+    }
 
     @Override
     public boolean equals(Object o) {

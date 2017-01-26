@@ -7,6 +7,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
 >
 
 <h:head>
@@ -30,7 +31,7 @@
                         </p:panel>
                     </ui:repeat>
                 </div>
-                <p:commandButton value="Создать" id="createOperation" action="create"/>
+                <p:commandButton rendered="#{sec:areAnyGranted('ROLE_BRIGADIER')}" value="Создать" id="createOperation" action="create"/>
             </h:form>
         </ui:define>
     </ui:composition>

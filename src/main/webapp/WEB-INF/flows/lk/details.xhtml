@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <title>SomeFirm</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="work">
+            <h1 class="center">Личный кабинет</h1>
+
+            <h:form>
+                <h:outputText value="Имя пользователя: #{user.username}"/><br/>
+                <h:outputText value="Группа: #{user.groupMember.group.groupName}"/><br/>
+
+                <div class="sub_table_header"><h:outputText value="Заказы пользователя:"/></div>
+                <h:dataTable id="ordersTable"
+                             value="#{user.orders}"
+                             var="order"
+                             rowClasses="sub_table_tr_odd,sub_table_tr_even"
+                             headerClass="sub_table_th"
+                             styleClass="sub_table full_width"
+                             columnClasses="sub_table_td_desc,sub_table_td_count,sub_table_td_name">
+                    <h:column>
+                        <f:facet name="header">Предмет</f:facet>
+                        <h:outputText value="#{order.thing.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Количество</f:facet>
+                        <h:outputText value="#{order.count}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Статус</f:facet>
+                        <h:outputText value="#{order.state.stateDescription}"/>
+                    </h:column>
+                </h:dataTable>
+                <h:outputText rendered="#{user.orders.size()==0}" value="Вы ничего еще не заказывали."
+                              style="font-style: italic"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

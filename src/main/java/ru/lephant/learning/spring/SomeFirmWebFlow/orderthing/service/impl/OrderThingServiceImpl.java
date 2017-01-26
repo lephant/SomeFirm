@@ -5,6 +5,7 @@ import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Service;
 import ru.lephant.learning.spring.SomeFirmWebFlow.entities.OrderThing;
+import ru.lephant.learning.spring.SomeFirmWebFlow.entities.User;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState;
 import ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.dao.OrderThingDAO;
 import ru.lephant.learning.spring.SomeFirmWebFlow.orderthing.service.OrderThingService;
@@ -22,6 +23,11 @@ public class OrderThingServiceImpl implements OrderThingService {
     @Override
     public List listOrders(OrderThingSearchCriteria searchCriteria) {
         return orderThingDAO.listOrders(searchCriteria);
+    }
+
+    @Override
+    public List listOrders(OrderThingSearchCriteria searchCriteria, User user) {
+        return orderThingDAO.listOrders(searchCriteria, user);
     }
 
     @Override

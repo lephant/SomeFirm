@@ -7,6 +7,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
 >
 
 <h:head>
@@ -29,7 +30,8 @@
                         <hr/>
                     </h:column>
                 </h:dataTable>
-                <p:commandButton value="Создать" id="createProduct" action="createProduct"/>
+                <p:commandButton rendered="#{sec:areAnyGranted('ROLE_MANAGER')}" value="Создать" id="createProduct"
+                                 action="createProduct"/>
             </h:form>
 
         </ui:define>

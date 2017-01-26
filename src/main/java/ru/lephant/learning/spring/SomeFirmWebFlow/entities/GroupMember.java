@@ -10,7 +10,18 @@ public class GroupMember implements Serializable {
     private User user;
     private Group group;
 
+
+    public GroupMember() {
+    }
+
+    public GroupMember(User user, Group group) {
+        this.user = user;
+        this.group = group;
+    }
+
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -20,7 +31,7 @@ public class GroupMember implements Serializable {
         this.id = id;
     }
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
     public User getUser() {
         return user;
@@ -30,7 +41,7 @@ public class GroupMember implements Serializable {
         this.user = user;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     public Group getGroup() {
         return group;

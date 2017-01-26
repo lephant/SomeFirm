@@ -6,7 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/tags"
 >
 
 <h:head>
@@ -36,7 +38,8 @@
                         <h:outputText value="#{JsfContent.count}"/>
                     </h:column>
                 </h:dataTable>
-                <p:commandButton value="Редактировать" id="editStorage" action="editStorage"/>
+                <p:commandButton rendered="#{sec:areAnyGranted('ROLE_STOREKEEPER')}" value="Редактировать"
+                                 id="editStorage" action="editStorage"/>
             </h:form>
 
         </ui:define>

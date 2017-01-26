@@ -1,6 +1,7 @@
 package ru.lephant.learning.spring.SomeFirmWebFlow.reference;
 
 import org.springframework.stereotype.Component;
+import ru.lephant.learning.spring.SomeFirmWebFlow.enums.GroupType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.JournalOperationType;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.OrderState;
 import ru.lephant.learning.spring.SomeFirmWebFlow.enums.TeamSearchType;
@@ -18,6 +19,10 @@ public class ReferenceData {
 
     public TeamSearchType[] getTeamSearchTypes() {
         return TeamSearchType.values();
+    }
+
+    public GroupType[] getGroupTypes() {
+        return GroupType.values();
     }
 
 }
